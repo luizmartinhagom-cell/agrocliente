@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no,maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AgroClientes">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='38' fill='%23000'/%3E%3Ctext x='90' y='108' font-size='80' text-anchor='middle' font-family='Arial'%3E🌾%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTcwIiBoZWlnaHQ9IjI1MzIiPjxyZWN0IHdpZHRoPSIxMTcwIiBoZWlnaHQ9IjI1MzIiIGZpbGw9IiMwRjIzMTgiLz48dGV4dCB4PSI1ODUiIHk9IjEyNTYiIGZvbnQtc2l6ZT0iOTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCI+JiMxMjc4MDY7PC90ZXh0Pjx0ZXh0IHg9IjU4NSIgeT0iMTMyNiIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNGMEI0MjkiIGZvbnQtZmFtaWx5PSJBcmlhbCI+QWdyb0NsaWVudGVzPC90ZXh0Pjwvc3ZnPg==">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTc5IiBoZWlnaHQ9IjI1NTYiPjxyZWN0IHdpZHRoPSIxMTc5IiBoZWlnaHQ9IjI1NTYiIGZpbGw9IiMwRjIzMTgiLz48dGV4dCB4PSI1ODkiIHk9IjEyNjgiIGZvbnQtc2l6ZT0iOTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCI+JiMxMjc4MDY7PC90ZXh0Pjx0ZXh0IHg9IjU4OSIgeT0iMTMzOCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNGMEI0MjkiIGZvbnQtZmFtaWx5PSJBcmlhbCI+QWdyb0NsaWVudGVzPC90ZXh0Pjwvc3ZnPg==">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjg0IiBoZWlnaHQ9IjI3NzgiPjxyZWN0IHdpZHRoPSIxMjg0IiBoZWlnaHQ9IjI3NzgiIGZpbGw9IiMwRjIzMTgiLz48dGV4dCB4PSI2NDIiIHk9IjEzNzkiIGZvbnQtc2l6ZT0iOTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCI+JiMxMjc4MDY7PC90ZXh0Pjx0ZXh0IHg9IjY0MiIgeT0iMTQ0OSIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNGMEI0MjkiIGZvbnQtZmFtaWx5PSJBcmlhbCI+QWdyb0NsaWVudGVzPC90ZXh0Pjwvc3ZnPg==">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjkwIiBoZWlnaHQ9IjI3OTYiPjxyZWN0IHdpZHRoPSIxMjkwIiBoZWlnaHQ9IjI3OTYiIGZpbGw9IiMwRjIzMTgiLz48dGV4dCB4PSI2NDUiIHk9IjEzODgiIGZvbnQtc2l6ZT0iOTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCI+JiMxMjc4MDY7PC90ZXh0Pjx0ZXh0IHg9IjY0NSIgeT0iMTQ1OCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNGMEI0MjkiIGZvbnQtZmFtaWx5PSJBcmlhbCI+QWdyb0NsaWVudGVzPC90ZXh0Pjwvc3ZnPg==">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzIwIiBoZWlnaHQ9IjI4NjgiPjxyZWN0IHdpZHRoPSIxMzIwIiBoZWlnaHQ9IjI4NjgiIGZpbGw9IiMwRjIzMTgiLz48dGV4dCB4PSI2NjAiIHk9IjE0MjQiIGZvbnQtc2l6ZT0iOTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCI+JiMxMjc4MDY7PC90ZXh0Pjx0ZXh0IHg9IjY2MCIgeT0iMTQ5NCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNGMEI0MjkiIGZvbnQtZmFtaWx5PSJBcmlhbCI+QWdyb0NsaWVudGVzPC90ZXh0Pjwvc3ZnPg==">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjA2IiBoZWlnaHQ9IjI2MjIiPjxyZWN0IHdpZHRoPSIxMjA2IiBoZWlnaHQ9IjI2MjIiIGZpbGw9IiMwRjIzMTgiLz48dGV4dCB4PSI2MDMiIHk9IjEzMDEiIGZvbnQtc2l6ZT0iOTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCI+JiMxMjc4MDY7PC90ZXh0Pjx0ZXh0IHg9IjYwMyIgeT0iMTM3MSIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNGMEI0MjkiIGZvbnQtZmFtaWx5PSJBcmlhbCI+QWdyb0NsaWVudGVzPC90ZXh0Pjwvc3ZnPg==">
+<title>AgroClientes</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" onerror="window._noMap=true"></script>
+<style>
+:root{
+  --black:#000;--white:#fff;
+  --gray-50:#FAFAFA;--gray-100:#F5F5F5;--gray-200:#E5E5E5;
+  --gray-300:#D4D4D4;--gray-400:#A3A3A3;--gray-500:#737373;
+  --gray-600:#525252;--gray-700:#404040;--gray-800:#262626;--gray-900:#171717;
+  --green:#16A34A;--green-light:#22C55E;--green-50:#F0FDF4;--green-100:#DCFCE7;--green-200:#BBF7D0;
+  --red:#DC2626;--red-50:#FEF2F2;--red-100:#FEE2E2;
+  --amber:#D97706;--amber-50:#FFFBEB;--amber-100:#FEF3C7;
+  --blue:#2563EB;--blue-50:#EFF6FF;
+  --border:#E5E5E5;--text:#171717;--text2:#737373;--text3:#A3A3A3;
+  --bg:#FAFAFA;--card:#fff;
+  --g9:#061A0E;--g8:#0F2318;--g7:#1B3A2D;--g6:#25503D;--g5:#2D6349;--g4:#3D7A5C;--g3:#4E9A72;--g1:#E8F5EE;
+  --gold:#C8952A;--gold2:#F0B429;--gold3:#FDE68A;
+  --red2:#EF4444;--red-bg:#FEF2F2;--amb:#D97706;--amb2:#F59E0B;--amb-bg:#FFFBEB;
+  --blue2:#3B82F6;--blue-bg:#EFF6FF;--purple:#7C3AED;--purple-bg:#F5F3FF;
+  --ink:#0F172A;--ink2:#64748B;--ink3:#94A3B8;--line:#E2E8F0;
+  --safe-t:env(safe-area-inset-top,44px);--safe-b:env(safe-area-inset-bottom,34px);
+  --r:14px;--r-sm:10px;--r-lg:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
+html{height:100%;overflow:hidden;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);height:100%;overflow:hidden;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+#app{display:flex;flex-direction:column;height:100%;max-width:440px;margin:0 auto;position:relative;background:var(--bg)}
+.safe-top{height:var(--safe-t);background:var(--black);flex-shrink:0}
+.topbar{background:var(--black);height:52px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.logo{font-size:17px;font-weight:700;color:var(--white);letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
+.logo-mark{width:28px;height:28px;background:var(--green);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.logo em{color:var(--green-light);font-style:normal}
+.topbar-r{display:flex;gap:4px}
+.iBtn{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.08);border:none;color:rgba(255,255,255,.8);font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.iBtn:active{background:rgba(255,255,255,.15)}
+.content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;scroll-behavior:smooth;padding-bottom:calc(76px + var(--safe-b))}
+.content::-webkit-scrollbar{display:none}
+.bnav{position:absolute;bottom:0;left:0;right:0;height:calc(56px + var(--safe-b));background:rgba(255,255,255,.96);border-top:1px solid var(--border);display:flex;align-items:flex-start;padding-top:6px;z-index:200;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:2px 0;cursor:pointer;border:none;background:none;color:var(--text3);font-size:9px;font-weight:600;letter-spacing:.3px;font-family:inherit;-webkit-user-select:none;user-select:none;position:relative}
+.ni-ico{font-size:20px;line-height:1;transition:transform .15s}
+.ni.active{color:var(--black)}.ni.active .ni-ico{transform:scale(1.1)}
+.nbadge{position:absolute;top:0;right:calc(50% - 20px);background:var(--red);color:#fff;font-size:9px;font-weight:800;border-radius:8px;padding:1px 5px;border:1.5px solid #fff}
+.fab{position:absolute;bottom:calc(64px + var(--safe-b) + 12px);right:16px;width:48px;height:48px;border-radius:50%;background:var(--black);color:var(--white);font-size:24px;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:190;box-shadow:0 4px 14px rgba(0,0,0,.25);-webkit-user-select:none;user-select:none;transition:transform .1s}
+.fab:active{transform:scale(.92)}
+.fab:active{transform:scale(.9)}
+.scr{display:none}.scr.active{display:block;animation:fu .15s ease-out}
+@keyframes fu{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+/* DASHBOARD */
+.dash-hero{background:var(--black);padding:20px 16px 22px;position:relative;overflow:hidden}
+.hero-eyebrow{font-size:11px;font-weight:600;color:rgba(255,255,255,.3);letter-spacing:.5px;text-transform:uppercase}
+.hero-date{font-size:11px;font-weight:600;color:rgba(255,255,255,.3);letter-spacing:.3px;margin-bottom:6px}
+.hero-greeting{font-size:26px;font-weight:800;color:var(--white);letter-spacing:-.6px;line-height:1.1;margin-bottom:2px}
+.hero-sub{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:18px}
+.hero-big{display:flex;align-items:flex-end;gap:14px;margin-bottom:18px}
+.big-num{font-size:68px;font-weight:800;color:var(--white);line-height:1;letter-spacing:-3px}
+.big-num.red{color:#FCA5A5}.big-num.green{color:var(--green-light)}
+.big-context{padding-bottom:8px}
+.big-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.5);line-height:1.4}
+.big-sublabel{font-size:11px;color:rgba(255,255,255,.22);margin-top:2px}
+.hero-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(255,255,255,.07);border-radius:12px;overflow:hidden}
+.hm{padding:11px;background:rgba(255,255,255,.03);text-align:center}
+.hm-val{font-size:20px;font-weight:800;color:var(--white);line-height:1}
+.hm-val.g{color:var(--green-light)}.hm-val.r{color:#FCA5A5}.hm-val.a{color:#FCD34D}
+.hm-lbl{font-size:10px;color:rgba(255,255,255,.28);margin-top:3px;font-weight:500}
+/* PERF STRIP */
+.perf-strip{background:var(--white);border-bottom:1px solid var(--border);padding:14px 16px;display:flex;align-items:center;gap:14px}
+.perf-ring{position:relative;width:52px;height:52px;flex-shrink:0}
+.perf-ring svg{width:52px;height:52px;transform:rotate(-90deg)}
+.pr-bg{fill:none;stroke:var(--gray-100);stroke-width:5}
+.pr-fill{fill:none;stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset .8s}
+.pr-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--text)}
+.perf-info{flex:1}
+.perf-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px}
+.perf-bars{display:flex;flex-direction:column;gap:4px}
+.pbar{display:flex;align-items:center;gap:8px}
+.pbar-lbl{font-size:10px;color:var(--text3);width:16px;flex-shrink:0}
+.pbar-track{flex:1;height:4px;background:var(--gray-100);border-radius:2px;overflow:hidden}
+.pbar-fill{height:100%;border-radius:2px;transition:width .6s}
+.pbar-val{font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:right;flex-shrink:0}
+/* SECTION */
+.sec{padding:18px 16px 6px;display:flex;align-items:center;justify-content:space-between}
+.sec-lbl{padding:18px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px}
+.sec-t{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px}
+.sec-a{font-size:12px;font-weight:600;color:var(--green);cursor:pointer}
+/* QUICK STATS */
+.qs-row{display:flex;gap:8px;padding:0 16px 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.qs-row::-webkit-scrollbar{display:none}
+.qs{flex-shrink:0;background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;min-width:90px}
+.qs-val{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-.5px;line-height:1}
+.qs-lbl{font-size:10px;font-weight:600;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:.3px}
+/* ACTION LIST */
+.action-list{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:8px}
+.action-row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;-webkit-user-select:none;user-select:none}
+.action-row:last-child{border-bottom:none}.action-row:active{background:var(--gray-50)}
+.ar-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;color:var(--text)}
+.ar-icon.red{background:var(--red-100);color:var(--red)}.ar-icon.green{background:var(--green-100);color:var(--green)}
+.ar-icon.amber{background:var(--amber-50);color:var(--amber)}.ar-icon.gray{background:var(--gray-100);color:var(--text3)}
+.ar-body{flex:1;min-width:0}
+.ar-name{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ar-sub{font-size:12px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ar-right{flex-shrink:0}
+.ar-tag{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;display:inline-block}
+.ar-tag.red{background:var(--red-50);color:var(--red)}.ar-tag.green{background:var(--green-100);color:var(--green)}
+.ar-tag.amber{background:var(--amber-50);color:var(--amber)}.ar-tag.gray{background:var(--gray-100);color:var(--text3)}
+/* CLIENT LIST */
+.sw{padding:10px 16px 4px}
+.sw input{width:100%;padding:10px 14px 10px 36px;border:1px solid var(--border);border-radius:var(--r-sm);font-size:16px;background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23A3A3A3' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 11px center;font-family:inherit;outline:none;color:var(--text)}
+.sw input:focus{border-color:var(--black)}
+.fp-row{display:flex;gap:5px;padding:6px 16px;overflow-x:auto;scrollbar-width:none}
+.fp-row::-webkit-scrollbar{display:none}
+.fp{flex-shrink:0;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--white);color:var(--text2);cursor:pointer;font-family:inherit;-webkit-user-select:none;user-select:none}
+.fp.on{background:var(--black);color:var(--white);border-color:var(--black)}
+.swipe-wrap{position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.swipe-wrap:last-child{border-bottom:none}
+.swipe-bg{position:absolute;right:0;top:0;bottom:0;width:76px;background:var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:18px;cursor:pointer}
+.swipe-bg span{font-size:9px;font-weight:700;margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
+.swipe-item{position:relative;background:var(--white);transition:transform .25s cubic-bezier(.4,0,.2,1);touch-action:pan-y;display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer}
+.swipe-item:active{background:var(--gray-50)}
+.av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--white);flex-shrink:0}
+.av.A{background:var(--black)}.av.B{background:var(--gray-600)}.av.C{background:var(--gray-300);color:var(--gray-600)}
+.lm{flex:1;min-width:0}
+.ln{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ls{font-size:12px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chev{color:var(--gray-300);font-size:16px;flex-shrink:0}
+.chip{display:inline-flex;align-items:center;padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700}
+.chip.ok{background:var(--green-100);color:var(--green)}.chip.late{background:var(--red-100);color:var(--red)}
+.chip.warn{background:var(--amber-50);color:var(--amber)}.chip.done{background:var(--green-100);color:var(--green)}
+.chip.skip{background:var(--gray-100);color:var(--text3)}.chip.plan{background:var(--blue-50);color:var(--blue)}
+/* DATE FILTER */
+.date-filter{display:flex;gap:8px;padding:4px 16px 8px;align-items:center;flex-wrap:wrap}
+.date-filter label{font-size:11px;font-weight:600;color:var(--text3)}
+.date-filter input[type=date]{padding:6px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:var(--white);outline:none;-webkit-appearance:none;flex:1;min-width:130px}
+.date-filter input[type=date]:focus{border-color:var(--black)}
+.btn-clr{padding:6px 10px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--white);color:var(--text3);cursor:pointer;font-family:inherit}
+/* AGENDA */
+.adh{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);padding:14px 16px 4px}
+.acard{background:var(--white);margin:0 16px 8px;overflow:hidden;border-radius:var(--r);border:1px solid var(--border)}
+.acard.late{border-left:3px solid var(--red)}.acard.today{border-left:3px solid var(--green)}.acard.planned{border-left:3px solid var(--blue)}
+.acinner{padding:12px 14px;display:flex;gap:10px;align-items:flex-start}
+.atime{border-radius:8px;padding:4px 8px;font-size:12px;font-weight:700;flex-shrink:0;min-width:42px;text-align:center;color:#fff}
+.atime.late{background:var(--red)}.atime.today{background:var(--green)}.atime.planned{background:var(--blue)}.atime.def{background:var(--gray-700)}
+.ainfo{flex:1;min-width:0}.aname{font-size:14px;font-weight:600;color:var(--text)}.ameta{font-size:11px;color:var(--text3);margin-top:1px}
+.aacts{display:flex;gap:6px;padding:0 14px 10px;flex-wrap:wrap}
+/* SEMANA */
+.semana-nav{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 8px}
+.semana-lbl{font-size:13px;font-weight:700;color:var(--text)}
+.week-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;padding:0 16px 14px}
+.wday{display:flex;flex-direction:column;align-items:center;gap:4px}
+.wd-lbl{font-size:9px;font-weight:600;color:var(--text3);text-transform:uppercase}
+.wd-num{font-size:13px;font-weight:700;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text)}
+.wd-num.today{background:var(--black);color:var(--white)}.wd-num.has{background:var(--green-100);color:var(--green)}
+.wd-dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
+.stat2{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px 12px}
+.stat-card{background:var(--white);border-radius:var(--r);padding:14px;border:1px solid var(--border)}
+.stat-card .sv{font-size:22px;font-weight:800;color:var(--text);margin-bottom:2px}.stat-card .sl2{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.pw-card{background:var(--white);border-radius:var(--r);margin:0 16px 8px;overflow:hidden;border:1px solid var(--border)}
+.pw-head{padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.pw-head.def{background:var(--black);color:#fff}.pw-head.today-h{background:var(--green);color:#fff}.pw-head.past{background:var(--gray-100);color:var(--text3)}
+.pw-day-name{font-size:12px;font-weight:700}.pw-day-date{font-size:11px;opacity:.65}
+.pw-slot{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer}
+.pw-slot:last-child{border-bottom:none}.pw-slot:active{background:var(--gray-50)}
+.pw-add{padding:10px 14px;font-size:13px;color:var(--text3);display:flex;align-items:center;gap:8px;cursor:pointer}
+/* DETALHE */
+.dh{background:var(--black);padding:14px 16px 20px;color:#fff;position:relative;overflow:hidden}
+.dbk{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:500;color:rgba(255,255,255,.4);cursor:pointer;border:none;background:none;margin-bottom:10px;padding:0;font-family:inherit}
+.dbk:active{color:#fff}.dname{font-size:20px;font-weight:800;margin-bottom:3px}.dsub{font-size:13px;color:rgba(255,255,255,.45)}
+.dbadges{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap}
+.badge{padding:3px 9px;border-radius:5px;font-size:10px;font-weight:700;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.08)}
+.badge.gd{background:rgba(240,180,41,.2);color:#FCD34D;border-color:rgba(240,180,41,.2)}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 16px}
+.atile{background:var(--white);border-radius:var(--r);padding:13px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;cursor:pointer;border:1px solid var(--border);font-family:inherit;-webkit-user-select:none;user-select:none}
+.atile:active{background:var(--gray-50)}.atile .ti{font-size:20px}.atile .tl{font-size:12px;font-weight:600;color:var(--text)}.atile .ts{font-size:11px;color:var(--text3)}
+.tl-wrap{padding:4px 16px}
+.tli{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+.tli:last-child{border-bottom:none}
+.tdw{display:flex;flex-direction:column;align-items:center}
+.td{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}.td.done{background:var(--green)}.td.skip{background:var(--red)}.td.plan{background:var(--blue)}
+.tline{flex:1;width:1px;background:var(--border);margin-top:4px}
+.tb{flex:1}.tdate{font-size:11px;color:var(--text3)}.ttxt{font-size:13px;margin-top:2px;line-height:1.5;color:var(--text)}
+.info-row{display:flex;gap:6px;padding:6px 16px;flex-wrap:wrap}
+.info-tag{background:var(--gray-100);color:var(--text2);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:500}
+/* MAP */
+.map-wrap{margin:0 16px 12px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border)}
+#map{height:240px}
+.route-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.route-item:last-child{border-bottom:none}
+.route-num{width:26px;height:26px;border-radius:50%;background:var(--black);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.route-info{flex:1;min-width:0}.route-dist{font-size:11px;color:var(--text3);white-space:nowrap;flex-shrink:0}
+/* MAIS */
+.mitem{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;background:var(--white)}
+.mitem:last-child{border-bottom:none}.mitem:active{background:var(--gray-50)}
+.mico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.mico.gr{background:var(--green-100)}.mico.gd{background:var(--amber-50)}.mico.bl{background:var(--blue-50)}.mico.rd{background:var(--red-100)}
+.mt strong{font-size:14px;font-weight:600;color:var(--text);display:block}.mt span{font-size:12px;color:var(--text3)}
+.backup-bar{background:var(--green-100);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:10px 14px;margin:0 16px 10px;font-size:12px;color:var(--green);display:flex;align-items:center;gap:8px}
+.backup-bar.warn{background:var(--amber-50);border-color:var(--amber);color:var(--amber)}
+.bi-box{background:var(--black);border-radius:var(--r-lg);padding:18px;margin:0 16px 12px;color:#fff}
+.bi-box h3{font-size:15px;font-weight:700;margin-bottom:6px}.bi-box p{font-size:12px;color:rgba(255,255,255,.5);line-height:1.6}
+.bi-steps{margin-top:12px;background:rgba(255,255,255,.05);border-radius:8px;padding:12px 14px}
+.bi-step{font-size:11px;font-family:monospace;color:rgba(255,255,255,.35);line-height:2}
+/* FORMS */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:300;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.ov.open{display:flex}
+.drawer{background:var(--white);width:100%;max-width:440px;border-radius:20px 20px 0 0;padding-bottom:calc(24px + var(--safe-b));max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:su .22s cubic-bezier(.4,0,.2,1)}
+@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.dhandle{width:32px;height:4px;background:var(--gray-200);border-radius:2px;margin:12px auto 4px}
+.dtitle{font-size:16px;font-weight:700;color:var(--text);padding:8px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.dtitle .iBtn{background:var(--gray-100);color:var(--text2)}
+.dbody{padding:16px 20px}
+.f{margin-bottom:14px}
+.f label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:5px}
+.f input,.f select,.f textarea{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:var(--r-sm);font-size:16px;font-family:inherit;color:var(--text);background:var(--white);outline:none;-webkit-appearance:none;appearance:none}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--black);box-shadow:0 0 0 3px rgba(0,0,0,.06)}
+.f textarea{min-height:78px;resize:vertical;font-size:15px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fsec{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--green);margin:16px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--green-100)}
+.mic-btn{width:38px;height:38px;border-radius:50%;border:none;background:var(--gray-100);color:var(--text2);font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;-webkit-user-select:none;user-select:none}
+.mic-btn.recording{background:var(--red);color:#fff;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.input-with-mic{display:flex;gap:8px;align-items:flex-start}
+.input-with-mic input,.input-with-mic textarea{flex:1}
+.geo-result{margin-top:6px;background:var(--gray-50);border:1px solid var(--border);border-radius:8px;padding:8px 12px;display:none}
+.geo-result.show{display:block}
+.geo-item{padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:13px;color:var(--text)}
+.geo-item:last-child{border-bottom:none}.geo-item:active{color:var(--green)}
+.km-auto-tag{display:inline-flex;align-items:center;gap:4px;background:var(--green-50);color:var(--green);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;margin-top:5px;border:1px solid var(--green-100)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 18px;border-radius:var(--r-sm);font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;-webkit-user-select:none;user-select:none;white-space:nowrap;transition:opacity .15s,transform .1s}
+.btn:active{opacity:.8;transform:scale(.97)}
+.btn-full{width:100%}.btn-p{background:var(--black);color:#fff}.btn-green{background:var(--green);color:#fff}
+.btn-o{background:#fff;color:var(--black);border:1.5px solid var(--black)}.btn-g{background:var(--gray-100);color:var(--text2)}
+.btn-d{background:var(--red);color:#fff}.btn-blue{background:var(--blue);color:#fff}
+.btn-sm{padding:8px 13px;font-size:13px;border-radius:8px}
+.brow{display:flex;gap:8px;margin-top:6px}.brow .btn{flex:1}
+.days-sel{display:flex;gap:4px}
+.day-btn{flex:1;padding:7px 0;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text3);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;-webkit-user-select:none;user-select:none}
+.day-btn.on{background:var(--black);border-color:var(--black);color:#fff}
+/* MISC */
+#toast{position:fixed;bottom:calc(72px + var(--safe-b));left:50%;transform:translateX(-50%) translateY(16px);background:rgba(0,0,0,.9);color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;z-index:999;transition:opacity .2s,transform .2s;white-space:nowrap;max-width:calc(100vw - 32px)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#offline-banner{display:none;background:var(--amber);color:#fff;padding:7px 16px;text-align:center;font-size:12px;font-weight:600;flex-shrink:0}
+#offline-banner.show{display:block}
+#install-banner{display:none;background:var(--black);color:#fff;padding:12px 16px;flex-shrink:0;flex-direction:column;gap:8px}
+#install-banner.show{display:flex}
+.install-steps{font-size:12px;line-height:1.8;color:rgba(255,255,255,.5)}
+.install-steps strong{color:var(--green-light)}
+#track-banner{display:none;align-items:center;gap:8px;background:var(--g7);color:#fff;padding:9px 16px;font-size:12px;font-weight:700;flex-shrink:0;cursor:pointer;-webkit-user-select:none;user-select:none}
+#track-banner.show{display:flex}
+#track-banner .tb-dot{width:8px;height:8px;border-radius:50%;background:var(--green-light);animation:pulse 1.2s infinite;flex-shrink:0}
+#track-banner .tb-open{margin-left:auto;font-size:10px;font-weight:600;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.4px}
+.btn-track{background:var(--gray-100);color:var(--text2)}
+.btn-track.on{background:var(--red);color:#fff}
+.empty{text-align:center;padding:44px 20px;color:var(--text3)}
+.empty .ei{font-size:40px;margin-bottom:12px}.empty p{font-size:14px;line-height:1.6}
+.card{background:var(--white);border-radius:var(--r);overflow:hidden;margin-bottom:8px;border:1px solid var(--border)}
+.li{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;-webkit-user-select:none;user-select:none}
+.li:last-child{border-bottom:none}.li:active{background:var(--gray-50)}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="safe-top"></div>
+<div id="offline-banner">Sem conexão — modo offline</div>
+<div id="track-banner" onclick="trkOpen()"><span class="tb-dot"></span><span id="track-banner-txt">Rastreando 0.0 km</span><span class="tb-open">Abrir ›</span></div>
+<div id="install-banner">
+  <div style="font-size:14px;font-weight:700">Instalar AgroClientes</div>
+  <div class="install-steps" id="install-steps">iPhone: <strong>Safari</strong> → ⎙ → <strong>Adicionar à Tela de Início</strong><br>Android: <strong>Chrome</strong> → ⋮ → <strong>Adicionar à tela inicial</strong></div>
+  <div style="display:flex;gap:8px">
+  <button class="btn btn-green btn-sm" id="install-now-btn" style="display:none" onclick="installNow()">📲 Instalar agora</button>
+  <button class="btn btn-o btn-sm" style="align-self:flex-start;margin-top:2px" onclick="document.getElementById('install-banner').classList.remove('show')">Agora não</button>
+  </div>
+</div>
+<div class="topbar">
+  <div class="logo"><div class="logo-mark">🌾</div>Agro<em>Clientes</em></div>
+  <div class="topbar-r">
+    <button class="iBtn" onclick="nav('rotas',null)" title="Mapa e rotas">🗺️</button>
+    <button class="iBtn" onclick="openReg()" title="Registrar visita">✓</button>
+    <button class="iBtn" onclick="openSearch()">🔍</button>
+  </div>
+</div>
+<div class="content" id="content">
+<!-- DASHBOARD -->
+<div id="s-home" class="scr active">
+  <div class="dash-hero">
+    <div class="hero-date" id="hero-date"></div>
+    <div class="hero-greeting" id="hero-greeting"></div>
+    <div class="hero-sub" id="hero-sub"></div>
+    <div id="hero-alert"></div>
+    <div class="hero-big" id="hero-big"></div>
+    <div class="hero-metrics" id="hero-metrics"></div>
+  </div>
+  <div class="perf-strip" id="perf-strip"></div>
+  <div class="sec"><span class="sec-t">Mês atual</span></div>
+  <div class="qs-row" id="qs-row"></div>
+  <div class="sec"><span class="sec-t">Requerem atenção</span><span class="sec-a" onclick="nav('clientes',null)">Ver todos</span></div>
+  <div class="action-list" id="dash-atencao"></div>
+  <div class="sec"><span class="sec-t">Próximas visitas</span><span class="sec-a" onclick="nav('agenda',null)">Ver agenda</span></div>
+  <div class="action-list" id="dash-prox"></div>
+  <div style="height:8px"></div>
+</div>
+<!-- CLIENTES -->
+<div id="s-clientes" class="scr">
+  <div class="sw"><input type="search" id="bq" placeholder="Buscar cliente, fazenda ou cidade…" oninput="renderC()"></div>
+  <div class="fp-row">
+    <button class="fp on" data-f="" onclick="setF(this)">Todos</button>
+    <button class="fp" data-f="A" onclick="setF(this)">Alta</button>
+    <button class="fp" data-f="B" onclick="setF(this)">Média</button>
+    <button class="fp" data-f="C" onclick="setF(this)">Baixa</button>
+    <button class="fp" data-f="late" onclick="setF(this)">Atrasados</button>
+  </div>
+  <input type="hidden" id="cf" value="">
+  <div class="card" style="margin:4px 16px 16px" id="lista-c"></div>
+</div>
+<!-- SEMANA -->
+<div id="s-semana" class="scr">
+  <div class="semana-nav">
+    <button class="btn btn-g btn-sm" onclick="semOff(-1)">‹</button>
+    <span class="semana-lbl" id="semana-lbl"></span>
+    <button class="btn btn-g btn-sm" onclick="semOff(1)">›</button>
+  </div>
+  <div class="card" style="margin:0 16px 10px"><div class="week-strip" id="week-strip"></div></div>
+  <div class="stat2" id="sem-stats"></div>
+  <div id="sem-days"></div>
+</div>
+<!-- AGENDA -->
+<div id="s-agenda" class="scr">
+  <div class="fp-row">
+    <button class="fp on" data-f="fut" onclick="setFA(this)">Próximas</button>
+    <button class="fp" data-f="all" onclick="setFA(this)">Todas</button>
+    <button class="fp" data-f="hj" onclick="setFA(this)">Hoje</button>
+    <button class="fp" data-f="lat" onclick="setFA(this)">Atrasadas</button>
+  </div>
+  <div class="date-filter">
+    <label>De:</label><input type="date" id="agenda-de" onchange="renderA()">
+    <label>Até:</label><input type="date" id="agenda-ate" onchange="renderA()">
+    <button class="btn-clr" onclick="clearDateFilter()">✕</button>
+  </div>
+  <input type="hidden" id="af" value="fut">
+  <div id="lista-a" style="padding-top:4px"></div>
+</div>
+<!-- ROTAS -->
+<div id="s-rotas" class="scr">
+  <div style="padding:16px 16px 10px">
+    <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px">Mapa de Clientes</div>
+    <div style="font-size:13px;color:var(--text3)">Clientes com coordenadas aparecem no mapa.</div>
+  </div>
+  <div class="map-wrap"><div id="map"></div></div>
+  <div style="padding:0 16px 10px"><button class="btn btn-p btn-full btn-sm" onclick="calcRota()">Calcular Rota Otimizada</button></div>
+  <div class="card" style="margin:0 16px 10px" id="rota-result"><div style="padding:16px;font-size:13px;color:var(--text3);text-align:center">Toque em Calcular Rota para ver a sequência otimizada.</div></div>
+  <div style="padding:14px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">Sem localização</div>
+  <div class="card" style="margin:0 16px 16px" id="sem-loc"></div>
+</div>
+<!-- HISTÓRICO -->
+<div id="s-historico" class="scr">
+  <div class="sw"><input type="search" id="hq" placeholder="Buscar cliente ou observação…" oninput="renderHist()"></div>
+  <div class="fp-row">
+    <button class="fp on" data-f="" onclick="setFH(this)">Todos</button>
+    <button class="fp" data-f="realizada" onclick="setFH(this)">Realizadas</button>
+    <button class="fp" data-f="cancelada" onclick="setFH(this)">Canceladas</button>
+  </div>
+  <div class="date-filter">
+    <label>De:</label><input type="date" id="hist-de" onchange="renderHist()">
+    <label>Até:</label><input type="date" id="hist-ate" onchange="renderHist()">
+    <button class="btn-clr" onclick="document.getElementById('hist-de').value='';document.getElementById('hist-ate').value='';renderHist()">✕</button>
+  </div>
+  <input type="hidden" id="hf" value="">
+  <div class="card" style="margin:4px 16px 16px" id="lista-hist"></div>
+</div>
+<!-- MAIS -->
+<div id="s-mais" class="scr">
+  <div style="padding:16px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">Backup e Dados</div>
+  <div id="backup-status"></div>
+  <div class="card" style="margin:0 16px 12px">
+    <div class="mitem" onclick="fazerBackup()"><div class="mico gr">💾</div><div class="mt"><strong>Fazer Backup</strong><span>Salva JSON com todos os dados</span></div><span style="color:var(--text3)">›</span></div>
+    <div class="mitem" onclick="document.getElementById('inp-restore').click()"><div class="mico bl">📂</div><div class="mt"><strong>Restaurar Backup</strong><span>Importa arquivo JSON</span></div><span style="color:var(--text3)">›</span></div>
+    <input type="file" id="inp-restore" accept=".json" style="display:none" onchange="restaurarBackup(event)">
+    <div class="mitem" onclick="exportarTudo()"><div class="mico gd">📊</div><div class="mt"><strong>Exportar Excel completo</strong><span>Clientes + Agenda + Histórico</span></div><span style="color:var(--text3)">›</span></div>
+    <div class="mitem" onclick="expC()"><div class="mico gr">👥</div><div class="mt"><strong>Exportar Clientes</strong><span>Com propriedade e área</span></div><span style="color:var(--text3)">›</span></div>
+    <div class="mitem" onclick="expH()"><div class="mico gd">📋</div><div class="mt"><strong>Exportar Histórico</strong><span>Visitas realizadas + km</span></div><span style="color:var(--text3)">›</span></div>
+  </div>
+  <div class="bi-box">
+    <h3>Power BI</h3>
+    <p>Exporte o Excel, salve no OneDrive e conecte no Power BI Desktop pelas 3 abas.</p>
+    <div class="bi-steps">
+      <div class="bi-step">1. Exportar Excel → OneDrive</div>
+      <div class="bi-step">2. Power BI → Obter Dados → Excel</div>
+      <div class="bi-step">3. Relacionar Clientes[ID] ↔ Agenda[id_cliente]</div>
+    </div>
+  </div>
+  <div style="padding:14px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">Resumo geral</div>
+  <div class="card" style="margin:0 16px 12px" id="mais-res"></div>
+  <div style="padding:0 16px 16px">
+    <button class="btn btn-d btn-full btn-sm" onclick="if(confirm('Apagar todos os dados? Faça backup primeiro!'))limparDados()">Limpar todos os dados</button>
+  </div>
+  <div style="text-align:center;padding:0 16px 24px;font-size:11px;color:var(--text3)">AgroClientes v3.3 · iOS & Android · Offline</div>
+</div>
+<!-- DETALHE -->
+<div id="s-det" class="scr">
+  <div id="det-head"></div>
+  <div class="agrid" id="det-acts"></div>
+  <div id="det-info"></div>
+  <div style="padding:16px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">Histórico de visitas</div>
+  <div class="date-filter" style="padding:0 16px 8px">
+    <label>De:</label><input type="date" id="det-de" onchange="renderDetHist(currentDetId)">
+    <label>Até:</label><input type="date" id="det-ate" onchange="renderDetHist(currentDetId)">
+    <button class="btn-clr" onclick="document.getElementById('det-de').value='';document.getElementById('det-ate').value='';renderDetHist(currentDetId)">✕</button>
+  </div>
+  <div class="card" style="margin:0 16px 16px" id="det-hist"></div>
+</div>
+</div>
+<nav class="bnav">
+  <button class="ni active" id="ni-home" onclick="nav('home',this)"><span class="ni-ico">◈</span><span>Início</span></button>
+  <button class="ni" id="ni-clientes" onclick="nav('clientes',this)"><span class="ni-ico">👥</span><span>Clientes</span></button>
+  <button class="ni" id="ni-semana" onclick="nav('semana',this)"><span class="ni-ico">📆</span><span>Semana</span></button>
+  <button class="ni" id="ni-agenda" onclick="nav('agenda',this)"><span class="ni-ico">📅</span><span>Agenda</span><span class="nbadge" id="nbadge" style="display:none">0</span></button>
+  <button class="ni" id="ni-historico" onclick="nav('historico',this)"><span class="ni-ico">📋</span><span>Histórico</span></button>
+  <button class="ni" id="ni-mais" onclick="nav('mais',this)"><span class="ni-ico">···</span><span>Mais</span></button>
+</nav>
+<button class="fab" id="fab" onclick="fabAct()">＋</button>
+</div>
+<div id="toast"></div>
+<!-- DRAWER CLIENTE -->
+<div class="ov" id="dw-c"><div class="drawer">
+<div class="dhandle"></div>
+<div class="dtitle"><span id="dw-c-t">Novo Cliente</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-c')">✕</button></div>
+<div class="dbody">
+<div class="fsec">📋 Dados Pessoais</div>
+<div class="f"><label>Nome / Razão Social *</label><input id="c-n" type="text" placeholder="Ex.: João Silva" autocomplete="name"></div>
+<div class="f"><label>Propriedade / Fazenda</label><input id="c-prop" type="text" placeholder="Ex.: Fazenda São João"></div>
+<div class="f2">
+  <div class="f"><label>Cidade *</label><input id="c-ci" type="text" placeholder="Sorriso – MT"></div>
+  <div class="f"><label>Prioridade</label><select id="c-p"><option value="A">A – Alta</option><option value="B" selected>B – Média</option><option value="C">C – Baixa</option></select></div>
+</div>
+<div class="f2">
+  <div class="f"><label>Contato</label><input id="c-co" type="text" placeholder="Responsável"></div>
+  <div class="f"><label>Telefone</label><input id="c-t" type="tel" placeholder="(65) 99999-9999" oninput="mT(this)" autocomplete="tel"></div>
+</div>
+<div class="fsec">🌾 Propriedade</div>
+<div class="f"><label>Localização da Fazenda</label><input id="c-loc" type="text" placeholder="Rod. MT-222, km 45"></div>
+<div class="f2">
+  <div class="f"><label>Área Plantada (ha)</label><input id="c-area" type="number" placeholder="0" min="0" inputmode="decimal"></div>
+  <div class="f"><label>Cultura Principal</label><select id="c-cult"><option value="">Selecione</option><option>Soja</option><option>Milho</option><option>Algodão</option><option>Cana</option><option>Trigo</option><option>Arroz</option><option>Pecuária</option><option>Misto</option></select></div>
+</div>
+<div class="f2">
+  <div class="f"><label>Latitude</label><input id="c-lat" type="number" step="any" placeholder="-12.5432" inputmode="decimal"></div>
+  <div class="f"><label>Longitude</label><input id="c-lng" type="number" step="any" placeholder="-55.7201" inputmode="decimal"></div>
+</div>
+<button class="btn btn-g btn-sm" onclick="geoLoc()" style="margin-bottom:14px;font-size:12px">📍 Usar localização atual</button>
+<div class="fsec">⚙️ Visitas</div>
+<div class="f"><label>Frequência</label><select id="c-f"><option value="7">Semanal (7d)</option><option value="14">Quinzenal (14d)</option><option value="30" selected>Mensal (30d)</option><option value="45">45 dias</option><option value="60">Bimestral (60d)</option><option value="90">Trimestral (90d)</option></select></div>
+<div class="f"><label>Observações</label><div style="display:flex;gap:8px;align-items:flex-start"><textarea id="c-o" placeholder="Produtos, perfil, pendências…" style="flex:1"></textarea><button type="button" class="mic-btn" id="mic-c-o" onclick="voiceInput('c-o',this)" title="Ditar por voz">🎙️</button></div></div>
+<input type="hidden" id="c-id">
+<div class="brow"><button class="btn btn-p btn-full" onclick="saveC()">💾 Salvar Cliente</button><button class="btn btn-g" onclick="closeDW('dw-c')">Cancelar</button></div>
+</div></div></div>
+
+<!-- DRAWER VISITA -->
+<div class="ov" id="dw-v"><div class="drawer">
+<div class="dhandle"></div>
+<div class="dtitle"><span>Agendar Visita</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-v')">✕</button></div>
+<div class="dbody">
+<div class="f"><label>Cliente *</label><select id="v-c" onchange="fillProp('v-prop','v-c')"></select></div>
+<div class="f"><label>Propriedade / Fazenda</label><input id="v-prop" type="text" placeholder="Preenchido automaticamente"></div>
+<div class="f2">
+  <div class="f"><label>Data *</label><input id="v-d" type="date"></div>
+  <div class="f"><label>Horário</label><input id="v-h" type="time" value="08:00"></div>
+</div>
+<div class="f"><label>Pauta / Objetivo</label><div style="display:flex;gap:8px;align-items:flex-start"><textarea id="v-o" placeholder="O que será abordado?" style="flex:1"></textarea><button type="button" class="mic-btn" id="mic-v-o" onclick="voiceInput('v-o',this)" title="Ditar por voz">🎙️</button></div></div>
+<div class="f2">
+  <div class="f"><label>Km estimado</label><input id="v-km" type="number" placeholder="0" min="0" inputmode="decimal"></div>
+  <div class="f"><label>Duração est. (h)</label><input id="v-dur" type="number" placeholder="2" min="0" step="0.5" inputmode="decimal"></div>
+</div>
+<div class="brow"><button class="btn btn-p btn-full" onclick="saveV()">📅 Agendar</button><button class="btn btn-g" onclick="closeDW('dw-v')">Cancelar</button></div>
+</div></div></div>
+
+<!-- DRAWER REGISTRO -->
+<div class="ov" id="dw-r"><div class="drawer">
+<div class="dhandle"></div>
+<div class="dtitle"><span>Registrar Visita</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-r')">✕</button></div>
+<div class="dbody">
+<div class="f"><label>Cliente *</label><select id="r-c" onchange="fillProp('r-prop','r-c')"></select></div>
+<div class="f"><label>Propriedade Visitada</label><input id="r-prop" type="text" placeholder="Fazenda visitada"></div>
+<div class="f2">
+  <div class="f"><label>Data *</label><input id="r-d" type="date"></div>
+  <div class="f"><label>Status</label><select id="r-s"><option value="realizada">✅ Realizada</option><option value="cancelada">❌ Cancelada</option></select></div>
+</div>
+<div class="f">
+  <button type="button" class="btn btn-track btn-full btn-sm" id="trk-btn" onclick="trkToggle()">🎯 Rastrear km por GPS</button>
+  <div id="trk-lbl" style="display:none;text-align:center;font-size:12px;color:var(--ink2);margin-top:6px;font-weight:700"></div>
+</div>
+<div class="f2">
+  <div class="f"><label>Km rodados</label><input id="r-km" type="number" placeholder="0" min="0" inputmode="decimal"></div>
+  <div class="f"><label>Duração (h)</label><input id="r-dur" type="number" placeholder="2" min="0" step="0.5" inputmode="decimal"></div>
+</div>
+<div class="f"><label>Observações</label><div style="display:flex;gap:8px;align-items:flex-start"><textarea id="r-o" placeholder="Pedidos, pendências, próximos passos…" style="flex:1"></textarea><button type="button" class="mic-btn" id="mic-r-o" onclick="voiceInput('r-o',this)" title="Ditar por voz">🎙️</button></div></div>
+<div class="brow"><button class="btn btn-p btn-full" onclick="saveR()">✓ Registrar</button><button class="btn btn-g" onclick="closeDW('dw-r')">Cancelar</button></div>
+</div></div></div>
+
+<!-- DRAWER BUSCA -->
+<div class="ov" id="dw-s"><div class="drawer">
+<div class="dhandle"></div>
+<div class="dtitle"><span>Busca Rápida</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-s')">✕</button></div>
+<div class="dbody" style="padding-top:4px">
+<div class="f"><input id="sq" type="search" placeholder="Nome, fazenda, cidade…" oninput="renderS()"></div>
+<div id="sr"></div>
+</div></div></div>
+<script>
+/* ════════════════════════════════════════════════════════════════════════
+   AgroClientes CRM — app single-file, sem backend, sem dependências além
+   do Leaflet (mapa). Todos os dados ficam em localStorage neste aparelho
+   (chaves ac3_c / ac3_v / ac3_h — ver seção DATA no próximo <script>).
+
+   Bloco 1 (este): gerador de planilhas .xlsx feito na mão, sem biblioteca
+   externa — monta o XML do OOXML e compacta em ZIP puro (DEFLATE stored,
+   sem compressão real, só para não depender de nenhuma lib de terceiros).
+   Bloco 2 (próximo <script>): toda a lógica do app — dados, telas, gaveras
+   de formulário, mapa/rotas, backup, entrada por voz, rastreamento GPS.
+   ════════════════════════════════════════════════════════════════════════ */
+
+// Gerador mínimo de .xlsx (Excel) client-side — sem dependências externas
+const MX=(function(){
+  function esc(s){
+    if(s==null)return'';
+    var t=String(s);
+    t=t.replace(/&/g,'&amp;');
+    t=t.replace(/</g,'&lt;');
+    t=t.replace(/>/g,'&gt;');
+    t=t.replace(/"/g,'&quot;');
+    return t;
+  }
+  function col(n){
+    var s='';n++;
+    while(n>0){s=String.fromCharCode(64+(n%26||26))+s;n=Math.floor((n-(n%26||26))/26);}
+    return s;
+  }
+  function shXml(data,ss){
+    if(!data.length)return'<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData/></worksheet>';
+    var keys=Object.keys(data[0]);
+    var rows=[keys].concat(data.map(function(r){return keys.map(function(k){return r[k];})}));
+    var x='<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>';
+    rows.forEach(function(row,ri){
+      x+='<row r="'+(ri+1)+'">';
+      row.forEach(function(cell,ci){
+        var addr=col(ci)+(ri+1);
+        if(cell==null||cell===''){x+='<c r="'+addr+'"/>';return;}
+        var num=!isNaN(cell)&&cell!==''&&typeof cell!=='boolean';
+        if(num){x+='<c r="'+addr+'"><v>'+cell+'</v></c>';}
+        else{
+          var idx=ss.indexOf(String(cell));
+          if(idx<0){idx=ss.length;ss.push(String(cell));}
+          x+='<c r="'+addr+'" t="s"><v>'+idx+'</v></c>';
+        }
+      });
+      x+='</row>';
+    });
+    return x+'</sheetData></worksheet>';
+  }
+  function sstXml(ss){
+    var x='<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="'+ss.length+'" uniqueCount="'+ss.length+'">';
+    ss.forEach(function(s){x+='<si><t xml:space="preserve">'+esc(s)+'</t></si>';});
+    return x+'</sst>';
+  }
+  function u16(n){var b=new Uint8Array(2);new DataView(b.buffer).setUint16(0,n,true);return b;}
+  function u32(n){var b=new Uint8Array(4);new DataView(b.buffer).setUint32(0,n,true);return b;}
+  function cat(){
+    var arrs=Array.from(arguments);
+    var total=arrs.reduce(function(s,a){return s+a.length;},0);
+    var out=new Uint8Array(total);var p=0;
+    arrs.forEach(function(a){out.set(a,p);p+=a.length;});
+    return out;
+  }
+  function crc32(buf){
+    var c=0xFFFFFFFF;
+    var t=new Uint32Array(256);
+    for(var i=0;i<256;i++){var v=i;for(var j=0;j<8;j++)v=v&1?0xEDB88320^(v>>>1):v>>>1;t[i]=v;}
+    for(var i=0;i<buf.length;i++)c=t[(c^buf[i])&0xFF]^(c>>>8);
+    return(c^0xFFFFFFFF)>>>0;
+  }
+  function zip(files){
+    var enc=new TextEncoder();var parts=[];var cd=[];var off=0;
+    files.forEach(function(f){
+      var nb=enc.encode(f.name);
+      var db=typeof f.data==='string'?enc.encode(f.data):f.data;
+      var crc=crc32(db);
+      var loc=cat(new Uint8Array([0x50,0x4B,0x03,0x04]),u16(20),u16(0),u16(0),u16(0),u16(0),u32(crc),u32(db.length),u32(db.length),u16(nb.length),u16(0),nb,db);
+      cd.push({nb:nb,crc:crc,size:db.length,off:off});
+      parts.push(loc);off+=loc.length;
+    });
+    var cds=cd.map(function(e){return cat(new Uint8Array([0x50,0x4B,0x01,0x02]),u16(20),u16(20),u16(0),u16(0),u16(0),u16(0),u32(e.crc),u32(e.size),u32(e.size),u16(e.nb.length),u16(0),u16(0),u16(0),u16(0),u32(0),u32(e.off),e.nb);});
+    var cdb=cat.apply(null,cds);
+    var eocd=cat(new Uint8Array([0x50,0x4B,0x05,0x06]),u16(0),u16(0),u16(cd.length),u16(cd.length),u32(cdb.length),u32(off),u16(0));
+    return cat.apply(null,parts.concat([cdb,eocd]));
+  }
+  return {
+    dl: function(sheets,fn){
+      var ss=[];
+      var sheetXmls=sheets.map(function(s){return shXml(s.d,ss);});
+      var ns='http://schemas.openxmlformats.org/officeDocument/2006/relationships/';
+      var wr=sheets.map(function(_,i){return'<Relationship Id="rId'+(i+1)+'" Type="'+ns+'worksheet" Target="worksheets/sheet'+(i+1)+'.xml"/>';}).join('');
+      var ws=sheets.map(function(s,i){return'<sheet name="'+esc(s.n)+'" sheetId="'+(i+1)+'" r:id="rId'+(i+1)+'"/>';}).join('');
+      var ct='<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>'+sheets.map(function(_,i){return'<Override PartName="/xl/worksheets/sheet'+(i+1)+'.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>';}).join('')+'<Override PartName="/xl/sharedStrings.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"/></Types>';
+      var files=[
+        {name:'[Content_Types].xml',data:ct},
+        {name:'_rels/.rels',data:'<?xml version="1.0"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'},
+        {name:'xl/_rels/workbook.xml.rels',data:'<?xml version="1.0"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+wr+'<Relationship Id="rId'+(sheets.length+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings" Target="sharedStrings.xml"/></Relationships>'},
+        {name:'xl/workbook.xml',data:'<?xml version="1.0"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>'+ws+'</sheets></workbook>'},
+        {name:'xl/sharedStrings.xml',data:sstXml(ss)}
+      ];
+      sheets.forEach(function(s,i){files.push({name:'xl/worksheets/sheet'+(i+1)+'.xml',data:sheetXmls[i]});});
+      var buf=zip(files);
+      var blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement('a');a.href=url;a.download=fn;a.click();
+      setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    }
+  };
+}());
+
+
+</script>
+<script>
+
+
+// ── DATA ──────────────────────────────────────────────────────────────────
+var CL=JSON.parse(localStorage.getItem('ac3_c')||'[]');
+var VS=JSON.parse(localStorage.getItem('ac3_v')||'[]');
+var HS=JSON.parse(localStorage.getItem('ac3_h')||'[]');
+var curScr='home';
+var _semOff=0;
+var currentDetId=null;
+
+function save(){
+  localStorage.setItem('ac3_c',JSON.stringify(CL));
+  localStorage.setItem('ac3_v',JSON.stringify(VS));
+  localStorage.setItem('ac3_h',JSON.stringify(HS));
+  localStorage.setItem('ac3_lastSave',new Date().toISOString());
+  updateBackupStatus();
+}
+
+// SEED
+if(!CL.length){
+  var D=function(n){var d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10);};
+  CL=[
+    {id:1,nome:'João Pedro Oliveira',prop:'Fazenda São João',cidade:'Sorriso – MT',loc:'Rod. MT-222, km 45',area:1200,cult:'Soja',contato:'João Pedro',tel:'(66) 99871-2233',pri:'A',freq:30,uv:D(-35),obs:'Grande produtor. Exigente em prazo.',lat:-12.5432,lng:-55.7201},
+    {id:2,nome:'Maria Clara Bonfim',prop:'Agropecuária Bonfim',cidade:'Lucas do Rio Verde – MT',loc:'Estrada Municipal, km 12',area:850,cult:'Soja',contato:'Maria Clara',tel:'(66) 99543-0011',pri:'A',freq:14,uv:D(-5),obs:'Interesse em defensivos.',lat:-13.0567,lng:-55.9134},
+    {id:3,nome:'Carlos Menezes',prop:'Granja Santa Fé',cidade:'Rondonópolis – MT',loc:'Fazenda Santa Fé s/n',area:320,cult:'Milho',contato:'Carlos',tel:'(66) 98821-4400',pri:'B',freq:30,uv:D(-20),obs:'Foco em fertilizantes foliares.',lat:-16.4689,lng:-54.6378},
+    {id:4,nome:'Ana Paula Silva',prop:'Cooperativa Campo Verde',cidade:'Campo Verde – MT',loc:'Av. das Palmeiras 200',area:0,cult:'Misto',contato:'Ana Paula',tel:'(66) 99100-3322',pri:'B',freq:60,uv:D(-10),obs:'',lat:-15.5391,lng:-55.1684},
+    {id:5,nome:'Roberto Alves',prop:'Sítio Boa Esperança',cidade:'Primavera do Leste – MT',loc:'Sítio km 22',area:80,cult:'Soja',contato:'Roberto',tel:'(66) 99214-5500',pri:'C',freq:90,uv:D(-50),obs:'Pequeno produtor com potencial.',lat:-15.5564,lng:-54.2958},
+  ];
+  VS=[
+    {id:1,cid:2,prop:'Agropecuária Bonfim',dt:D(1),hr:'09:00',obj:'Apresentar fungicidas',km:80,dur:2,st:'pend'},
+    {id:2,cid:3,prop:'Granja Santa Fé',dt:D(3),hr:'14:00',obj:'Revisão contrato',km:120,dur:1.5,st:'pend'},
+    {id:3,cid:1,prop:'Fazenda São João',dt:D(7),hr:'08:00',obj:'Follow-up sementes',km:60,dur:3,st:'pend'},
+    {id:4,cid:4,prop:'Cooperativa Campo Verde',dt:D(-2),hr:'10:00',obj:'Catálogo',km:90,dur:2,st:'pend'},
+    {id:5,cid:5,prop:'Sítio Boa Esperança',dt:D(2),hr:'13:00',obj:'Prospecção',km:45,dur:1,st:'pend'},
+  ];
+  HS=[
+    {id:1,cid:2,prop:'Agropecuária Bonfim',dt:D(-5),st:'realizada',km:80,dur:2,obs:'Pedido confirmado.'},
+    {id:2,cid:3,prop:'Granja Santa Fé',dt:D(-20),st:'realizada',km:120,dur:1.5,obs:'Pedido fertilizante.'},
+    {id:3,cid:1,prop:'Fazenda São João',dt:D(-35),st:'realizada',km:60,dur:3,obs:'Aguardando cotação.'},
+  ];
+  save();
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────────────
+var MESES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+var DIAS_S=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+var DNOMES=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+
+function hoje(){return new Date().toISOString().slice(0,10);}
+function nid(a){return a.length?Math.max.apply(null,a.map(function(x){return x.id;}))+1:1;}
+function gC(id){return CL.find(function(c){return c.id==id;})||{};}
+function dD(d){if(!d)return 9999;return Math.floor((new Date()-new Date(d))/86400000);}
+function fD(s){if(!s)return'—';var p=s.split('-');return p[2]+'/'+p[1];}
+function fDFull(s){if(!s)return'—';var p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+function stC(c){if(!c.uv)return'late';var d=dD(c.uv);if(d>c.freq)return'late';if(d>c.freq*0.8)return'warn';return'ok';}
+function chipSt(s){var m={ok:'<span class="chip ok">Em dia</span>',warn:'<span class="chip warn">Atenção</span>',late:'<span class="chip late">Atrasado</span>'};return m[s]||'';}
+function mT(el){var v=el.value.replace(/\D/g,'').slice(0,11);if(v.length>6)v='('+v.slice(0,2)+') '+v.slice(2,7)+'-'+v.slice(7);else if(v.length>2)v='('+v.slice(0,2)+') '+v.slice(2);else if(v.length)v='('+v;el.value=v;}
+function toast(msg,d){if(d===undefined)d=2400;var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},d);}
+function popSel(id,val){
+  var s=document.getElementById(id);
+  var opts='<option value="">Selecione…</option>';
+  var sorted=CL.slice().sort(function(a,b){return a.nome.localeCompare(b.nome);});
+  sorted.forEach(function(c){
+    opts+='<option value="'+c.id+'">'+(c.nome)+(c.prop?' – '+c.prop:'')+'</option>';
+  });
+  s.innerHTML=opts;
+  if(val)s.value=val;
+}
+function fillProp(propId,selId){
+  var cid=parseInt(document.getElementById(selId).value);
+  if(!cid)return;
+  document.getElementById(propId).value=gC(cid).prop||'';
+}
+function dist(lat1,lng1,lat2,lng2){
+  var R=6371,dL=(lat2-lat1)*Math.PI/180,dN=(lng2-lng1)*Math.PI/180;
+  var a=Math.sin(dL/2)*Math.sin(dL/2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dN/2)*Math.sin(dN/2);
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+function semDias(off){
+  if(off===undefined)off=0;
+  var d=new Date();d.setDate(d.getDate()-d.getDay()+1+off*7);
+  return Array.from({length:7},function(_,i){var x=new Date(d);x.setDate(d.getDate()+i);return x.toISOString().slice(0,10);});
+}
+
+// ── BACKUP / RESTORE ──────────────────────────────────────────────────────
+function updateBackupStatus(){
+  var el=document.getElementById('backup-status');if(!el)return;
+  var last=localStorage.getItem('ac3_lastSave');
+  var lastBk=localStorage.getItem('ac3_lastBackup');
+  var html='';
+  if(lastBk){
+    var d=new Date(lastBk);
+    html='<div class="backup-bar">💾 Último backup: '+fDFull(d.toISOString().slice(0,10))+' às '+d.toTimeString().slice(0,5)+'</div>';
+  } else {
+    html='<div class="backup-bar warn">⚠️ Nenhum backup realizado. Faça um backup agora!</div>';
+  }
+  el.innerHTML=html;
+}
+
+function fazerBackup(){
+  var data={
+    versao:3,
+    data:new Date().toISOString(),
+    clientes:CL,visitas:VS,historico:HS
+  };
+  var json=JSON.stringify(data,null,2);
+  var blob=new Blob([json],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  var dt=new Date().toISOString().slice(0,10);
+  a.href=url;a.download='AgroClientes_backup_'+dt+'.json';a.click();
+  setTimeout(function(){URL.revokeObjectURL(url);},1000);
+  localStorage.setItem('ac3_lastBackup',new Date().toISOString());
+  updateBackupStatus();
+  toast('💾 Backup salvo com sucesso!');
+}
+
+function restaurarBackup(event){
+  var file=event.target.files[0];
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result);
+      if(!data.clientes||!data.visitas||!data.historico){throw new Error('Formato inválido');}
+      if(!confirm('Restaurar backup de '+fDFull(data.data.slice(0,10))+'?\nIsso substituirá todos os dados atuais.'))return;
+      CL=data.clientes;VS=data.visitas;HS=data.historico;
+      save();
+      renderHome();renderC();updateBadge();
+      toast('✅ Backup restaurado com sucesso!');
+    } catch(err){
+      toast('❌ Erro ao restaurar: '+err.message);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
+
+function limparDados(){
+  localStorage.clear();location.reload();
+}
+
+// ── OFFLINE ───────────────────────────────────────────────────────────────
+function updateOnlineStatus(){
+  var banner=document.getElementById('offline-banner');
+  if(navigator.onLine){banner.classList.remove('show');}
+  else{banner.classList.add('show');}
+}
+window.addEventListener('online',updateOnlineStatus);
+window.addEventListener('offline',updateOnlineStatus);
+updateOnlineStatus();
+
+// Register Service Worker via blob (works from file://)
+if('serviceWorker' in navigator && location.protocol !== 'file:'){
+  navigator.serviceWorker.register('./sw.js')
+    .then(function(reg){ console.log('SW registrado:', reg.scope); })
+    .catch(function(err){ console.log('SW erro (normal em dev):', err); });
+}
+
+// ── NAV ───────────────────────────────────────────────────────────────────
+function nav(id,btn){
+  curScr=id;
+  document.querySelectorAll('.scr').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.ni').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('s-'+id).classList.add('active');
+  var navBtn=btn||document.getElementById('ni-'+id);
+  if(navBtn)navBtn.classList.add('active');
+  document.getElementById('content').scrollTop=0;
+  var hideFab=['mais','rotas'];
+  document.getElementById('fab').style.display=hideFab.indexOf(id)>=0?'none':'';
+  if(id==='home')renderHome();
+  if(id==='clientes')renderC();
+  if(id==='semana')renderSem();
+  if(id==='agenda')renderA();
+  if(id==='historico')renderHist();
+  if(id==='rotas'){renderRotas();initMap();if(mapInst){mapInst.invalidateSize();renderMapMarkers();}}
+  if(id==='mais'){renderMais();}
+}
+function goDet(cid){
+  currentDetId=cid;
+  curScr='det';
+  document.querySelectorAll('.scr').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('s-det').classList.add('active');
+  document.getElementById('fab').style.display='none';
+  renderDet(cid);
+  document.getElementById('content').scrollTop=0;
+}
+function goBack(){nav('clientes',document.getElementById('ni-clientes'));}
+function fabAct(){if(curScr==='agenda'||curScr==='semana')openV();else openC();}
+function clearDateFilter(){
+  document.getElementById('agenda-de').value='';
+  document.getElementById('agenda-ate').value='';
+  renderA();
+}
+
+// ── ENTRADA POR VOZ (Web Speech API) ─────────────────────────────────────
+// Dita texto direto num campo de observação. Funciona em Chrome/Edge/Safari
+// (inclui iOS 14.5+); indisponível em navegadores sem suporte (ex.: Firefox).
+var _recog=null,_recogTarget=null;
+function voiceInput(fieldId,btn){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){toast('🎙️ Ditado por voz não é suportado neste navegador');return;}
+  if(_recog&&_recogTarget===fieldId){_recog.stop();return;} // toque de novo = parar
+  if(_recog)_recog.stop();
+  var el=document.getElementById(fieldId);
+  _recog=new SR();
+  _recogTarget=fieldId;
+  _recog.lang='pt-BR';
+  _recog.interimResults=false;
+  _recog.maxAlternatives=1;
+  btn.classList.add('recording');btn.textContent='⏹';
+  toast('🎙️ Ouvindo…',8000);
+  _recog.onresult=function(e){
+    var txt=e.results[0][0].transcript;
+    el.value=(el.value.trim()?el.value.trim()+' ':'')+txt;
+  };
+  _recog.onerror=function(e){
+    if(e.error==='not-allowed'||e.error==='service-not-allowed')toast('❌ Permissão de microfone negada');
+    else if(e.error!=='no-speech'&&e.error!=='aborted')toast('❌ Erro no reconhecimento de voz');
+  };
+  _recog.onend=function(){
+    btn.classList.remove('recording');btn.textContent='🎙️';
+    _recog=null;_recogTarget=null;
+  };
+  try{_recog.start();}catch(e){btn.classList.remove('recording');btn.textContent='🎙️';}
+}
+
+// ── RASTREAMENTO DE KM POR GPS ───────────────────────────────────────────
+// Soma a distância percorrida em tempo real (watchPosition) enquanto o
+// representante dirige até o cliente. Continua rodando mesmo se a gaveta
+// de Registrar Visita for fechada — o banner no topo mostra o progresso e
+// reabre a gaveta ao ser tocado. Ao parar, preenche "Km rodados".
+var _trkWatch=null,_trkKm=0,_trkLast=null;
+function trkToggle(){
+  if(_trkWatch){trkStop();return;}
+  if(!navigator.geolocation){toast('GPS não disponível');return;}
+  _trkKm=0;_trkLast=null;
+  toast('🎯 Rastreamento iniciado — pode fechar esta tela e continuar dirigindo');
+  _trkWatch=navigator.geolocation.watchPosition(function(p){
+    var lat=p.coords.latitude,lng=p.coords.longitude;
+    if(_trkLast){
+      var d=dist(_trkLast.lat,_trkLast.lng,lat,lng);
+      // ignora ruído de GPS parado (<10m) e saltos implausíveis (>5km entre leituras)
+      if(d>0.01&&d<5)_trkKm+=d;
+    }
+    _trkLast={lat:lat,lng:lng};
+    trkUpdateUI();
+  },function(){
+    toast('⚠️ Sinal de GPS perdido — rastreamento pausado');
+  },{enableHighAccuracy:true,maximumAge:2000,timeout:15000});
+  trkUpdateUI();
+}
+function trkStop(){
+  if(_trkWatch){navigator.geolocation.clearWatch(_trkWatch);_trkWatch=null;}
+  var km=_trkKm;
+  var kmEl=document.getElementById('r-km');
+  if(kmEl)kmEl.value=km.toFixed(1);
+  trkUpdateUI();
+  toast('🏁 Rastreamento finalizado: '+km.toFixed(1)+' km');
+}
+function trkOpen(){
+  openReg();
+}
+function trkUpdateUI(){
+  var btn=document.getElementById('trk-btn');
+  var lbl=document.getElementById('trk-lbl');
+  var banner=document.getElementById('track-banner');
+  var bTxt=document.getElementById('track-banner-txt');
+  var active=!!_trkWatch;
+  if(banner){
+    banner.classList.toggle('show',active);
+    if(bTxt)bTxt.textContent='Rastreando '+_trkKm.toFixed(1)+' km';
+  }
+  if(!btn)return;
+  if(active){
+    btn.textContent='⏹ Parar rastreamento ('+_trkKm.toFixed(1)+' km)';
+    btn.classList.add('on');
+    if(lbl){lbl.style.display='';lbl.textContent=_trkKm.toFixed(2)+' km percorridos até agora';}
+  } else {
+    btn.textContent='🎯 Rastrear km por GPS';
+    btn.classList.remove('on');
+    if(lbl)lbl.style.display='none';
+  }
+}
+
+// ── DRAWERS ───────────────────────────────────────────────────────────────
+function openDW(id){document.getElementById(id).classList.add('open');}
+function closeDW(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.ov').forEach(function(o){
+  o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open');});
+});
+
+function openC(cid){
+  var c=cid?gC(cid):null;
+  document.getElementById('dw-c-t').textContent=c?'Editar Cliente':'Novo Cliente';
+  ['c-id','c-n','c-prop','c-ci','c-co','c-t','c-loc','c-area','c-lat','c-lng','c-o','c-cult'].forEach(function(id){document.getElementById(id).value='';});
+  if(c){
+    document.getElementById('c-id').value=c.id||'';
+    document.getElementById('c-n').value=c.nome||'';
+    document.getElementById('c-prop').value=c.prop||'';
+    document.getElementById('c-ci').value=c.cidade||'';
+    document.getElementById('c-co').value=c.contato||'';
+    document.getElementById('c-t').value=c.tel||'';
+    document.getElementById('c-p').value=c.pri||'B';
+    document.getElementById('c-f').value=c.freq||30;
+    document.getElementById('c-loc').value=c.loc||'';
+    document.getElementById('c-area').value=c.area||'';
+    document.getElementById('c-cult').value=c.cult||'';
+    document.getElementById('c-lat').value=c.lat||'';
+    document.getElementById('c-lng').value=c.lng||'';
+    document.getElementById('c-o').value=c.obs||'';
+  } else {
+    document.getElementById('c-p').value='B';
+    document.getElementById('c-f').value=30;
+  }
+  openDW('dw-c');
+}
+function geoLoc(){
+  if(!navigator.geolocation){toast('GPS não disponível');return;}
+  toast('📍 Obtendo localização…',6000);
+  navigator.geolocation.getCurrentPosition(
+    function(p){document.getElementById('c-lat').value=p.coords.latitude.toFixed(6);document.getElementById('c-lng').value=p.coords.longitude.toFixed(6);toast('📍 Localização capturada!');},
+    function(){toast('❌ Não foi possível obter localização');},
+    {enableHighAccuracy:true,timeout:10000,maximumAge:0}
+  );
+}
+function saveC(){
+  var nome=document.getElementById('c-n').value.trim();
+  var cidade=document.getElementById('c-ci').value.trim();
+  if(!nome||!cidade){toast('⚠️ Nome e cidade obrigatórios');return;}
+  var id=document.getElementById('c-id').value;
+  var obj={
+    nome:nome,prop:document.getElementById('c-prop').value.trim(),
+    cidade:cidade,contato:document.getElementById('c-co').value.trim(),
+    tel:document.getElementById('c-t').value.trim(),
+    pri:document.getElementById('c-p').value,
+    freq:parseInt(document.getElementById('c-f').value),
+    loc:document.getElementById('c-loc').value.trim(),
+    area:parseFloat(document.getElementById('c-area').value)||0,
+    cult:document.getElementById('c-cult').value,
+    lat:parseFloat(document.getElementById('c-lat').value)||null,
+    lng:parseFloat(document.getElementById('c-lng').value)||null,
+    obs:document.getElementById('c-o').value.trim()
+  };
+  if(id){var i=CL.findIndex(function(c){return c.id==id;});CL[i]=Object.assign({},CL[i],obj);toast('✅ Cliente atualizado');}
+  else{obj.id=nid(CL);obj.uv=null;CL.push(obj);toast('✅ Cliente cadastrado');}
+  save();closeDW('dw-c');
+  if(curScr==='clientes')renderC();
+  renderHome();updateBadge();
+}
+function delC(id){
+  if(!confirm('Excluir este cliente e todo histórico?'))return;
+  CL=CL.filter(function(c){return c.id!==id;});
+  VS=VS.filter(function(v){return v.cid!==id;});
+  HS=HS.filter(function(h){return h.cid!==id;});
+  save();goBack();toast('🗑 Cliente excluído');
+}
+function openV(cid,dt){
+  popSel('v-c',cid);
+  if(cid)document.getElementById('v-prop').value=gC(cid).prop||'';
+  else document.getElementById('v-prop').value='';
+  document.getElementById('v-d').value=dt||hoje();
+  document.getElementById('v-h').value='08:00';
+  document.getElementById('v-o').value='';
+  document.getElementById('v-km').value='';
+  document.getElementById('v-dur').value='2';
+  openDW('dw-v');
+}
+function saveV(){
+  var cid=parseInt(document.getElementById('v-c').value);
+  var dt=document.getElementById('v-d').value;
+  if(!cid||!dt){toast('⚠️ Selecione cliente e data');return;}
+  VS.push({id:nid(VS),cid:cid,prop:document.getElementById('v-prop').value.trim(),dt:dt,hr:document.getElementById('v-h').value,obj:document.getElementById('v-o').value.trim(),km:parseFloat(document.getElementById('v-km').value)||0,dur:parseFloat(document.getElementById('v-dur').value)||2,st:'pend'});
+  save();closeDW('dw-v');
+  if(curScr==='agenda')renderA();
+  if(curScr==='semana')renderSem();
+  updateBadge();toast('📅 Visita agendada');
+}
+function delV(id){
+  VS=VS.filter(function(v){return v.id!==id;});
+  save();renderA();renderSem();updateBadge();toast('🗑 Removida');
+}
+function confV(id){
+  var v=VS.find(function(x){return x.id===id;});if(!v)return;
+  v.st='done';
+  HS.push({id:nid(HS),cid:v.cid,prop:v.prop,dt:v.dt,st:'realizada',km:v.km||0,dur:v.dur||0,obs:v.obj||''});
+  var c=CL.find(function(x){return x.id===v.cid;});
+  if(c&&(!c.uv||v.dt>c.uv))c.uv=v.dt;
+  save();
+  if(curScr==='agenda')renderA();
+  if(curScr==='semana')renderSem();
+  renderHome();updateBadge();toast('✅ Visita confirmada!');
+}
+function openReg(cid){
+  popSel('r-c',cid);
+  if(cid)document.getElementById('r-prop').value=gC(cid).prop||'';
+  else document.getElementById('r-prop').value='';
+  document.getElementById('r-d').value=hoje();
+  document.getElementById('r-s').value='realizada';
+  document.getElementById('r-o').value='';
+  if(!_trkWatch)document.getElementById('r-km').value='';
+  document.getElementById('r-dur').value='2';
+  trkUpdateUI();
+  openDW('dw-r');
+}
+function saveR(){
+  var cid=parseInt(document.getElementById('r-c').value);
+  var dt=document.getElementById('r-d').value;
+  var st=document.getElementById('r-s').value;
+  if(!cid||!dt){toast('⚠️ Selecione cliente e data');return;}
+  HS.push({id:nid(HS),cid:cid,prop:document.getElementById('r-prop').value.trim(),dt:dt,st:st,km:parseFloat(document.getElementById('r-km').value)||0,dur:parseFloat(document.getElementById('r-dur').value)||0,obs:document.getElementById('r-o').value.trim()});
+  if(st==='realizada'){var c=CL.find(function(x){return x.id===cid;});if(c&&(!c.uv||dt>c.uv))c.uv=dt;}
+  save();closeDW('dw-r');renderHome();
+  if(curScr==='semana')renderSem();
+  if(curScr==='historico')renderHist();
+  updateBadge();toast('✅ Visita registrada');
+}
+function openSearch(){
+  document.getElementById('sq').value='';
+  document.getElementById('sr').innerHTML='';
+  openDW('dw-s');
+  setTimeout(function(){document.getElementById('sq').focus();},250);
+}
+function renderS(){
+  var q=document.getElementById('sq').value.toLowerCase().trim();
+  var sr=document.getElementById('sr');
+  if(!q){sr.innerHTML='';return;}
+  var f=CL.filter(function(c){return c.nome.toLowerCase().includes(q)||c.cidade.toLowerCase().includes(q)||(c.prop||'').toLowerCase().includes(q)||(c.contato||'').toLowerCase().includes(q);});
+  if(!f.length){sr.innerHTML='<p style="color:var(--ink2);text-align:center;padding:20px;font-size:13px">Nenhum resultado</p>';return;}
+  sr.innerHTML=f.map(function(c){
+    return '<div class="li" onclick="closeDW(\'dw-s\');goDet('+c.id+')"><div class="av '+c.pri+'">'+c.pri+'</div><div class="lm"><div class="ln">'+c.nome+'</div><div class="ls">'+(c.prop||c.cidade)+'</div></div><span class="chev">›</span></div>';
+  }).join('');
+}
+
+// ── HOME / GERENCIAL ──────────────────────────────────────────────────────
+function renderHome(){
+  var h=hoje();var now=new Date();var mes=now.getMonth();var ano=now.getFullYear();
+  var hr=now.getHours();
+  var MESES_=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  var DIAS_=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+  document.getElementById('hero-date').textContent=DIAS_[now.getDay()]+', '+now.getDate()+' de '+MESES_[mes];
+  var sauda=hr<12?'Bom dia.':hr<18?'Boa tarde.':'Boa noite.';
+  document.getElementById('hero-greeting').innerHTML=sauda;
+  var late=CL.filter(function(c){return stC(c)==='late';});
+  var warn_=CL.filter(function(c){return stC(c)==='warn';});
+  var ok_=CL.filter(function(c){return stC(c)==='ok';});
+  var vMesReal=HS.filter(function(x){var d=new Date(x.dt);return d.getMonth()===mes&&d.getFullYear()===ano&&x.st==='realizada';}).length;
+  var vMesPlan=VS.filter(function(x){var d=new Date(x.dt);return d.getMonth()===mes&&d.getFullYear()===ano;}).length;
+  var kmMes=HS.filter(function(x){var d=new Date(x.dt);return d.getMonth()===mes&&d.getFullYear()===ano&&x.st==='realizada';}).reduce(function(s,x){return s+(x.km||0);},0);
+  document.getElementById('hero-sub').textContent=CL.length+' clientes · '+MESES_[mes]+' de '+ano;
+  document.getElementById('hero-alert').innerHTML=late.length?'<div style="background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.2);border-radius:8px;padding:8px 12px;margin-bottom:16px;font-size:12px;color:#FCA5A5;display:flex;align-items:center;gap:8px"><span>⚠</span><span>'+late.length+' cliente(s) com visita em atraso</span></div>':'';
+  var hoje2=hoje();
+  var visitasHoje=VS.filter(function(v){return v.dt===hoje2&&v.st==='pend';}).length;
+  var bigNum=late.length>0?late.length:visitasHoje;
+  var bigLabel=late.length>0?'atrasado'+(late.length!==1?'s':''):visitasHoje+' visita'+(visitasHoje!==1?'s':'')+' hoje';
+  var bigColor=late.length>0?'red':'';
+  var pct=vMesPlan>0?Math.min(100,Math.round(vMesReal/vMesPlan*100)):0;
+  document.getElementById('hero-big').innerHTML='<div class="big-num '+bigColor+'">'+bigNum+'</div><div class="big-context"><div class="big-label">'+bigLabel+'</div><div class="big-sublabel">'+pct+'% do mês cumprido</div></div>';
+  document.getElementById('hero-metrics').innerHTML='<div class="hm"><div class="hm-val g">'+ok_.length+'</div><div class="hm-lbl">Em dia</div></div><div class="hm"><div class="hm-val r">'+late.length+'</div><div class="hm-lbl">Atrasados</div></div><div class="hm"><div class="hm-val a">'+warn_.length+'</div><div class="hm-lbl">Atenção</div></div>';
+  var r_=22;var circ_=2*Math.PI*r_;var dash_=circ_*(pct/100);
+  var cor_=pct>=80?'var(--green)':pct>=50?'var(--amber)':'var(--red)';
+  var pA_=CL.filter(function(c){return c.pri==='A';});var pB_=CL.filter(function(c){return c.pri==='B';});var pC_=CL.filter(function(c){return c.pri==='C';});
+  var okA_=pA_.filter(function(c){return stC(c)==='ok';}).length;var okB_=pB_.filter(function(c){return stC(c)==='ok';}).length;var okC_=pC_.filter(function(c){return stC(c)==='ok';}).length;
+  document.getElementById('perf-strip').innerHTML='<div class="perf-ring"><svg viewBox="0 0 52 52"><circle class="pr-bg" cx="26" cy="26" r="'+r_+'"/><circle class="pr-fill" cx="26" cy="26" r="'+r_+'" stroke="'+cor_+'" stroke-dasharray="'+circ_+'" stroke-dashoffset="'+(circ_-dash_)+'"/></svg><div class="pr-label">'+pct+'%</div></div><div class="perf-info"><div class="perf-title">Visitas de '+MESES_[mes]+' — '+vMesReal+' de '+vMesPlan+'</div><div class="perf-bars"><div class="pbar"><div class="pbar-lbl">A</div><div class="pbar-track"><div class="pbar-fill" style="width:'+(pA_.length?okA_/pA_.length*100:0)+'%;background:var(--black)"></div></div><div class="pbar-val">'+okA_+'/'+pA_.length+'</div></div><div class="pbar"><div class="pbar-lbl">B</div><div class="pbar-track"><div class="pbar-fill" style="width:'+(pB_.length?okB_/pB_.length*100:0)+'%;background:var(--gray-500)"></div></div><div class="pbar-val">'+okB_+'/'+pB_.length+'</div></div><div class="pbar"><div class="pbar-lbl">C</div><div class="pbar-track"><div class="pbar-fill" style="width:'+(pC_.length?okC_/pC_.length*100:0)+'%;background:var(--gray-300)"></div></div><div class="pbar-val">'+okC_+'/'+pC_.length+'</div></div></div></div>';
+  var areaTotal=CL.reduce(function(s,c){return s+(c.area||0);},0);
+  document.getElementById('qs-row').innerHTML='<div class="qs"><div class="qs-val">'+vMesReal+'</div><div class="qs-lbl">Visitas</div></div><div class="qs"><div class="qs-val">'+kmMes+'</div><div class="qs-lbl">Km</div></div><div class="qs"><div class="qs-val">'+areaTotal.toLocaleString('pt-BR')+'</div><div class="qs-lbl">Hectares</div></div><div class="qs"><div class="qs-val">'+CL.length+'</div><div class="qs-lbl">Clientes</div></div>';
+  var atencao=CL.filter(function(c){return stC(c)==='late'||stC(c)==='warn';}).sort(function(a,b){return dD(a.uv)-dD(b.uv);}).slice(0,6);
+  document.getElementById('dash-atencao').innerHTML=atencao.length?atencao.map(function(c){var st2=stC(c);var dias_=dD(c.uv);var tag_=st2==='late'?(dias_-c.freq)+'d atraso':'Atenção';var tc=st2==='late'?'red':'amber';return '<div class="action-row" onclick="goDet('+c.id+')"><div class="ar-icon '+tc+'">'+c.pri+'</div><div class="ar-body"><div class="ar-name">'+c.nome+'</div><div class="ar-sub">'+(c.prop||c.cidade)+' · última: '+(fDFull(c.uv)||'nunca')+'</div></div><div class="ar-right"><span class="ar-tag '+tc+'">'+tag_+'</span></div></div>';}).join(''):'<div class="action-row"><div class="ar-body"><div class="ar-name" style="color:var(--green)">Todos em dia ✓</div><div class="ar-sub">Nenhum cliente com visita atrasada</div></div></div>';
+  var em7=new Date();em7.setDate(em7.getDate()+7);
+  var prox=VS.filter(function(v){var d=new Date(v.dt);return d>=new Date()&&d<=em7&&v.st==='pend';}).sort(function(a,b){return a.dt>b.dt?1:-1;}).slice(0,5);
+  document.getElementById('dash-prox').innerHTML=prox.length?prox.map(function(v){var c=gC(v.cid);var isHj=v.dt===h;return '<div class="action-row" onclick="goDet('+c.id+')"><div class="ar-icon '+(isHj?'green':'gray')+'">📅</div><div class="ar-body"><div class="ar-name">'+c.nome+'</div><div class="ar-sub">'+(v.prop||c.cidade)+' · '+v.hr+'</div></div><div class="ar-right"><span class="ar-tag '+(isHj?'green':'gray')+'">'+(isHj?'Hoje':fD(v.dt))+'</span></div></div>';}).join(''):'<div class="action-row"><div class="ar-body"><div class="ar-name" style="color:var(--text3)">Nenhuma visita nos próximos 7 dias</div></div></div>';
+}
+
+// ── CLIENTES ──────────────────────────────────────────────────────────────
+function setF(btn){document.querySelectorAll('#s-clientes .fp').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');document.getElementById('cf').value=btn.dataset.f;renderC();}
+function renderC(){
+  var q=(document.getElementById('bq').value||'').toLowerCase();
+  var f=document.getElementById('cf').value||'';
+  var l=CL.filter(function(c){
+    var mq=!q||c.nome.toLowerCase().includes(q)||c.cidade.toLowerCase().includes(q)||(c.prop||'').toLowerCase().includes(q)||(c.contato||'').toLowerCase().includes(q);
+    var mf=!f||(f==='late'?stC(c)==='late':c.pri===f);
+    return mq&&mf;
+  }).sort(function(a,b){var o={A:0,B:1,C:2};return o[a.pri]-o[b.pri]||a.nome.localeCompare(b.nome);});
+  var el=document.getElementById('lista-c');
+  el.innerHTML=l.length?l.map(function(c){
+    return '<div class="li" onclick="goDet('+c.id+')"><div class="av '+c.pri+'">'+c.pri+'</div><div class="lm"><div class="ln">'+c.nome+'</div><div class="ls">'+(c.prop||'—')+' · '+c.cidade+'</div></div>'+chipSt(stC(c))+'<span class="chev">›</span></div>';
+  }).join(''):'<div class="empty"><div class="ei">👥</div><p>Nenhum cliente encontrado.</p></div>';
+}
+
+// ── DETALHE ───────────────────────────────────────────────────────────────
+function renderDet(id){
+  var c=gC(id);var st=stC(c);
+  var sc={ok:'#86EFAC',warn:'#FCD34D',late:'#FCA5A5'};var sl={ok:'Em dia',warn:'Atenção',late:'Atrasado'};
+  document.getElementById('det-head').innerHTML=
+    '<div class="dh">'+
+    '<button class="dbk" onclick="goBack()">‹ Clientes</button>'+
+    '<div class="dname">'+c.nome+'</div>'+
+    '<div class="dsub">'+(c.prop||'—')+' · '+c.cidade+'</div>'+
+    '<div class="dbadges">'+
+    '<span class="badge gd">Prior. '+c.pri+'</span>'+
+    '<span class="badge">Freq: '+c.freq+'d</span>'+
+    '<span class="badge" style="color:'+sc[st]+'">'+sl[st]+'</span>'+
+    (c.area?'<span class="badge">'+c.area+' ha</span>':'')+
+    (c.cult?'<span class="badge">'+c.cult+'</span>':'')+
+    '</div></div>';
+  var infoHtml='<div class="info-row">';
+  if(c.tel)infoHtml+='<span class="info-tag">📞 '+c.tel+'</span>';
+  if(c.loc)infoHtml+='<span class="info-tag">📍 '+c.loc+'</span>';
+  if(c.lat!=null)infoHtml+='<span class="info-tag">🌐 '+c.lat.toFixed(3)+', '+c.lng.toFixed(3)+'</span>';
+  infoHtml+='</div>';
+  if(c.obs)infoHtml+='<div style="padding:4px 16px 8px;font-size:13px;color:var(--ink2);line-height:1.5">'+c.obs+'</div>';
+  document.getElementById('det-info').innerHTML=infoHtml;
+
+  var acts='<button class="atile" onclick="openReg('+id+')"><span class="ti">✅</span><span class="tl">Registrar Visita</span><span class="ts">Marcar realizada</span></button>';
+  acts+='<button class="atile" onclick="openV('+id+')"><span class="ti">📅</span><span class="tl">Agendar Visita</span><span class="ts">Nova visita</span></button>';
+  acts+='<button class="atile" onclick="openC('+id+')"><span class="ti">✏️</span><span class="tl">Editar Cadastro</span><span class="ts">Dados e fazenda</span></button>';
+  if(c.tel){
+    acts+='<button class="atile" onclick="location.href=\'tel:'+c.tel+'\'"><span class="ti">📞</span><span class="tl">Ligar</span><span class="ts">'+c.tel+'</span></button>';
+  } else {
+    acts+='<button class="atile" onclick="toast(\'Sem telefone cadastrado\')"><span class="ti">📞</span><span class="tl">Ligar</span><span class="ts">Sem telefone</span></button>';
+  }
+  document.getElementById('det-acts').innerHTML=acts;
+  renderDetHist(id);
+}
+function renderDetHist(id){
+  var de=document.getElementById('det-de').value;
+  var ate=document.getElementById('det-ate').value;
+  var ch=HS.filter(function(h){
+    if(h.cid!==id)return false;
+    if(de&&h.dt<de)return false;
+    if(ate&&h.dt>ate)return false;
+    return true;
+  }).sort(function(a,b){return a.dt<b.dt?1:-1;});
+  var el=document.getElementById('det-hist');
+  if(!ch.length){el.innerHTML='<div class="empty" style="padding:20px"><div class="ei">📋</div><p>Nenhuma visita no período.</p></div>';return;}
+  el.innerHTML='<div class="tl-wrap">'+ch.map(function(h,i){
+    var cls=h.st==='realizada'?'done':'skip';
+    var lineHtml=i<ch.length-1?'<div class="tline"></div>':'';
+    var propHtml=h.prop?'<strong>'+h.prop+'</strong><br>':'';
+    var obsHtml=h.obs||'<span style="color:var(--ink2)">Sem observações</span>';
+    var kmHtml=h.km?' · '+h.km+'km':'';
+    return '<div class="tli"><div class="tdw"><div class="td '+cls+'"></div>'+lineHtml+'</div><div class="tb"><div class="tdate">'+fDFull(h.dt)+' · <span class="chip '+cls+'">'+h.st+'</span>'+kmHtml+'</div><div class="ttxt">'+propHtml+obsHtml+'</div></div></div>';
+  }).join('')+'</div>'+
+  '<div style="padding:14px"><button class="btn btn-g btn-full btn-sm" onclick="delC('+id+')" style="color:var(--red);border:1.5px solid var(--red)">🗑 Excluir cliente</button></div>';
+}
+
+// ── SEMANA ────────────────────────────────────────────────────────────────
+function semOff(n){_semOff+=n;renderSem();}
+function renderSem(){
+  var dias=semDias(_semOff);var h=hoje();
+  document.getElementById('semana-lbl').textContent=fDFull(dias[0])+' – '+fDFull(dias[6]);
+  document.getElementById('week-strip').innerHTML=dias.map(function(dt,i){
+    var v=VS.filter(function(x){return x.dt===dt&&x.st==='pend';}).length;
+    return '<div class="wday"><div class="wd-lbl">'+DNOMES[i]+'</div><div class="wd-num '+(dt===h?'today':v?'has':'')+'">'+(dt.slice(8))+'</div>'+(v?'<div class="wd-dot"></div>':'<div style="height:6px"></div>')+'</div>';
+  }).join('');
+  var vsem=VS.filter(function(v){return v.dt>=dias[0]&&v.dt<=dias[6];});
+  var hsem=HS.filter(function(h2){return h2.dt>=dias[0]&&h2.dt<=dias[6]&&h2.st==='realizada';});
+  var kmSem=vsem.reduce(function(s,v){return s+(v.km||0);},0);
+  var durSem=vsem.reduce(function(s,v){return s+(v.dur||0);},0);
+  document.getElementById('sem-stats').innerHTML=
+    '<div class="stat-card"><div class="sv" style="color:var(--blue)">'+vsem.length+'</div><div class="sl2">Planejadas</div></div>'+
+    '<div class="stat-card"><div class="sv" style="color:var(--g5)">'+hsem.length+'</div><div class="sl2">Realizadas</div></div>'+
+    '<div class="stat-card"><div class="sv" style="color:var(--gold)">'+kmSem+'</div><div class="sl2">Km est.</div></div>'+
+    '<div class="stat-card"><div class="sv" style="color:var(--amb)">'+durSem+'h</div><div class="sl2">Horas est.</div></div>';
+  document.getElementById('sem-days').innerHTML=dias.map(function(dt,i){
+    var vd=VS.filter(function(v){return v.dt===dt;}).sort(function(a,b){return a.hr>b.hr?1:-1;});
+    var isH=dt===h;var isPast=dt<h;
+    var headCls=isH?'today-h':isPast?'past':'def';
+    var kmTot=vd.reduce(function(s,v){return s+(v.km||0);},0);
+    var slotsHtml=vd.map(function(v){
+      var c=gC(v.cid);
+      var stChip=v.st==='done'?'<span class="chip done">✓</span>':v.dt<h?'<span class="chip late">Atraso</span>':'<span class="chip plan">Plan.</span>';
+      var kmSpan=v.km?'<span style="font-size:10px;color:var(--ink2)">'+v.km+'km</span>':'';
+      return '<div class="pw-slot"><div class="av '+(c.pri||'C')+'" style="width:32px;height:32px;font-size:11px">'+(c.pri||'?')+'</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+(c.nome||'—')+'</div><div style="font-size:11px;color:var(--ink2)">'+(v.hr||'—')+' · '+(v.prop||c.cidade||'')+'</div></div><div style="display:flex;flex-direction:column;gap:3px;align-items:flex-end">'+stChip+kmSpan+'</div></div>';
+    }).join('');
+    return '<div class="pw-card"><div class="pw-head '+headCls+'"><span class="pw-day-name">'+(isH?'🟡 ':'')+DNOMES[i]+'</span><span class="pw-day-date">'+fDFull(dt)+(vd.length?' · '+vd.length+'v':'')+(kmTot?' · '+kmTot+'km':'')+'</span></div><div class="pw-body">'+slotsHtml+'<div class="pw-add" onclick="openV(null,\''+dt+'\')"><span style="font-size:18px;color:var(--g4)">＋</span><span>Adicionar visita</span></div></div></div>';
+  }).join('');
+}
+
+// ── AGENDA ────────────────────────────────────────────────────────────────
+function setFA(btn){document.querySelectorAll('#s-agenda .fp').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');document.getElementById('af').value=btn.dataset.f;renderA();}
+function renderA(){
+  var f=document.getElementById('af').value||'fut';
+  var h=hoje();
+  var de=document.getElementById('agenda-de').value;
+  var ate=document.getElementById('agenda-ate').value;
+  var l=VS.filter(function(v){
+    if(f==='hj'&&(v.dt!==h||v.st!=='pend'))return false;
+    if(f==='fut'&&(v.dt<h||v.st!=='pend'))return false;
+    if(f==='lat'&&(v.dt>=h||v.st!=='pend'))return false;
+    if(de&&v.dt<de)return false;
+    if(ate&&v.dt>ate)return false;
+    return true;
+  }).sort(function(a,b){return a.dt>b.dt?1:-1;});
+  var el=document.getElementById('lista-a');
+  if(!l.length){el.innerHTML='<div class="empty"><div class="ei">📅</div><p>Nenhuma visita.<br>Use ＋ para agendar.</p></div>';return;}
+  var gr={};l.forEach(function(v){if(!gr[v.dt])gr[v.dt]=[];gr[v.dt].push(v);});
+  el.innerHTML=Object.entries(gr).map(function(entry){
+    var dt=entry[0];var vl=entry[1];
+    var prefix=dt===h?'🟡 HOJE — ':dt<h?'⚠️ PASSADO — ':'';
+    var cardsHtml=vl.map(function(v){
+      var c=gC(v.cid);
+      var late=dt<h&&v.st==='pend';var isH2=dt===h;
+      var cardCls=late?'late':isH2?'today':'planned';
+      var timeCls=late?'late':isH2?'today':v.st==='done'?'done':'def';
+      var objHtml=v.obj?'<div style="padding:0 14px 8px;font-size:12px;color:var(--ink2)">'+v.obj+'</div>':'';
+      var actBtn=v.st==='pend'?'<button class="btn btn-p btn-sm" onclick="confV('+v.id+')">✓ Realizada</button>':'<span class="chip done">Realizada</span>';
+      return '<div class="acard '+cardCls+'"><div class="acinner"><div class="atime '+timeCls+'">'+(v.hr||'—')+'</div><div class="ainfo"><div class="aname">'+(c.nome||'—')+'</div><div class="ameta">'+(v.prop||c.prop||'')+' · '+(c.cidade||'')+(v.km?' · '+v.km+'km':'')+'</div></div><div class="av '+(c.pri||'C')+'" style="width:26px;height:26px;font-size:10px">'+(c.pri||'?')+'</div></div>'+objHtml+'<div class="aacts">'+actBtn+'<button class="btn btn-g btn-sm" onclick="goDet('+c.id+')">Ver cliente</button><button class="btn btn-g btn-sm" onclick="if(confirm(\'Remover?\'))delV('+v.id+')" style="color:var(--red)">🗑</button></div></div>';
+    }).join('');
+    return '<div class="adh">'+prefix+fDFull(dt)+'</div>'+cardsHtml;
+  }).join('');
+}
+
+// ── HISTÓRICO GERAL ───────────────────────────────────────────────────────
+function setFH(btn){document.querySelectorAll('#s-historico .fp').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');document.getElementById('hf').value=btn.dataset.f;renderHist();}
+function renderHist(){
+  var q=(document.getElementById('hq').value||'').toLowerCase();
+  var f=document.getElementById('hf').value||'';
+  var de=document.getElementById('hist-de').value;
+  var ate=document.getElementById('hist-ate').value;
+  var l=HS.filter(function(h){
+    var c=gC(h.cid);
+    var mq=!q||(c.nome||'').toLowerCase().includes(q)||(h.obs||'').toLowerCase().includes(q)||(h.prop||'').toLowerCase().includes(q);
+    var mf=!f||h.st===f;
+    if(de&&h.dt<de)return false;
+    if(ate&&h.dt>ate)return false;
+    return mq&&mf;
+  }).sort(function(a,b){return a.dt<b.dt?1:-1;});
+  var el=document.getElementById('lista-hist');
+  if(!l.length){el.innerHTML='<div class="empty"><div class="ei">📋</div><p>Nenhuma visita encontrada.</p></div>';return;}
+  el.innerHTML=l.map(function(h){
+    var c=gC(h.cid);
+    var cls=h.st==='realizada'?'done':'skip';
+    return '<div class="li" onclick="goDet('+c.id+')">'+
+      '<div class="av '+(c.pri||'C')+'">'+(c.pri||'?')+'</div>'+
+      '<div class="lm">'+
+      '<div class="ln">'+c.nome+'</div>'+
+      '<div class="ls">'+fDFull(h.dt)+' · '+(h.prop||c.cidade||'')+(h.km?' · '+h.km+'km':'')+'</div>'+
+      '</div>'+
+      '<span class="chip '+cls+'">'+h.st+'</span>'+
+      '<span class="chev">›</span></div>';
+  }).join('');
+}
+
+// ── ROTAS ─────────────────────────────────────────────────────────────────
+var mapInst=null;
+function initMap(){
+  if(mapInst)return;
+  if(window._noMap){document.getElementById('map').innerHTML='<div style="padding:20px;text-align:center;color:var(--ink2);font-size:13px">Mapa requer conexão com internet.</div>';return;}
+  try{
+    mapInst=L.map('map',{zoomControl:true});
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(mapInst);
+    setTimeout(function(){mapInst.invalidateSize();renderMapMarkers();},200);
+  } catch(e){document.getElementById('map').innerHTML='<div style="padding:20px;text-align:center;color:var(--ink2);font-size:13px">Erro ao carregar mapa.</div>';}
+}
+function renderMapMarkers(){
+  if(!mapInst)return;
+  mapInst.eachLayer(function(l){if(l instanceof L.Marker||l instanceof L.Polyline)mapInst.removeLayer(l);});
+  var comLoc=CL.filter(function(c){return c.lat&&c.lng;});
+  if(!comLoc.length)return;
+  var cor={A:'#DC2626',B:'#D97706',C:'#64748B'};
+  comLoc.forEach(function(c){
+    var ic=L.divIcon({html:'<div style="background:'+cor[c.pri]+';color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3)">'+c.pri+'</div>',className:'',iconSize:[28,28],iconAnchor:[14,14]});
+    L.marker([c.lat,c.lng],{icon:ic}).addTo(mapInst).bindPopup('<strong>'+c.nome+'</strong><br>'+(c.prop||'')+(c.area?' · '+c.area+' ha':''));
+  });
+  mapInst.fitBounds(L.latLngBounds(comLoc.map(function(c){return[c.lat,c.lng];})),{padding:[20,20]});
+}
+function renderRotas(){
+  var semLoc=CL.filter(function(c){return !c.lat||!c.lng;});
+  document.getElementById('sem-loc').innerHTML=semLoc.length
+    ?semLoc.map(function(c){return '<div class="li" onclick="openC('+c.id+')"><div class="av '+c.pri+'">'+c.pri+'</div><div class="lm"><div class="ln">'+c.nome+'</div><div class="ls">Toque para adicionar localização</div></div><span style="font-size:14px">✏️</span></div>';}).join('')
+    :'<div style="padding:16px;font-size:13px;color:var(--ink2)">✅ Todos os clientes têm localização.</div>';
+}
+function calcRota(){
+  var comLoc=CL.filter(function(c){return c.lat&&c.lng;});
+  if(comLoc.length<2){toast('⚠️ Cadastre localização em pelo menos 2 clientes');return;}
+  var resto=comLoc.slice();
+  var priorA=resto.find(function(c){return c.pri==='A';});
+  var atual=priorA||resto[0];
+  var rota=[atual];
+  resto=resto.filter(function(c){return c.id!==atual.id;});
+  while(resto.length>0){
+    var md=Infinity;var prox=null;
+    resto.forEach(function(c){var d=dist(atual.lat,atual.lng,c.lat,c.lng);if(d<md){md=d;prox=c;}});
+    rota.push(prox);resto=resto.filter(function(c){return c.id!==prox.id;});atual=prox;
+  }
+  var totalKm=0;var trecho=[];
+  for(var i=0;i<rota.length-1;i++){var d=dist(rota[i].lat,rota[i].lng,rota[i+1].lat,rota[i+1].lng);totalKm+=d;trecho.push(d);}
+  var tempoH=(totalKm/80).toFixed(1);
+  if(mapInst){mapInst.eachLayer(function(l){if(l instanceof L.Polyline)mapInst.removeLayer(l);});L.polyline(rota.map(function(c){return[c.lat,c.lng];}),{color:'#1B3A2D',weight:3,opacity:.8,dashArray:'6,4'}).addTo(mapInst);}
+  var rotaRows=rota.map(function(c,i){
+    var distHtml=i<trecho.length?'<div class="route-dist">'+Math.round(trecho[i])+' km →</div>':'<div class="route-dist" style="color:var(--g5)">🏁</div>';
+    return '<div class="route-item"><div class="route-num">'+(i+1)+'</div><div class="route-info"><div style="font-size:13px;font-weight:700">'+c.nome+'</div><div style="font-size:11px;color:var(--ink2)">'+(c.prop||c.cidade)+(c.area?' · '+c.area+' ha':'')+'</div></div>'+distHtml+'</div>';
+  }).join('');
+  // Build Google Maps URL
+  var origin=rota[0].lat+','+rota[0].lng;
+  var dest=rota[rota.length-1].lat+','+rota[rota.length-1].lng;
+  var wps=rota.slice(1,-1).map(function(p){return p.lat+','+p.lng;}).join('|');
+  var gmUrl='https://www.google.com/maps/dir/?api=1&origin='+origin+'&destination='+dest+(wps?'&waypoints='+wps:'');
+  document.getElementById('rota-result').innerHTML=
+    '<div style="padding:14px 16px;background:var(--g1);border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">'+
+    '<div style="text-align:center"><div style="font-size:20px;font-weight:800;color:var(--g7)">'+Math.round(totalKm)+'</div><div style="font-size:10px;color:var(--ink2)">km total</div></div>'+
+    '<div style="text-align:center"><div style="font-size:20px;font-weight:800;color:var(--gold)">'+tempoH+'h</div><div style="font-size:10px;color:var(--ink2)">tempo est.</div></div>'+
+    '<div style="text-align:center"><div style="font-size:20px;font-weight:800;color:var(--blue)">'+rota.length+'</div><div style="font-size:10px;color:var(--ink2)">paradas</div></div></div>'+
+    rotaRows+
+    '<div style="padding:12px 16px"><a href="'+gmUrl+'" target="_blank" class="btn btn-blue btn-full btn-sm">🗺️ Abrir no Google Maps</a></div>';
+}
+
+// ── MAIS ──────────────────────────────────────────────────────────────────
+function renderMais(){
+  updateBackupStatus();
+  var tot=CL.length;var late=CL.filter(function(c){return stC(c)==='late';}).length;
+  var real=HS.filter(function(h){return h.st==='realizada';}).length;
+  var taxa=tot?Math.round((tot-late)/tot*100):0;
+  var kmTotal=HS.reduce(function(s,h){return s+(h.km||0);},0);
+  document.getElementById('mais-res').innerHTML='<div style="padding:16px">'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">'+
+    '<div style="background:var(--g1);border-radius:12px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--g6)">'+tot+'</div><div style="font-size:11px;color:var(--ink2)">Clientes</div></div>'+
+    '<div style="background:#FFFBEB;border-radius:12px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--gold)">'+real+'</div><div style="font-size:11px;color:var(--ink2)">Visitas realizadas</div></div>'+
+    '<div style="background:var(--blue-bg);border-radius:12px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--blue)">'+kmTotal+'</div><div style="font-size:11px;color:var(--ink2)">Km totais</div></div>'+
+    '<div style="background:var(--red-bg);border-radius:12px;padding:12px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--red)">'+late+'</div><div style="font-size:11px;color:var(--ink2)">Atrasados</div></div></div>'+
+    '<div style="margin-bottom:6px;font-size:12px;font-weight:700;display:flex;justify-content:space-between"><span>Taxa em dia</span><span style="color:'+(taxa>70?'var(--g6)':'var(--red)')+'">'+taxa+'%</span></div>'+
+    '<div style="height:7px;background:var(--line);border-radius:4px;overflow:hidden"><div style="height:100%;width:'+taxa+'%;background:'+(taxa>70?'var(--g5)':'var(--red)')+';border-radius:4px"></div></div>'+
+    '</div>';
+}
+
+// ── EXPORT ────────────────────────────────────────────────────────────────
+function expC(){
+  MX.dl([{n:'Clientes',d:CL.map(function(c){return{ID:c.id,Nome:c.nome,Propriedade:c.prop||'',Cidade:c.cidade,Loc_Fazenda:c.loc||'',Area_ha:c.area||0,Cultura:c.cult||'',Contato:c.contato||'',Telefone:c.tel||'',Prioridade:c.pri,Freq_Dias:c.freq,Ultima_Visita:c.uv||'',Status:stC(c),Latitude:c.lat||'',Longitude:c.lng||'',Obs:c.obs||''};})}],'Clientes_AgroClientes.xlsx');
+  toast('📊 Exportado');
+}
+function expH(){
+  MX.dl([{n:'Historico',d:HS.map(function(h){var c=gC(h.cid);return{ID:h.id,id_cliente:h.cid,Data:h.dt,Cliente:c.nome||'',Propriedade:h.prop||'',Cidade:c.cidade||'',Prioridade:c.pri||'',Status:h.st,Km_rodados:h.km||0,Duracao_h:h.dur||0,Obs:h.obs||''};})}],'Historico_AgroClientes.xlsx');
+  toast('📋 Exportado');
+}
+function exportarTudo(){
+  var cd=CL.map(function(c){return{ID:c.id,Nome:c.nome,Propriedade:c.prop||'',Cidade:c.cidade,Loc_Fazenda:c.loc||'',Area_ha:c.area||0,Cultura:c.cult||'',Contato:c.contato||'',Telefone:c.tel||'',Prioridade:c.pri,Freq_Dias:c.freq,Ultima_Visita:c.uv||'',Status:stC(c),Latitude:c.lat||'',Longitude:c.lng||'',Obs:c.obs||''};});
+  var vd=VS.map(function(v){var c=gC(v.cid);return{ID:v.id,id_cliente:v.cid,Data:v.dt,Hora:v.hr,Cliente:c.nome||'',Propriedade:v.prop||'',Cidade:c.cidade||'',Prioridade:c.pri||'',Objetivo:v.obj||'',Km_est:v.km||0,Duracao_h:v.dur||0,Status:v.st};});
+  var hd=HS.map(function(h){var c=gC(h.cid);return{ID:h.id,id_cliente:h.cid,Data:h.dt,Cliente:c.nome||'',Propriedade:h.prop||'',Cidade:c.cidade||'',Prioridade:c.pri||'',Status:h.st,Km_rodados:h.km||0,Duracao_h:h.dur||0,Obs:h.obs||''};});
+  MX.dl([{n:'Clientes',d:cd},{n:'Agenda',d:vd},{n:'Historico',d:hd}],'AgroClientes_Completo.xlsx');
+  toast('⬇️ Exportação completa!');
+}
+
+// ── BADGE ─────────────────────────────────────────────────────────────────
+function updateBadge(){
+  var h=hoje();
+  var n=VS.filter(function(v){return v.dt<h&&v.st==='pend';}).length;
+  var b=document.getElementById('nbadge');
+  if(n>0){b.textContent=n;b.style.display='';}else b.style.display='none';
+}
+
+// ── INSTALL BANNER (Android) ──────────────────────────────────────────────
+var _deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();_deferredPrompt=e;
+  if(!window.matchMedia('(display-mode: standalone)').matches){
+    document.getElementById('install-now-btn').style.display='';
+    document.getElementById('install-steps').style.display='none';
+    document.getElementById('install-banner').classList.add('show');
+  }
+});
+function installNow(){
+  if(!_deferredPrompt){document.getElementById('install-banner').classList.remove('show');return;}
+  _deferredPrompt.prompt();
+  _deferredPrompt.userChoice.finally(function(){
+    _deferredPrompt=null;
+    document.getElementById('install-banner').classList.remove('show');
+  });
+}
+// iOS: show hint if not in standalone
+if(navigator.userAgent.includes('iPhone')||navigator.userAgent.includes('iPad')){
+  if(!window.navigator.standalone){
+    setTimeout(function(){document.getElementById('install-banner').classList.add('show');},2000);
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+renderHome();
+updateBadge();
+updateBackupStatus();
+
+// Auto-backup reminder every 7 days
+(function(){
+  var last=localStorage.getItem('ac3_lastBackup');
+  if(last){
+    var days=Math.floor((new Date()-new Date(last))/86400000);
+    if(days>=7)toast('⚠️ Último backup há '+days+' dias. Faça um backup!',5000);
+  }
+})();
+
+
+</script>
+</body>
+</html>
