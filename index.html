@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#000000">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="./manifest.json">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='38' fill='%23000'/%3E%3Ctext x='90' y='108' font-size='80' text-anchor='middle' font-family='Arial'%3E🌾%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='38' fill='%23000'/%3E%3Ctext x='90' y='105' font-size='80' text-anchor='middle' font-family='Arial'%3E🌱%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTcwIiBoZWlnaHQ9IjI1MzIiPjxyZWN0IHdpZHRoPSIxMTcwIiBoZWlnaHQ9IjI1MzIiIGZpbGw9IiMwRjIzMTgiLz48dGV4dCB4PSI1ODUiIHk9IjEyNTYiIGZvbnQtc2l6ZT0iOTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCI+JiMxMjc4MDY7PC90ZXh0Pjx0ZXh0IHg9IjU4NSIgeT0iMTMyNiIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNGMEI0MjkiIGZvbnQtZmFtaWx5PSJBcmlhbCI+QWdyb0NsaWVudGVzPC90ZXh0Pjwvc3ZnPg==">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTc5IiBoZWlnaHQ9IjI1NTYiPjxyZWN0IHdpZHRoPSIxMTc5IiBoZWlnaHQ9IjI1NTYiIGZpbGw9IiMwRjIzMTgiLz48dGV4dCB4PSI1ODkiIHk9IjEyNjgiIGZvbnQtc2l6ZT0iOTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCI+JiMxMjc4MDY7PC90ZXh0Pjx0ZXh0IHg9IjU4OSIgeT0iMTMzOCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNGMEI0MjkiIGZvbnQtZmFtaWx5PSJBcmlhbCI+QWdyb0NsaWVudGVzPC90ZXh0Pjwvc3ZnPg==">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjg0IiBoZWlnaHQ9IjI3NzgiPjxyZWN0IHdpZHRoPSIxMjg0IiBoZWlnaHQ9IjI3NzgiIGZpbGw9IiMwRjIzMTgiLz48dGV4dCB4PSI2NDIiIHk9IjEzNzkiIGZvbnQtc2l6ZT0iOTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCI+JiMxMjc4MDY7PC90ZXh0Pjx0ZXh0IHg9IjY0MiIgeT0iMTQ0OSIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNGMEI0MjkiIGZvbnQtZmFtaWx5PSJBcmlhbCI+QWdyb0NsaWVudGVzPC90ZXh0Pjwvc3ZnPg==">
@@ -95,6 +95,17 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
 .pbar-track{flex:1;height:4px;background:var(--gray-100);border-radius:2px;overflow:hidden}
 .pbar-fill{height:100%;border-radius:2px;transition:width .6s}
 .pbar-val{font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:right;flex-shrink:0}
+/* WEATHER */
+.weather-card{background:var(--white);border-bottom:1px solid var(--border);padding:12px 16px}
+.w-now{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.w-ic{font-size:24px}
+.w-temp{font-size:20px;font-weight:800;color:var(--text)}
+.w-loc{font-size:11px;color:var(--text3);margin-left:auto;text-align:right}
+.w-days{display:flex;gap:6px}
+.wd-day{flex:1;background:var(--gray-50);border-radius:10px;padding:8px 4px;text-align:center}
+.wd-dn{font-size:10px;color:var(--text3);text-transform:capitalize}
+.wd-ic{font-size:18px;margin:2px 0}
+.wd-t{font-size:11px;font-weight:700;color:var(--text)}
 /* SECTION */
 .sec{padding:18px 16px 6px;display:flex;align-items:center;justify-content:space-between}
 .sec-lbl{padding:18px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px}
@@ -288,7 +299,7 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   </div>
 </div>
 <div class="topbar">
-  <div class="logo"><div class="logo-mark">🌾</div>Agro<em>Clientes</em></div>
+  <div class="logo"><div class="logo-mark">🌱</div>Agro<em>Clientes</em></div>
   <div class="topbar-r">
     <button class="iBtn" onclick="nav('rotas',null)" title="Mapa e rotas">🗺️</button>
     <button class="iBtn" onclick="openReg()" title="Registrar visita">✓</button>
@@ -306,6 +317,7 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
     <div class="hero-big" id="hero-big"></div>
     <div class="hero-metrics" id="hero-metrics"></div>
   </div>
+  <div id="weather-home"></div>
   <div class="perf-strip" id="perf-strip"></div>
   <div class="sec"><span class="sec-t">Mês atual</span></div>
   <div class="qs-row" id="qs-row"></div>
@@ -406,16 +418,23 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   </div>
   <div style="padding:14px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">Resumo geral</div>
   <div class="card" style="margin:0 16px 12px" id="mais-res"></div>
+  <div style="padding:0 16px 8px">
+    <button class="btn btn-d btn-full btn-sm" onclick="delAllClients()">Excluir todos os clientes</button>
+  </div>
+  <div style="padding:0 16px 16px;font-size:11px;color:var(--text3)">Apaga só a lista de clientes (e agenda/histórico deles), pra você lançar sua própria carteira do zero. Configurações e backups continuam salvos.</div>
   <div style="padding:0 16px 16px">
     <button class="btn btn-d btn-full btn-sm" onclick="if(confirm('Apagar todos os dados? Faça backup primeiro!'))limparDados()">Limpar todos os dados</button>
   </div>
-  <div style="text-align:center;padding:0 16px 24px;font-size:11px;color:var(--text3)">AgroClientes v3.3 · iOS & Android · Offline</div>
+  <div style="text-align:center;padding:0 16px 24px;font-size:11px;color:var(--text3)">AgroClientes v3.4 · iOS & Android · Offline</div>
 </div>
 <!-- DETALHE -->
 <div id="s-det" class="scr">
   <div id="det-head"></div>
   <div class="agrid" id="det-acts"></div>
   <div id="det-info"></div>
+  <div id="det-weather" style="padding:0 16px 4px"></div>
+  <div style="padding:16px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">🗺️ Talhões da fazenda</div>
+  <div class="card" style="margin:0 16px 8px;overflow:hidden" id="det-talhoes"></div>
   <div style="padding:16px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">Histórico de visitas</div>
   <div class="date-filter" style="padding:0 16px 8px">
     <label>De:</label><input type="date" id="det-de" onchange="renderDetHist(currentDetId)">
@@ -459,15 +478,50 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   <div class="f"><label>Cultura Principal</label><select id="c-cult"><option value="">Selecione</option><option>Soja</option><option>Milho</option><option>Algodão</option><option>Cana</option><option>Trigo</option><option>Arroz</option><option>Pecuária</option><option>Misto</option></select></div>
 </div>
 <div class="f2">
-  <div class="f"><label>Latitude</label><input id="c-lat" type="number" step="any" placeholder="-12.5432" inputmode="decimal"></div>
-  <div class="f"><label>Longitude</label><input id="c-lng" type="number" step="any" placeholder="-55.7201" inputmode="decimal"></div>
+  <div class="f"><label>Latitude</label><input id="c-lat" type="number" step="any" placeholder="-12.5432" inputmode="decimal" oninput="updateDistCad()"></div>
+  <div class="f"><label>Longitude</label><input id="c-lng" type="number" step="any" placeholder="-55.7201" inputmode="decimal" oninput="updateDistCad()"></div>
 </div>
-<button class="btn btn-g btn-sm" onclick="geoLoc()" style="margin-bottom:14px;font-size:12px">📍 Usar localização atual</button>
+<div id="c-dist" style="font-size:12px;color:var(--ink2);margin:-8px 0 12px"></div>
+<div style="display:flex;gap:8px;margin-bottom:14px">
+  <button class="btn btn-g btn-sm" onclick="geoLoc()" style="font-size:12px;flex:1">📍 Localização atual</button>
+  <button class="btn btn-g btn-sm" onclick="abrirMapaSelecao()" style="font-size:12px;flex:1">🗺️ Selecionar no mapa</button>
+</div>
 <div class="fsec">⚙️ Visitas</div>
-<div class="f"><label>Frequência</label><select id="c-f"><option value="7">Semanal (7d)</option><option value="14">Quinzenal (14d)</option><option value="30" selected>Mensal (30d)</option><option value="45">45 dias</option><option value="60">Bimestral (60d)</option><option value="90">Trimestral (90d)</option></select></div>
+<div class="f"><label>Frequência</label><select id="c-f"><option value="7">Semanal (7d)</option><option value="10">10 dias</option><option value="14">Quinzenal (14d)</option><option value="30" selected>Mensal (30d)</option><option value="45">45 dias</option><option value="60">Bimestral (60d)</option><option value="90">Trimestral (90d)</option></select></div>
 <div class="f"><label>Observações</label><div style="display:flex;gap:8px;align-items:flex-start"><textarea id="c-o" placeholder="Produtos, perfil, pendências…" style="flex:1"></textarea><button type="button" class="mic-btn" id="mic-c-o" onclick="voiceInput('c-o',this)" title="Ditar por voz">🎙️</button></div></div>
 <input type="hidden" id="c-id">
 <div class="brow"><button class="btn btn-p btn-full" onclick="saveC()">💾 Salvar Cliente</button><button class="btn btn-g" onclick="closeDW('dw-c')">Cancelar</button></div>
+</div></div></div>
+
+<!-- DRAWER MAPA (seleção de localização) -->
+<div class="ov" id="dw-mappick"><div class="drawer">
+<div class="dhandle"></div>
+<div class="dtitle"><span>Selecionar Localização</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-mappick')">✕</button></div>
+<div class="dbody">
+<div style="font-size:12px;color:var(--ink2);margin-bottom:10px">Toque no mapa para marcar a localização da fazenda. O ponto de partida é Caarapó – MS.</div>
+<div id="map-pick" style="height:320px;border-radius:12px;overflow:hidden;margin-bottom:10px;background:var(--gray-100)"></div>
+<div id="mappick-info" style="font-size:13px;color:var(--ink2);margin-bottom:14px">Toque no mapa para escolher o ponto.</div>
+<div class="brow"><button class="btn btn-p btn-full" onclick="confirmarMapaSelecao()">✅ Usar esta localização</button><button class="btn btn-g" onclick="closeDW('dw-mappick')">Cancelar</button></div>
+</div></div></div>
+
+<!-- DRAWER TALHÃO -->
+<div class="ov" id="dw-talhao"><div class="drawer">
+<div class="dhandle"></div>
+<div class="dtitle"><span id="dw-talhao-t">Novo Talhão</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-talhao')">✕</button></div>
+<div class="dbody">
+<div class="f"><label>Nome do talhão *</label><input id="t-nome" type="text" placeholder="Ex.: Talhão 1 - Soja"></div>
+<div class="f2">
+  <div class="f"><label>Área (ha)</label><input id="t-area" type="number" placeholder="0" min="0" inputmode="decimal"></div>
+  <div class="f"><label>Cultura</label><select id="t-cult"><option value="">Selecione</option><option>Soja</option><option>Milho</option><option>Algodão</option><option>Cana</option><option>Trigo</option><option>Arroz</option><option>Pecuária</option><option>Misto</option></select></div>
+</div>
+<div class="f2">
+  <div class="f"><label>Latitude</label><input id="t-lat" type="number" step="any" placeholder="-12.5432" inputmode="decimal"></div>
+  <div class="f"><label>Longitude</label><input id="t-lng" type="number" step="any" placeholder="-55.7201" inputmode="decimal"></div>
+</div>
+<button class="btn btn-g btn-sm" onclick="abrirMapaSelecao('t-lat','t-lng')" style="margin-bottom:14px;font-size:12px">🗺️ Selecionar no mapa</button>
+<div class="f"><label>Observações do talhão</label><textarea id="t-o" placeholder="Solo, plantio, pragas, adubação…"></textarea></div>
+<input type="hidden" id="t-id"><input type="hidden" id="t-cid">
+<div class="brow"><button class="btn btn-p btn-full" onclick="saveTalhao()">💾 Salvar Talhão</button><button class="btn btn-g" onclick="closeDW('dw-talhao')">Cancelar</button></div>
 </div></div></div>
 
 <!-- DRAWER VISITA -->
@@ -641,6 +695,7 @@ const MX=(function(){
 var CL=JSON.parse(localStorage.getItem('ac3_c')||'[]');
 var VS=JSON.parse(localStorage.getItem('ac3_v')||'[]');
 var HS=JSON.parse(localStorage.getItem('ac3_h')||'[]');
+var TL=JSON.parse(localStorage.getItem('ac3_t')||'[]');
 var curScr='home';
 var _semOff=0;
 var currentDetId=null;
@@ -649,6 +704,7 @@ function save(){
   localStorage.setItem('ac3_c',JSON.stringify(CL));
   localStorage.setItem('ac3_v',JSON.stringify(VS));
   localStorage.setItem('ac3_h',JSON.stringify(HS));
+  localStorage.setItem('ac3_t',JSON.stringify(TL));
   localStorage.setItem('ac3_lastSave',new Date().toISOString());
   updateBackupStatus();
 }
@@ -738,7 +794,7 @@ function fazerBackup(){
   var data={
     versao:3,
     data:new Date().toISOString(),
-    clientes:CL,visitas:VS,historico:HS
+    clientes:CL,visitas:VS,historico:HS,talhoes:TL
   };
   var json=JSON.stringify(data,null,2);
   var blob=new Blob([json],{type:'application/json'});
@@ -761,7 +817,7 @@ function restaurarBackup(event){
       var data=JSON.parse(e.target.result);
       if(!data.clientes||!data.visitas||!data.historico){throw new Error('Formato inválido');}
       if(!confirm('Restaurar backup de '+fDFull(data.data.slice(0,10))+'?\nIsso substituirá todos os dados atuais.'))return;
-      CL=data.clientes;VS=data.visitas;HS=data.historico;
+      CL=data.clientes;VS=data.visitas;HS=data.historico;TL=data.talhoes||[];
       save();
       renderHome();renderC();updateBadge();
       toast('✅ Backup restaurado com sucesso!');
@@ -775,6 +831,17 @@ function restaurarBackup(event){
 
 function limparDados(){
   localStorage.clear();location.reload();
+}
+function delAllClients(){
+  if(!CL.length){toast('Não há clientes cadastrados');return;}
+  if(!confirm('Excluir TODOS os '+CL.length+' clientes cadastrados e todo o histórico/agenda deles? Essa ação não pode ser desfeita. Faça backup primeiro se quiser guardar os dados atuais.'))return;
+  if(!confirm('Confirmar de novo: apagar todos os clientes agora?'))return;
+  CL=[];VS=[];HS=[];TL=[];
+  save();
+  toast('🗑 Todos os clientes foram excluídos');
+  renderHome();updateBadge();
+  if(curScr==='clientes')renderC();
+  if(curScr==='mais')renderMais();
 }
 
 // ── OFFLINE ───────────────────────────────────────────────────────────────
@@ -805,7 +872,7 @@ function nav(id,btn){
   document.getElementById('content').scrollTop=0;
   var hideFab=['mais','rotas'];
   document.getElementById('fab').style.display=hideFab.indexOf(id)>=0?'none':'';
-  if(id==='home')renderHome();
+  if(id==='home'){renderHome();loadWeatherHome();}
   if(id==='clientes')renderC();
   if(id==='semana')renderSem();
   if(id==='agenda')renderA();
@@ -950,16 +1017,165 @@ function openC(cid){
     document.getElementById('c-p').value='B';
     document.getElementById('c-f').value=30;
   }
+  updateDistCad();
   openDW('dw-c');
 }
 function geoLoc(){
   if(!navigator.geolocation){toast('GPS não disponível');return;}
   toast('📍 Obtendo localização…',6000);
   navigator.geolocation.getCurrentPosition(
-    function(p){document.getElementById('c-lat').value=p.coords.latitude.toFixed(6);document.getElementById('c-lng').value=p.coords.longitude.toFixed(6);toast('📍 Localização capturada!');},
+    function(p){document.getElementById('c-lat').value=p.coords.latitude.toFixed(6);document.getElementById('c-lng').value=p.coords.longitude.toFixed(6);toast('📍 Localização capturada!');updateDistCad();},
     function(){toast('❌ Não foi possível obter localização');},
     {enableHighAccuracy:true,timeout:10000,maximumAge:0}
   );
+}
+// ── Cidade sede e distância ─────────────────────────────────────────────
+var CAARAPO={lat:-22.6369,lng:-54.8214};
+function updateDistCad(){
+  var el=document.getElementById('c-dist');if(!el)return;
+  var lat=parseFloat(document.getElementById('c-lat').value);
+  var lng=parseFloat(document.getElementById('c-lng').value);
+  if(isNaN(lat)||isNaN(lng)){el.textContent='';return;}
+  el.textContent='📏 '+dist(lat,lng,CAARAPO.lat,CAARAPO.lng).toFixed(1)+' km de Caarapó – MS (sede)';
+}
+// ── Mapa de seleção de localização (cadastro) ────────────────────────────
+var mapPickInst=null,mapPickMarker=null,mapPickLatLng=null,mapPickTarget={lat:'c-lat',lng:'c-lng'};
+function abrirMapaSelecao(latId,lngId){
+  mapPickTarget={lat:latId||'c-lat',lng:lngId||'c-lng'};
+  openDW('dw-mappick');
+  setTimeout(function(){
+    if(!mapPickInst){
+      mapPickInst=L.map('map-pick',{zoomControl:true});
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(mapPickInst);
+      mapPickInst.on('click',function(e){
+        setPickPoint(e.latlng.lat,e.latlng.lng);
+      });
+    }
+    mapPickInst.invalidateSize();
+    var latI=parseFloat(document.getElementById(mapPickTarget.lat).value);
+    var lngI=parseFloat(document.getElementById(mapPickTarget.lng).value);
+    if(!isNaN(latI)&&!isNaN(lngI)){
+      mapPickInst.setView([latI,lngI],13);
+      setPickPoint(latI,lngI,true);
+    } else {
+      mapPickInst.setView([CAARAPO.lat,CAARAPO.lng],7);
+      mapPickLatLng=null;
+      if(mapPickMarker){mapPickInst.removeLayer(mapPickMarker);mapPickMarker=null;}
+      document.getElementById('mappick-info').textContent='Toque no mapa para escolher o ponto.';
+    }
+  },200);
+}
+function setPickPoint(lat,lng,skipView){
+  mapPickLatLng={lat:lat,lng:lng};
+  if(mapPickMarker)mapPickInst.removeLayer(mapPickMarker);
+  mapPickMarker=L.marker([lat,lng]).addTo(mapPickInst);
+  if(!skipView)mapPickInst.panTo([lat,lng]);
+  var dK=dist(lat,lng,CAARAPO.lat,CAARAPO.lng);
+  document.getElementById('mappick-info').innerHTML='📍 '+lat.toFixed(5)+', '+lng.toFixed(5)+'<br>📏 '+dK.toFixed(1)+' km de Caarapó – MS';
+}
+function confirmarMapaSelecao(){
+  if(!mapPickLatLng){toast('⚠️ Toque no mapa para marcar a localização');return;}
+  document.getElementById(mapPickTarget.lat).value=mapPickLatLng.lat.toFixed(6);
+  document.getElementById(mapPickTarget.lng).value=mapPickLatLng.lng.toFixed(6);
+  if(mapPickTarget.lat==='c-lat')updateDistCad();
+  closeDW('dw-mappick');
+  toast('📍 Localização definida');
+}
+// ── Talhões (fazenda por cliente) ────────────────────────────────────────
+function openTalhao(cid,id){
+  document.getElementById('t-cid').value=cid;
+  document.getElementById('t-id').value=id||'';
+  document.getElementById('dw-talhao-t').textContent=id?'Editar Talhão':'Novo Talhão';
+  if(id){
+    var t=TL.find(function(x){return x.id==id;})||{};
+    document.getElementById('t-nome').value=t.nome||'';
+    document.getElementById('t-area').value=t.area||'';
+    document.getElementById('t-cult').value=t.cult||'';
+    document.getElementById('t-lat').value=t.lat!=null?t.lat:'';
+    document.getElementById('t-lng').value=t.lng!=null?t.lng:'';
+    document.getElementById('t-o').value=t.obs||'';
+  } else {
+    ['t-nome','t-area','t-cult','t-lat','t-lng','t-o'].forEach(function(fid){document.getElementById(fid).value='';});
+  }
+  openDW('dw-talhao');
+}
+function saveTalhao(){
+  var nome=document.getElementById('t-nome').value.trim();
+  if(!nome){toast('⚠️ Dê um nome ao talhão');return;}
+  var cid=parseInt(document.getElementById('t-cid').value);
+  var id=document.getElementById('t-id').value;
+  var obj={
+    cid:cid,nome:nome,
+    area:parseFloat(document.getElementById('t-area').value)||0,
+    cult:document.getElementById('t-cult').value,
+    lat:parseFloat(document.getElementById('t-lat').value),
+    lng:parseFloat(document.getElementById('t-lng').value),
+    obs:document.getElementById('t-o').value.trim()
+  };
+  if(isNaN(obj.lat))obj.lat=null;if(isNaN(obj.lng))obj.lng=null;
+  if(id){var i=TL.findIndex(function(t){return t.id==id;});TL[i]=Object.assign({},TL[i],obj);toast('✅ Talhão atualizado');}
+  else{obj.id=nid(TL);TL.push(obj);toast('✅ Talhão cadastrado');}
+  save();closeDW('dw-talhao');
+  renderTalhoes(cid);
+}
+function delTalhao(id,cid){
+  if(!confirm('Excluir este talhão?'))return;
+  TL=TL.filter(function(t){return t.id!==id;});
+  save();renderTalhoes(cid);toast('🗑 Talhão excluído');
+}
+function renderTalhoes(cid){
+  var el=document.getElementById('det-talhoes');if(!el)return;
+  var ts=TL.filter(function(t){return t.cid==cid;});
+  el.innerHTML=(ts.length?ts.map(function(t){
+    return '<div class="li" onclick="openTalhao('+cid+','+t.id+')"><div class="av" style="background:var(--green)">🌱</div><div class="lm"><div class="ln">'+t.nome+'</div><div class="ls">'+(t.cult||'—')+(t.area?' · '+t.area+' ha':'')+(t.lat!=null?' · '+dist(t.lat,t.lng,CAARAPO.lat,CAARAPO.lng).toFixed(1)+' km sede':'')+'</div></div><span class="chev">›</span></div>';
+  }).join(''):'<div style="padding:16px"><p style="font-size:13px;color:var(--text3);margin:0">Nenhum talhão cadastrado ainda.</p></div>')
+  +'<div style="padding:10px 16px">'
+  +'<button class="btn btn-g btn-full btn-sm" onclick="openTalhao('+cid+')">＋ Adicionar Talhão</button></div>';
+}
+// ── Previsão do tempo (Open-Meteo, sem chave de API) ─────────────────────
+function wCodeInfo(code){
+  var m={0:['☀️','Céu limpo'],1:['🌤️','Poucas nuvens'],2:['⛅','Parc. nublado'],3:['☁️','Nublado'],
+    45:['🌫️','Neblina'],48:['🌫️','Neblina'],
+    51:['🌦️','Garoa fraca'],53:['🌦️','Garoa'],55:['🌦️','Garoa forte'],
+    61:['🌧️','Chuva fraca'],63:['🌧️','Chuva'],65:['🌧️','Chuva forte'],
+    66:['🌧️','Chuva gelada'],67:['🌧️','Chuva gelada forte'],
+    71:['🌨️','Neve fraca'],73:['🌨️','Neve'],75:['🌨️','Neve forte'],
+    80:['🌦️','Pancadas fracas'],81:['🌦️','Pancadas'],82:['⛈️','Pancadas fortes'],
+    95:['⛈️','Trovoada'],96:['⛈️','Trovoada c/ granizo'],99:['⛈️','Trovoada forte']};
+  return m[code]||['🌡️','—'];
+}
+var _weatherHomeAt=0;
+function loadWeatherHome(){
+  var el=document.getElementById('weather-home');if(!el)return;
+  if(!navigator.onLine)return;
+  if(Date.now()-_weatherHomeAt<600000&&el.innerHTML)return;
+  _weatherHomeAt=Date.now();
+  fetch('https://api.open-meteo.com/v1/forecast?latitude='+CAARAPO.lat+'&longitude='+CAARAPO.lng+'&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=4')
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(!d||!d.current)return;
+      var cur=wCodeInfo(d.current.weather_code);
+      var days=d.daily.time.map(function(dt,i){
+        var wi=wCodeInfo(d.daily.weather_code[i]);
+        var dn=new Date(dt+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'short'}).replace('.','');
+        return '<div class="wd-day"><div class="wd-dn">'+dn+'</div><div class="wd-ic">'+wi[0]+'</div><div class="wd-t">'+Math.round(d.daily.temperature_2m_max[i])+'°/'+Math.round(d.daily.temperature_2m_min[i])+'°</div></div>';
+      }).join('');
+      el.innerHTML='<div class="weather-card"><div class="w-now"><span class="w-ic">'+cur[0]+'</span><span class="w-temp">'+Math.round(d.current.temperature_2m)+'°C</span><span class="w-loc">Caarapó – MS<br>'+cur[1]+'</span></div><div class="w-days">'+days+'</div></div>';
+    })
+    .catch(function(){});
+}
+function loadWeatherClient(lat,lng){
+  var el=document.getElementById('det-weather');if(!el)return;
+  el.innerHTML='';
+  if(!navigator.onLine||lat==null||lng==null)return;
+  fetch('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lng+'&current=temperature_2m,weather_code&timezone=auto')
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(!d||!d.current)return;
+      var cur=wCodeInfo(d.current.weather_code);
+      el.innerHTML='<span class="info-tag">'+cur[0]+' '+Math.round(d.current.temperature_2m)+'°C agora na fazenda</span>';
+    })
+    .catch(function(){});
 }
 function saveC(){
   var nome=document.getElementById('c-n').value.trim();
@@ -990,6 +1206,7 @@ function delC(id){
   CL=CL.filter(function(c){return c.id!==id;});
   VS=VS.filter(function(v){return v.cid!==id;});
   HS=HS.filter(function(h){return h.cid!==id;});
+  TL=TL.filter(function(t){return t.cid!==id;});
   save();goBack();toast('🗑 Cliente excluído');
 }
 function openV(cid,dt){
@@ -1144,6 +1361,7 @@ function renderDet(id){
   if(c.tel)infoHtml+='<span class="info-tag">📞 '+c.tel+'</span>';
   if(c.loc)infoHtml+='<span class="info-tag">📍 '+c.loc+'</span>';
   if(c.lat!=null)infoHtml+='<span class="info-tag">🌐 '+c.lat.toFixed(3)+', '+c.lng.toFixed(3)+'</span>';
+  if(c.lat!=null)infoHtml+='<span class="info-tag">📏 '+dist(c.lat,c.lng,CAARAPO.lat,CAARAPO.lng).toFixed(1)+' km de Caarapó – MS</span>';
   infoHtml+='</div>';
   if(c.obs)infoHtml+='<div style="padding:4px 16px 8px;font-size:13px;color:var(--ink2);line-height:1.5">'+c.obs+'</div>';
   document.getElementById('det-info').innerHTML=infoHtml;
@@ -1157,6 +1375,8 @@ function renderDet(id){
     acts+='<button class="atile" onclick="toast(\'Sem telefone cadastrado\')"><span class="ti">📞</span><span class="tl">Ligar</span><span class="ts">Sem telefone</span></button>';
   }
   document.getElementById('det-acts').innerHTML=acts;
+  renderTalhoes(id);
+  loadWeatherClient(c.lat,c.lng);
   renderDetHist(id);
 }
 function renderDetHist(id){
@@ -1413,6 +1633,7 @@ if(navigator.userAgent.includes('iPhone')||navigator.userAgent.includes('iPad'))
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 renderHome();
+loadWeatherHome();
 updateBadge();
 updateBackupStatus();
 
