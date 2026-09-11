@@ -106,6 +106,12 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
 .wd-dn{font-size:10px;color:var(--text3);text-transform:capitalize}
 .wd-ic{font-size:18px;margin:2px 0}
 .wd-t{font-size:11px;font-weight:700;color:var(--text)}
+.price-card{background:var(--white);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:6px;cursor:pointer}
+.price-item{flex:1;text-align:center}
+.price-lbl{font-size:10px;color:var(--text3)}
+.price-val{font-size:14px;font-weight:800;color:var(--text);margin-top:2px}
+.price-edit{font-size:13px;color:var(--text3);flex-shrink:0;padding-left:4px}
+.price-note{font-size:11px;color:var(--text3);margin-top:4px}
 /* SECTION */
 .sec{padding:18px 16px 6px;display:flex;align-items:center;justify-content:space-between}
 .sec-lbl{padding:18px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px}
@@ -318,6 +324,7 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
     <div class="hero-metrics" id="hero-metrics"></div>
   </div>
   <div id="weather-home"></div>
+  <div id="prices-home"></div>
   <div class="perf-strip" id="perf-strip"></div>
   <div class="sec"><span class="sec-t">Mês atual</span></div>
   <div class="qs-row" id="qs-row"></div>
@@ -425,7 +432,7 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   <div style="padding:0 16px 16px">
     <button class="btn btn-d btn-full btn-sm" onclick="if(confirm('Apagar todos os dados? Faça backup primeiro!'))limparDados()">Limpar todos os dados</button>
   </div>
-  <div style="text-align:center;padding:0 16px 24px;font-size:11px;color:var(--text3)">AgroClientes v3.4 · iOS & Android · Offline</div>
+  <div style="text-align:center;padding:0 16px 24px;font-size:11px;color:var(--text3)">AgroClientes v3.6 · iOS & Android · Offline</div>
 </div>
 <!-- DETALHE -->
 <div id="s-det" class="scr">
@@ -433,6 +440,8 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   <div class="agrid" id="det-acts"></div>
   <div id="det-info"></div>
   <div id="det-weather" style="padding:0 16px 4px"></div>
+  <div style="padding:16px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">🏠 Outras propriedades</div>
+  <div class="card" style="margin:0 16px 8px;overflow:hidden" id="det-props"></div>
   <div style="padding:16px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">🗺️ Talhões da fazenda</div>
   <div class="card" style="margin:0 16px 8px;overflow:hidden" id="det-talhoes"></div>
   <div style="padding:16px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">Histórico de visitas</div>
@@ -471,7 +480,8 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   <div class="f"><label>Contato</label><input id="c-co" type="text" placeholder="Responsável"></div>
   <div class="f"><label>Telefone</label><input id="c-t" type="tel" placeholder="(65) 99999-9999" oninput="mT(this)" autocomplete="tel"></div>
 </div>
-<div class="fsec">🌾 Propriedade</div>
+<div class="fsec">🌾 Propriedade Principal</div>
+<div style="font-size:11px;color:var(--ink2);margin:-6px 0 10px">Cliente com mais de uma fazenda? Cadastre esta primeiro e adicione as outras depois, na tela do cliente.</div>
 <div class="f"><label>Localização da Fazenda</label><input id="c-loc" type="text" placeholder="Rod. MT-222, km 45"></div>
 <div class="f2">
   <div class="f"><label>Área Plantada (ha)</label><input id="c-area" type="number" placeholder="0" min="0" inputmode="decimal"></div>
@@ -498,10 +508,25 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
 <div class="dhandle"></div>
 <div class="dtitle"><span>Selecionar Localização</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-mappick')">✕</button></div>
 <div class="dbody">
-<div style="font-size:12px;color:var(--ink2);margin-bottom:10px">Toque no mapa para marcar a localização da fazenda. O ponto de partida é Caarapó – MS.</div>
+<div style="font-size:12px;color:var(--ink2);margin-bottom:10px">Toque no mapa para marcar a localização da fazenda. Toque no ícone de camadas no canto superior direito do mapa para alternar entre mapa e <strong>🛰️ satélite</strong>. O ponto de partida é Caarapó – MS.</div>
 <div id="map-pick" style="height:320px;border-radius:12px;overflow:hidden;margin-bottom:10px;background:var(--gray-100)"></div>
 <div id="mappick-info" style="font-size:13px;color:var(--ink2);margin-bottom:14px">Toque no mapa para escolher o ponto.</div>
 <div class="brow"><button class="btn btn-p btn-full" onclick="confirmarMapaSelecao()">✅ Usar esta localização</button><button class="btn btn-g" onclick="closeDW('dw-mappick')">Cancelar</button></div>
+</div></div></div>
+
+<!-- DRAWER PREÇOS DO DIA -->
+<div class="ov" id="dw-precos"><div class="drawer">
+<div class="dhandle"></div>
+<div class="dtitle"><span>Preços do dia</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-precos')">✕</button></div>
+<div class="dbody">
+<div class="f"><label>💵 Dólar (USD/BRL)</label><div id="p-dolar-info" style="font-size:13px;color:var(--ink2);padding:8px 0">—</div></div>
+<div class="fsec">Atualize manualmente (não há fonte automática gratuita para saca)</div>
+<div class="f2">
+  <div class="f"><label>🌱 Soja (R$/saca 60kg)</label><input id="p-soja" type="number" step="0.01" min="0" placeholder="0,00" inputmode="decimal"></div>
+  <div class="f"><label>🌽 Milho (R$/saca 60kg)</label><input id="p-milho" type="number" step="0.01" min="0" placeholder="0,00" inputmode="decimal"></div>
+</div>
+<div class="price-note" id="p-note"></div>
+<div class="brow"><button class="btn btn-p btn-full" onclick="savePrecos()">💾 Salvar preços</button><button class="btn btn-g" onclick="closeDW('dw-precos')">Cancelar</button></div>
 </div></div></div>
 
 <!-- DRAWER TALHÃO -->
@@ -519,9 +544,31 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   <div class="f"><label>Longitude</label><input id="t-lng" type="number" step="any" placeholder="-55.7201" inputmode="decimal"></div>
 </div>
 <button class="btn btn-g btn-sm" onclick="abrirMapaSelecao('t-lat','t-lng')" style="margin-bottom:14px;font-size:12px">🗺️ Selecionar no mapa</button>
-<div class="f"><label>Observações do talhão</label><textarea id="t-o" placeholder="Solo, plantio, pragas, adubação…"></textarea></div>
+<div class="f"><label>Observações do talhão</label><div style="display:flex;gap:8px;align-items:flex-start"><textarea id="t-o" placeholder="Solo, plantio, pragas, adubação…" style="flex:1"></textarea><button type="button" class="mic-btn" id="mic-t-o" onclick="voiceInput('t-o',this)" title="Ditar por voz">🎙️</button></div></div>
 <input type="hidden" id="t-id"><input type="hidden" id="t-cid">
+<button type="button" class="btn btn-g btn-full btn-sm" id="btn-del-talhao" style="display:none;color:var(--red);border:1.5px solid var(--red);margin-bottom:10px" onclick="delTalhaoFromForm()">🗑 Excluir talhão</button>
 <div class="brow"><button class="btn btn-p btn-full" onclick="saveTalhao()">💾 Salvar Talhão</button><button class="btn btn-g" onclick="closeDW('dw-talhao')">Cancelar</button></div>
+</div></div></div>
+
+<!-- DRAWER PROPRIEDADE (fazenda adicional do cliente) -->
+<div class="ov" id="dw-prop"><div class="drawer">
+<div class="dhandle"></div>
+<div class="dtitle"><span id="dw-prop-t">Nova Propriedade</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-prop')">✕</button></div>
+<div class="dbody">
+<div class="f"><label>Nome da propriedade *</label><input id="p2-nome" type="text" placeholder="Ex.: Fazenda Boa Vista"></div>
+<div class="f"><label>Localização / Cidade</label><input id="p2-loc" type="text" placeholder="Rod. MT-222, km 45"></div>
+<div class="f2">
+  <div class="f"><label>Área (ha)</label><input id="p2-area" type="number" placeholder="0" min="0" inputmode="decimal"></div>
+  <div class="f"><label>Cultura</label><select id="p2-cult"><option value="">Selecione</option><option>Soja</option><option>Milho</option><option>Algodão</option><option>Cana</option><option>Trigo</option><option>Arroz</option><option>Pecuária</option><option>Misto</option></select></div>
+</div>
+<div class="f2">
+  <div class="f"><label>Latitude</label><input id="p2-lat" type="number" step="any" placeholder="-12.5432" inputmode="decimal"></div>
+  <div class="f"><label>Longitude</label><input id="p2-lng" type="number" step="any" placeholder="-55.7201" inputmode="decimal"></div>
+</div>
+<button class="btn btn-g btn-sm" onclick="abrirMapaSelecao('p2-lat','p2-lng')" style="margin-bottom:14px;font-size:12px">🗺️ Selecionar no mapa</button>
+<input type="hidden" id="p2-id"><input type="hidden" id="p2-cid">
+<button type="button" class="btn btn-g btn-full btn-sm" id="btn-del-prop" style="display:none;color:var(--red);border:1.5px solid var(--red);margin-bottom:10px" onclick="delPropFromForm()">🗑 Excluir propriedade</button>
+<div class="brow"><button class="btn btn-p btn-full" onclick="saveProp()">💾 Salvar Propriedade</button><button class="btn btn-g" onclick="closeDW('dw-prop')">Cancelar</button></div>
 </div></div></div>
 
 <!-- DRAWER VISITA -->
@@ -529,8 +576,8 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
 <div class="dhandle"></div>
 <div class="dtitle"><span>Agendar Visita</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-v')">✕</button></div>
 <div class="dbody">
-<div class="f"><label>Cliente *</label><select id="v-c" onchange="fillProp('v-prop','v-c')"></select></div>
-<div class="f"><label>Propriedade / Fazenda</label><input id="v-prop" type="text" placeholder="Preenchido automaticamente"></div>
+<div class="f"><label>Cliente *</label><select id="v-c" onchange="fillPropSelect('v-prop','v-c')"></select></div>
+<div class="f"><label>Propriedade / Fazenda</label><select id="v-prop"></select></div>
 <div class="f2">
   <div class="f"><label>Data *</label><input id="v-d" type="date"></div>
   <div class="f"><label>Horário</label><input id="v-h" type="time" value="08:00"></div>
@@ -548,8 +595,8 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
 <div class="dhandle"></div>
 <div class="dtitle"><span>Registrar Visita</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-r')">✕</button></div>
 <div class="dbody">
-<div class="f"><label>Cliente *</label><select id="r-c" onchange="fillProp('r-prop','r-c')"></select></div>
-<div class="f"><label>Propriedade Visitada</label><input id="r-prop" type="text" placeholder="Fazenda visitada"></div>
+<div class="f"><label>Cliente *</label><select id="r-c" onchange="fillPropSelect('r-prop','r-c')"></select></div>
+<div class="f"><label>Propriedade Visitada</label><select id="r-prop"></select></div>
 <div class="f2">
   <div class="f"><label>Data *</label><input id="r-d" type="date"></div>
   <div class="f"><label>Status</label><select id="r-s"><option value="realizada">✅ Realizada</option><option value="cancelada">❌ Cancelada</option></select></div>
@@ -696,6 +743,7 @@ var CL=JSON.parse(localStorage.getItem('ac3_c')||'[]');
 var VS=JSON.parse(localStorage.getItem('ac3_v')||'[]');
 var HS=JSON.parse(localStorage.getItem('ac3_h')||'[]');
 var TL=JSON.parse(localStorage.getItem('ac3_t')||'[]');
+var PR=JSON.parse(localStorage.getItem('ac3_p')||'{}');
 var curScr='home';
 var _semOff=0;
 var currentDetId=null;
@@ -759,10 +807,19 @@ function popSel(id,val){
   s.innerHTML=opts;
   if(val)s.value=val;
 }
-function fillProp(propId,selId){
-  var cid=parseInt(document.getElementById(selId).value);
-  if(!cid)return;
-  document.getElementById(propId).value=gC(cid).prop||'';
+// Lista as propriedades do cliente (a principal do cadastro + adicionais) para escolher qual foi visitada
+function propList(cid){
+  var c=gC(cid);
+  var list=[c.prop&&c.prop.trim()?c.prop.trim():'Propriedade principal'];
+  (c.props2||[]).forEach(function(p){if(p.nome)list.push(p.nome);});
+  return list;
+}
+function fillPropSelect(propSelId,clientSelId){
+  var cid=parseInt(document.getElementById(clientSelId).value);
+  var sel=document.getElementById(propSelId);
+  if(!cid){sel.innerHTML='<option value="">—</option>';return;}
+  var opts=propList(cid);
+  sel.innerHTML=opts.map(function(o){return '<option value="'+o.replace(/"/g,'&quot;')+'">'+o+'</option>';}).join('');
 }
 function dist(lat1,lng1,lat2,lng2){
   var R=6371,dL=(lat2-lat1)*Math.PI/180,dN=(lng2-lng1)*Math.PI/180;
@@ -794,7 +851,7 @@ function fazerBackup(){
   var data={
     versao:3,
     data:new Date().toISOString(),
-    clientes:CL,visitas:VS,historico:HS,talhoes:TL
+    clientes:CL,visitas:VS,historico:HS,talhoes:TL,precos:PR
   };
   var json=JSON.stringify(data,null,2);
   var blob=new Blob([json],{type:'application/json'});
@@ -818,8 +875,9 @@ function restaurarBackup(event){
       if(!data.clientes||!data.visitas||!data.historico){throw new Error('Formato inválido');}
       if(!confirm('Restaurar backup de '+fDFull(data.data.slice(0,10))+'?\nIsso substituirá todos os dados atuais.'))return;
       CL=data.clientes;VS=data.visitas;HS=data.historico;TL=data.talhoes||[];
+      PR=data.precos||{};localStorage.setItem('ac3_p',JSON.stringify(PR));
       save();
-      renderHome();renderC();updateBadge();
+      renderHome();renderC();updateBadge();renderPrecos();
       toast('✅ Backup restaurado com sucesso!');
     } catch(err){
       toast('❌ Erro ao restaurar: '+err.message);
@@ -872,7 +930,7 @@ function nav(id,btn){
   document.getElementById('content').scrollTop=0;
   var hideFab=['mais','rotas'];
   document.getElementById('fab').style.display=hideFab.indexOf(id)>=0?'none':'';
-  if(id==='home'){renderHome();loadWeatherHome();}
+  if(id==='home'){renderHome();loadWeatherHome();loadDolarHome();}
   if(id==='clientes')renderC();
   if(id==='semana')renderSem();
   if(id==='agenda')renderA();
@@ -903,30 +961,32 @@ function clearDateFilter(){
 var _recog=null,_recogTarget=null;
 function voiceInput(fieldId,btn){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){toast('🎙️ Ditado por voz não é suportado neste navegador');return;}
+  if(!SR){toast('🎙️ Ditado por voz não é suportado neste navegador. Você pode usar o microfone do teclado do celular.',6000);return;}
   if(_recog&&_recogTarget===fieldId){_recog.stop();return;} // toque de novo = parar
-  if(_recog)_recog.stop();
+  if(_recog){_recog.onend=null;try{_recog.stop();}catch(e){}} // encerra o anterior sem deixar seu onend apagar o novo
   var el=document.getElementById(fieldId);
-  _recog=new SR();
-  _recogTarget=fieldId;
-  _recog.lang='pt-BR';
-  _recog.interimResults=false;
-  _recog.maxAlternatives=1;
+  var rec=new SR();
+  _recog=rec;_recogTarget=fieldId;
+  rec.lang='pt-BR';
+  rec.interimResults=false;
+  rec.maxAlternatives=1;
   btn.classList.add('recording');btn.textContent='⏹';
-  toast('🎙️ Ouvindo…',8000);
-  _recog.onresult=function(e){
+  toast('🎙️ Ouvindo… toque de novo para parar',10000);
+  rec.onresult=function(e){
     var txt=e.results[0][0].transcript;
     el.value=(el.value.trim()?el.value.trim()+' ':'')+txt;
   };
-  _recog.onerror=function(e){
-    if(e.error==='not-allowed'||e.error==='service-not-allowed')toast('❌ Permissão de microfone negada');
-    else if(e.error!=='no-speech'&&e.error!=='aborted')toast('❌ Erro no reconhecimento de voz');
+  rec.onerror=function(e){
+    if(e.error==='not-allowed'||e.error==='service-not-allowed')toast('❌ Permissão de microfone negada. Ative em Ajustes do celular > Safari (ou navegador) > Microfone.',7000);
+    else if(e.error==='audio-capture')toast('❌ Nenhum microfone disponível neste dispositivo',5000);
+    else if(e.error==='network')toast('❌ Ditado por voz precisa de internet',5000);
+    else if(e.error!=='no-speech'&&e.error!=='aborted')toast('❌ Erro no reconhecimento de voz. Tente novamente ou use o microfone do teclado.',6000);
   };
-  _recog.onend=function(){
+  rec.onend=function(){
     btn.classList.remove('recording');btn.textContent='🎙️';
-    _recog=null;_recogTarget=null;
+    if(_recog===rec){_recog=null;_recogTarget=null;}
   };
-  try{_recog.start();}catch(e){btn.classList.remove('recording');btn.textContent='🎙️';}
+  try{rec.start();}catch(e){btn.classList.remove('recording');btn.textContent='🎙️';toast('❌ Não foi possível iniciar o ditado por voz');}
 }
 
 // ── RASTREAMENTO DE KM POR GPS ───────────────────────────────────────────
@@ -1029,6 +1089,13 @@ function geoLoc(){
     {enableHighAccuracy:true,timeout:10000,maximumAge:0}
   );
 }
+// ── Camadas de mapa (rua / satélite, sem chave de API) ───────────────────
+function addBaseLayers(map){
+  var rua=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(map);
+  var sat=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles © Esri',maxZoom:19});
+  L.control.layers({'🗺️ Mapa':rua,'🛰️ Satélite':sat},null,{position:'topright'}).addTo(map);
+  return {rua:rua,sat:sat};
+}
 // ── Cidade sede e distância ─────────────────────────────────────────────
 var CAARAPO={lat:-22.6369,lng:-54.8214};
 function updateDistCad(){
@@ -1046,7 +1113,7 @@ function abrirMapaSelecao(latId,lngId){
   setTimeout(function(){
     if(!mapPickInst){
       mapPickInst=L.map('map-pick',{zoomControl:true});
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(mapPickInst);
+      addBaseLayers(mapPickInst);
       mapPickInst.on('click',function(e){
         setPickPoint(e.latlng.lat,e.latlng.lng);
       });
@@ -1097,7 +1164,15 @@ function openTalhao(cid,id){
   } else {
     ['t-nome','t-area','t-cult','t-lat','t-lng','t-o'].forEach(function(fid){document.getElementById(fid).value='';});
   }
+  document.getElementById('btn-del-talhao').style.display=id?'block':'none';
   openDW('dw-talhao');
+}
+function delTalhaoFromForm(){
+  var id=parseInt(document.getElementById('t-id').value);
+  var cid=parseInt(document.getElementById('t-cid').value);
+  if(!id)return;
+  delTalhao(id,cid);
+  closeDW('dw-talhao');
 }
 function saveTalhao(){
   var nome=document.getElementById('t-nome').value.trim();
@@ -1131,6 +1206,72 @@ function renderTalhoes(cid){
   }).join(''):'<div style="padding:16px"><p style="font-size:13px;color:var(--text3);margin:0">Nenhum talhão cadastrado ainda.</p></div>')
   +'<div style="padding:10px 16px">'
   +'<button class="btn btn-g btn-full btn-sm" onclick="openTalhao('+cid+')">＋ Adicionar Talhão</button></div>';
+}
+// ── Propriedades adicionais do cliente (além da propriedade principal) ───
+function openProp(cid,id){
+  document.getElementById('p2-cid').value=cid;
+  document.getElementById('p2-id').value=id||'';
+  document.getElementById('dw-prop-t').textContent=id?'Editar Propriedade':'Nova Propriedade';
+  var c=gC(cid);
+  if(id){
+    var p=(c.props2||[]).find(function(x){return x.id==id;})||{};
+    document.getElementById('p2-nome').value=p.nome||'';
+    document.getElementById('p2-loc').value=p.loc||'';
+    document.getElementById('p2-area').value=p.area||'';
+    document.getElementById('p2-cult').value=p.cult||'';
+    document.getElementById('p2-lat').value=p.lat!=null?p.lat:'';
+    document.getElementById('p2-lng').value=p.lng!=null?p.lng:'';
+  } else {
+    ['p2-nome','p2-loc','p2-area','p2-cult','p2-lat','p2-lng'].forEach(function(fid){document.getElementById(fid).value='';});
+  }
+  document.getElementById('btn-del-prop').style.display=id?'block':'none';
+  openDW('dw-prop');
+}
+function delPropFromForm(){
+  var id=parseInt(document.getElementById('p2-id').value);
+  var cid=parseInt(document.getElementById('p2-cid').value);
+  if(!id)return;
+  delProp(id,cid);
+  closeDW('dw-prop');
+}
+function saveProp(){
+  var nome=document.getElementById('p2-nome').value.trim();
+  if(!nome){toast('⚠️ Dê um nome à propriedade');return;}
+  var cid=parseInt(document.getElementById('p2-cid').value);
+  var id=document.getElementById('p2-id').value;
+  var c=CL.find(function(x){return x.id===cid;});
+  if(!c)return;
+  if(!c.props2)c.props2=[];
+  var obj={
+    nome:nome,
+    loc:document.getElementById('p2-loc').value.trim(),
+    area:parseFloat(document.getElementById('p2-area').value)||0,
+    cult:document.getElementById('p2-cult').value,
+    lat:parseFloat(document.getElementById('p2-lat').value),
+    lng:parseFloat(document.getElementById('p2-lng').value)
+  };
+  if(isNaN(obj.lat))obj.lat=null;if(isNaN(obj.lng))obj.lng=null;
+  if(id){var i=c.props2.findIndex(function(p){return p.id==id;});c.props2[i]=Object.assign({},c.props2[i],obj);toast('✅ Propriedade atualizada');}
+  else{obj.id=nid(c.props2);c.props2.push(obj);toast('✅ Propriedade cadastrada');}
+  save();closeDW('dw-prop');
+  renderProps(cid);
+}
+function delProp(id,cid){
+  if(!confirm('Excluir esta propriedade?'))return;
+  var c=CL.find(function(x){return x.id===cid;});
+  if(!c)return;
+  c.props2=(c.props2||[]).filter(function(p){return p.id!==id;});
+  save();renderProps(cid);toast('🗑 Propriedade excluída');
+}
+function renderProps(cid){
+  var el=document.getElementById('det-props');if(!el)return;
+  var c=gC(cid);
+  var ps=c.props2||[];
+  el.innerHTML=(ps.length?ps.map(function(p){
+    return '<div class="li" onclick="openProp('+cid+','+p.id+')"><div class="av" style="background:var(--green)">🏠</div><div class="lm"><div class="ln">'+p.nome+'</div><div class="ls">'+(p.loc||p.cult||'—')+(p.area?' · '+p.area+' ha':'')+(p.lat!=null?' · '+dist(p.lat,p.lng,CAARAPO.lat,CAARAPO.lng).toFixed(1)+' km sede':'')+'</div></div><span class="chev">›</span></div>';
+  }).join(''):'<div style="padding:16px"><p style="font-size:13px;color:var(--text3);margin:0">Cliente tem apenas a propriedade principal do cadastro. Adicione mais fazendas aqui se ele tiver.</p></div>')
+  +'<div style="padding:10px 16px">'
+  +'<button class="btn btn-g btn-full btn-sm" onclick="openProp('+cid+')">＋ Adicionar Propriedade</button></div>';
 }
 // ── Previsão do tempo (Open-Meteo, sem chave de API) ─────────────────────
 function wCodeInfo(code){
@@ -1177,6 +1318,55 @@ function loadWeatherClient(lat,lng){
     })
     .catch(function(){});
 }
+// ── Preços do dia (dólar automático · soja/milho manual) ─────────────────
+function fmtBRL(v){return 'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmtHora(iso){try{return new Date(iso).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});}catch(e){return '';}}
+var _dolarAt=0;
+function loadDolarHome(){
+  renderPrecos();
+  if(!navigator.onLine)return;
+  if(Date.now()-_dolarAt<600000&&PR.dolar)return;
+  _dolarAt=Date.now();
+  fetch('https://economia.awesomeapi.com.br/last/USD-BRL')
+    .then(function(r){return r.json();})
+    .then(function(d){
+      var q=d&&d.USDBRL;
+      if(!q||!q.bid)return;
+      PR.dolar={val:parseFloat(q.bid),at:new Date().toISOString()};
+      localStorage.setItem('ac3_p',JSON.stringify(PR));
+      renderPrecos();
+    })
+    .catch(function(){});
+}
+function renderPrecos(){
+  var el=document.getElementById('prices-home');if(!el)return;
+  var d=PR.dolar?fmtBRL(PR.dolar.val):'—';
+  var s=PR.soja&&PR.soja.val?fmtBRL(PR.soja.val):'—';
+  var m=PR.milho&&PR.milho.val?fmtBRL(PR.milho.val):'—';
+  el.innerHTML='<div class="price-card" onclick="openPrecos()">'
+    +'<div class="price-item"><div class="price-lbl">💵 Dólar</div><div class="price-val">'+d+'</div></div>'
+    +'<div class="price-item"><div class="price-lbl">🌱 Soja (sc)</div><div class="price-val">'+s+'</div></div>'
+    +'<div class="price-item"><div class="price-lbl">🌽 Milho (sc)</div><div class="price-val">'+m+'</div></div>'
+    +'<div class="price-edit">✏️</div></div>';
+}
+function openPrecos(){
+  document.getElementById('p-soja').value=PR.soja&&PR.soja.val?PR.soja.val:'';
+  document.getElementById('p-milho').value=PR.milho&&PR.milho.val?PR.milho.val:'';
+  document.getElementById('p-dolar-info').textContent=PR.dolar?(fmtBRL(PR.dolar.val)+' — atualizado automaticamente às '+fmtHora(PR.dolar.at)):'Não foi possível obter o dólar agora (é preciso estar conectado à internet).';
+  document.getElementById('p-note').textContent='Cotação da saca (60kg) de soja e milho não tem fonte gratuita automática — digite o valor do dia (rádio, cooperativa, corretora etc.) e ele fica salvo até você atualizar de novo.';
+  openDW('dw-precos');
+}
+function savePrecos(){
+  var s=parseFloat(document.getElementById('p-soja').value);
+  var m=parseFloat(document.getElementById('p-milho').value);
+  var dt=hoje();
+  if(!isNaN(s))PR.soja={val:s,date:dt};
+  if(!isNaN(m))PR.milho={val:m,date:dt};
+  localStorage.setItem('ac3_p',JSON.stringify(PR));
+  renderPrecos();
+  closeDW('dw-precos');
+  toast('💰 Preços atualizados');
+}
 function saveC(){
   var nome=document.getElementById('c-n').value.trim();
   var cidade=document.getElementById('c-ci').value.trim();
@@ -1211,8 +1401,7 @@ function delC(id){
 }
 function openV(cid,dt){
   popSel('v-c',cid);
-  if(cid)document.getElementById('v-prop').value=gC(cid).prop||'';
-  else document.getElementById('v-prop').value='';
+  fillPropSelect('v-prop','v-c');
   document.getElementById('v-d').value=dt||hoje();
   document.getElementById('v-h').value='08:00';
   document.getElementById('v-o').value='';
@@ -1247,8 +1436,7 @@ function confV(id){
 }
 function openReg(cid){
   popSel('r-c',cid);
-  if(cid)document.getElementById('r-prop').value=gC(cid).prop||'';
-  else document.getElementById('r-prop').value='';
+  fillPropSelect('r-prop','r-c');
   document.getElementById('r-d').value=hoje();
   document.getElementById('r-s').value='realizada';
   document.getElementById('r-o').value='';
@@ -1375,6 +1563,7 @@ function renderDet(id){
     acts+='<button class="atile" onclick="toast(\'Sem telefone cadastrado\')"><span class="ti">📞</span><span class="tl">Ligar</span><span class="ts">Sem telefone</span></button>';
   }
   document.getElementById('det-acts').innerHTML=acts;
+  renderProps(id);
   renderTalhoes(id);
   loadWeatherClient(c.lat,c.lng);
   renderDetHist(id);
@@ -1506,7 +1695,7 @@ function initMap(){
   if(window._noMap){document.getElementById('map').innerHTML='<div style="padding:20px;text-align:center;color:var(--ink2);font-size:13px">Mapa requer conexão com internet.</div>';return;}
   try{
     mapInst=L.map('map',{zoomControl:true});
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(mapInst);
+    addBaseLayers(mapInst);
     setTimeout(function(){mapInst.invalidateSize();renderMapMarkers();},200);
   } catch(e){document.getElementById('map').innerHTML='<div style="padding:20px;text-align:center;color:var(--ink2);font-size:13px">Erro ao carregar mapa.</div>';}
 }
@@ -1634,6 +1823,7 @@ if(navigator.userAgent.includes('iPhone')||navigator.userAgent.includes('iPad'))
 // ── INIT ──────────────────────────────────────────────────────────────────
 renderHome();
 loadWeatherHome();
+loadDolarHome();
 updateBadge();
 updateBackupStatus();
 
