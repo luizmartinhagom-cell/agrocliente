@@ -106,12 +106,6 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
 .wd-dn{font-size:10px;color:var(--text3);text-transform:capitalize}
 .wd-ic{font-size:18px;margin:2px 0}
 .wd-t{font-size:11px;font-weight:700;color:var(--text)}
-.price-card{background:var(--white);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:6px;cursor:pointer}
-.price-item{flex:1;text-align:center}
-.price-lbl{font-size:10px;color:var(--text3)}
-.price-val{font-size:14px;font-weight:800;color:var(--text);margin-top:2px}
-.price-edit{font-size:13px;color:var(--text3);flex-shrink:0;padding-left:4px}
-.price-note{font-size:11px;color:var(--text3);margin-top:4px}
 /* SECTION */
 .sec{padding:18px 16px 6px;display:flex;align-items:center;justify-content:space-between}
 .sec-lbl{padding:18px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px}
@@ -324,7 +318,6 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
     <div class="hero-metrics" id="hero-metrics"></div>
   </div>
   <div id="weather-home"></div>
-  <div id="prices-home"></div>
   <div class="perf-strip" id="perf-strip"></div>
   <div class="sec"><span class="sec-t">Mês atual</span></div>
   <div class="qs-row" id="qs-row"></div>
@@ -432,7 +425,7 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   <div style="padding:0 16px 16px">
     <button class="btn btn-d btn-full btn-sm" onclick="if(confirm('Apagar todos os dados? Faça backup primeiro!'))limparDados()">Limpar todos os dados</button>
   </div>
-  <div style="text-align:center;padding:0 16px 24px;font-size:11px;color:var(--text3)">AgroClientes v3.6 · iOS & Android · Offline</div>
+  <div style="text-align:center;padding:0 16px 24px;font-size:11px;color:var(--text3)">AgroClientes v3.7 · iOS & Android · Offline</div>
 </div>
 <!-- DETALHE -->
 <div id="s-det" class="scr">
@@ -512,21 +505,6 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
 <div id="map-pick" style="height:320px;border-radius:12px;overflow:hidden;margin-bottom:10px;background:var(--gray-100)"></div>
 <div id="mappick-info" style="font-size:13px;color:var(--ink2);margin-bottom:14px">Toque no mapa para escolher o ponto.</div>
 <div class="brow"><button class="btn btn-p btn-full" onclick="confirmarMapaSelecao()">✅ Usar esta localização</button><button class="btn btn-g" onclick="closeDW('dw-mappick')">Cancelar</button></div>
-</div></div></div>
-
-<!-- DRAWER PREÇOS DO DIA -->
-<div class="ov" id="dw-precos"><div class="drawer">
-<div class="dhandle"></div>
-<div class="dtitle"><span>Preços do dia</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-precos')">✕</button></div>
-<div class="dbody">
-<div class="f"><label>💵 Dólar (USD/BRL)</label><div id="p-dolar-info" style="font-size:13px;color:var(--ink2);padding:8px 0">—</div></div>
-<div class="fsec">Atualize manualmente (não há fonte automática gratuita para saca)</div>
-<div class="f2">
-  <div class="f"><label>🌱 Soja (R$/saca 60kg)</label><input id="p-soja" type="number" step="0.01" min="0" placeholder="0,00" inputmode="decimal"></div>
-  <div class="f"><label>🌽 Milho (R$/saca 60kg)</label><input id="p-milho" type="number" step="0.01" min="0" placeholder="0,00" inputmode="decimal"></div>
-</div>
-<div class="price-note" id="p-note"></div>
-<div class="brow"><button class="btn btn-p btn-full" onclick="savePrecos()">💾 Salvar preços</button><button class="btn btn-g" onclick="closeDW('dw-precos')">Cancelar</button></div>
 </div></div></div>
 
 <!-- DRAWER TALHÃO -->
@@ -743,7 +721,6 @@ var CL=JSON.parse(localStorage.getItem('ac3_c')||'[]');
 var VS=JSON.parse(localStorage.getItem('ac3_v')||'[]');
 var HS=JSON.parse(localStorage.getItem('ac3_h')||'[]');
 var TL=JSON.parse(localStorage.getItem('ac3_t')||'[]');
-var PR=JSON.parse(localStorage.getItem('ac3_p')||'{}');
 var curScr='home';
 var _semOff=0;
 var currentDetId=null;
@@ -851,7 +828,7 @@ function fazerBackup(){
   var data={
     versao:3,
     data:new Date().toISOString(),
-    clientes:CL,visitas:VS,historico:HS,talhoes:TL,precos:PR
+    clientes:CL,visitas:VS,historico:HS,talhoes:TL
   };
   var json=JSON.stringify(data,null,2);
   var blob=new Blob([json],{type:'application/json'});
@@ -875,9 +852,8 @@ function restaurarBackup(event){
       if(!data.clientes||!data.visitas||!data.historico){throw new Error('Formato inválido');}
       if(!confirm('Restaurar backup de '+fDFull(data.data.slice(0,10))+'?\nIsso substituirá todos os dados atuais.'))return;
       CL=data.clientes;VS=data.visitas;HS=data.historico;TL=data.talhoes||[];
-      PR=data.precos||{};localStorage.setItem('ac3_p',JSON.stringify(PR));
       save();
-      renderHome();renderC();updateBadge();renderPrecos();
+      renderHome();renderC();updateBadge();
       toast('✅ Backup restaurado com sucesso!');
     } catch(err){
       toast('❌ Erro ao restaurar: '+err.message);
@@ -930,7 +906,7 @@ function nav(id,btn){
   document.getElementById('content').scrollTop=0;
   var hideFab=['mais','rotas'];
   document.getElementById('fab').style.display=hideFab.indexOf(id)>=0?'none':'';
-  if(id==='home'){renderHome();loadWeatherHome();loadDolarHome();}
+  if(id==='home'){renderHome();loadWeatherHome();}
   if(id==='clientes')renderC();
   if(id==='semana')renderSem();
   if(id==='agenda')renderA();
@@ -1317,55 +1293,6 @@ function loadWeatherClient(lat,lng){
       el.innerHTML='<span class="info-tag">'+cur[0]+' '+Math.round(d.current.temperature_2m)+'°C agora na fazenda</span>';
     })
     .catch(function(){});
-}
-// ── Preços do dia (dólar automático · soja/milho manual) ─────────────────
-function fmtBRL(v){return 'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
-function fmtHora(iso){try{return new Date(iso).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});}catch(e){return '';}}
-var _dolarAt=0;
-function loadDolarHome(){
-  renderPrecos();
-  if(!navigator.onLine)return;
-  if(Date.now()-_dolarAt<600000&&PR.dolar)return;
-  _dolarAt=Date.now();
-  fetch('https://economia.awesomeapi.com.br/last/USD-BRL')
-    .then(function(r){return r.json();})
-    .then(function(d){
-      var q=d&&d.USDBRL;
-      if(!q||!q.bid)return;
-      PR.dolar={val:parseFloat(q.bid),at:new Date().toISOString()};
-      localStorage.setItem('ac3_p',JSON.stringify(PR));
-      renderPrecos();
-    })
-    .catch(function(){});
-}
-function renderPrecos(){
-  var el=document.getElementById('prices-home');if(!el)return;
-  var d=PR.dolar?fmtBRL(PR.dolar.val):'—';
-  var s=PR.soja&&PR.soja.val?fmtBRL(PR.soja.val):'—';
-  var m=PR.milho&&PR.milho.val?fmtBRL(PR.milho.val):'—';
-  el.innerHTML='<div class="price-card" onclick="openPrecos()">'
-    +'<div class="price-item"><div class="price-lbl">💵 Dólar</div><div class="price-val">'+d+'</div></div>'
-    +'<div class="price-item"><div class="price-lbl">🌱 Soja (sc)</div><div class="price-val">'+s+'</div></div>'
-    +'<div class="price-item"><div class="price-lbl">🌽 Milho (sc)</div><div class="price-val">'+m+'</div></div>'
-    +'<div class="price-edit">✏️</div></div>';
-}
-function openPrecos(){
-  document.getElementById('p-soja').value=PR.soja&&PR.soja.val?PR.soja.val:'';
-  document.getElementById('p-milho').value=PR.milho&&PR.milho.val?PR.milho.val:'';
-  document.getElementById('p-dolar-info').textContent=PR.dolar?(fmtBRL(PR.dolar.val)+' — atualizado automaticamente às '+fmtHora(PR.dolar.at)):'Não foi possível obter o dólar agora (é preciso estar conectado à internet).';
-  document.getElementById('p-note').textContent='Cotação da saca (60kg) de soja e milho não tem fonte gratuita automática — digite o valor do dia (rádio, cooperativa, corretora etc.) e ele fica salvo até você atualizar de novo.';
-  openDW('dw-precos');
-}
-function savePrecos(){
-  var s=parseFloat(document.getElementById('p-soja').value);
-  var m=parseFloat(document.getElementById('p-milho').value);
-  var dt=hoje();
-  if(!isNaN(s))PR.soja={val:s,date:dt};
-  if(!isNaN(m))PR.milho={val:m,date:dt};
-  localStorage.setItem('ac3_p',JSON.stringify(PR));
-  renderPrecos();
-  closeDW('dw-precos');
-  toast('💰 Preços atualizados');
 }
 function saveC(){
   var nome=document.getElementById('c-n').value.trim();
@@ -1823,7 +1750,6 @@ if(navigator.userAgent.includes('iPhone')||navigator.userAgent.includes('iPad'))
 // ── INIT ──────────────────────────────────────────────────────────────────
 renderHome();
 loadWeatherHome();
-loadDolarHome();
 updateBadge();
 updateBackupStatus();
 
