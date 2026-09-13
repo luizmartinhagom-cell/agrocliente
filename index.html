@@ -97,16 +97,6 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
 .pbar-fill{height:100%;border-radius:2px;transition:width .6s}
 .pbar-val{font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:right;flex-shrink:0}
 /* WEATHER */
-.weather-card{background:var(--white);border-bottom:1px solid var(--border);padding:12px 16px}
-.w-now{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.w-ic{font-size:24px}
-.w-temp{font-size:20px;font-weight:800;color:var(--text)}
-.w-loc{font-size:11px;color:var(--text3);margin-left:auto;text-align:right}
-.w-days{display:flex;gap:6px}
-.wd-day{flex:1;background:var(--gray-50);border-radius:10px;padding:8px 4px;text-align:center}
-.wd-dn{font-size:10px;color:var(--text3);text-transform:capitalize}
-.wd-ic{font-size:18px;margin:2px 0}
-.wd-t{font-size:11px;font-weight:700;color:var(--text)}
 /* SECTION */
 .sec{padding:18px 16px 6px;display:flex;align-items:center;justify-content:space-between}
 .sec-lbl{padding:18px 16px 6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px}
@@ -318,7 +308,6 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
     <div class="hero-big" id="hero-big"></div>
     <div class="hero-metrics" id="hero-metrics"></div>
   </div>
-  <div id="weather-home"></div>
   <div class="perf-strip" id="perf-strip"></div>
   <div class="sec"><span class="sec-t">Mês atual</span></div>
   <div class="qs-row" id="qs-row"></div>
@@ -426,7 +415,7 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   <div style="padding:0 16px 16px">
     <button class="btn btn-d btn-full btn-sm" onclick="if(confirm('Apagar todos os dados? Faça backup primeiro!'))limparDados()">Limpar todos os dados</button>
   </div>
-  <div style="text-align:center;padding:0 16px 24px;font-size:11px;color:var(--text3)">AgroClientes v4.0 · iOS & Android · Offline</div>
+  <div style="text-align:center;padding:0 16px 24px;font-size:11px;color:var(--text3)">AgroClientes v4.1 · iOS & Android · Offline</div>
 </div>
 <!-- DETALHE -->
 <div id="s-det" class="scr">
@@ -942,7 +931,7 @@ function nav(id,btn){
   document.getElementById('content').scrollTop=0;
   var hideFab=['mais','rotas'];
   document.getElementById('fab').style.display=hideFab.indexOf(id)>=0?'none':'';
-  if(id==='home'){renderHome();loadWeatherHome();}
+  if(id==='home'){renderHome();}
   if(id==='clientes')renderC();
   if(id==='semana')renderSem();
   if(id==='agenda')renderA();
@@ -1527,26 +1516,6 @@ function wCodeInfo(code){
     95:['⛈️','Trovoada'],96:['⛈️','Trovoada c/ granizo'],99:['⛈️','Trovoada forte']};
   return m[code]||['🌡️','—'];
 }
-var _weatherHomeAt=0;
-function loadWeatherHome(){
-  var el=document.getElementById('weather-home');if(!el)return;
-  if(!navigator.onLine)return;
-  if(Date.now()-_weatherHomeAt<600000&&el.innerHTML)return;
-  _weatherHomeAt=Date.now();
-  fetch('https://api.open-meteo.com/v1/forecast?latitude='+CAARAPO.lat+'&longitude='+CAARAPO.lng+'&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=4')
-    .then(function(r){return r.json();})
-    .then(function(d){
-      if(!d||!d.current)return;
-      var cur=wCodeInfo(d.current.weather_code);
-      var days=d.daily.time.map(function(dt,i){
-        var wi=wCodeInfo(d.daily.weather_code[i]);
-        var dn=new Date(dt+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'short'}).replace('.','');
-        return '<div class="wd-day"><div class="wd-dn">'+dn+'</div><div class="wd-ic">'+wi[0]+'</div><div class="wd-t">'+Math.round(d.daily.temperature_2m_max[i])+'°/'+Math.round(d.daily.temperature_2m_min[i])+'°</div></div>';
-      }).join('');
-      el.innerHTML='<div class="weather-card"><div class="w-now"><span class="w-ic">'+cur[0]+'</span><span class="w-temp">'+Math.round(d.current.temperature_2m)+'°C</span><span class="w-loc">Caarapó – MS<br>'+cur[1]+'</span></div><div class="w-days">'+days+'</div></div>';
-    })
-    .catch(function(){});
-}
 function loadWeatherClient(lat,lng){
   var el=document.getElementById('det-weather');if(!el)return;
   el.innerHTML='';
@@ -1751,6 +1720,8 @@ function renderDet(id){
   var acts='<button class="atile" onclick="openReg('+id+')"><span class="ti">✅</span><span class="tl">Registrar Visita</span><span class="ts">Marcar realizada</span></button>';
   acts+='<button class="atile" onclick="openV('+id+')"><span class="ti">📅</span><span class="tl">Agendar Visita</span><span class="ts">Nova visita</span></button>';
   acts+='<button class="atile" onclick="openC('+id+')"><span class="ti">✏️</span><span class="tl">Editar Cadastro</span><span class="ts">Dados e fazenda</span></button>';
+  acts+='<button class="atile" onclick="openProp('+id+')"><span class="ti">🏠</span><span class="tl">Nova Propriedade</span><span class="ts">Outra fazenda</span></button>';
+  acts+='<button class="atile" onclick="openTalhao('+id+')"><span class="ti">🌱</span><span class="tl">Novo Talhão</span><span class="ts">Desenhar/importar área</span></button>';
   if(c.tel){
     acts+='<button class="atile" onclick="location.href=\'tel:'+c.tel+'\'"><span class="ti">📞</span><span class="tl">Ligar</span><span class="ts">'+c.tel+'</span></button>';
   } else {
@@ -2016,7 +1987,6 @@ if(navigator.userAgent.includes('iPhone')||navigator.userAgent.includes('iPad'))
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 renderHome();
-loadWeatherHome();
 updateBadge();
 updateBackupStatus();
 

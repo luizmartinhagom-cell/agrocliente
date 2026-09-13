@@ -1,7 +1,7 @@
-// AgroClientes Service Worker v8
+// AgroClientes Service Worker v9
 // Permite uso 100% offline após primeira visita
 
-const CACHE = 'agroclientes-v8';
+const CACHE = 'agroclientes-v9';
 
 // Arquivos para cachear
 const ARQUIVOS = [
