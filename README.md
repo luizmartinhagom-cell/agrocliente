@@ -20,11 +20,16 @@ CRM para representantes comerciais do agronegócio.
 ## Funcionalidades
 - Dashboard gerencial com indicadores
 - Cadastro de clientes com fazenda e localização
+- Cliente com várias fazendas: cadastre todas já no formulário inicial
+- Área total do cliente = soma de todas as fazendas (sem duplicar)
+- Talhões por propriedade, com contorno desenhado no mapa ou importado de KML/KMZ (ex: FieldsArea) e cálculo automático de área
+- Mapa com satélite (sem precisar de conta Google)
+- Ditado por voz nas observações
 - Planejamento semanal de visitas
 - Agenda com filtro por data
 - Histórico completo de visitas
 - Mapa com rota otimizada
 - Backup e restauração de dados
 - Exportação para Excel
-- Funciona offline
+- Funciona offline (clima e cotação sempre atualizados da rede quando online)
 

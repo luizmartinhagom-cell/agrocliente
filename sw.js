@@ -1,7 +1,7 @@
-// AgroClientes Service Worker v7
+// AgroClientes Service Worker v8
 // Permite uso 100% offline após primeira visita
 
-const CACHE = 'agroclientes-v7';
+const CACHE = 'agroclientes-v8';
 
 // Arquivos para cachear
 const ARQUIVOS = [
@@ -31,9 +31,20 @@ self.addEventListener('activate', event => {
   );
 });
 
+// Dados que mudam a toda hora (clima, cotação do dólar): nunca usar cache,
+// sempre buscar da rede — só cai pro cache se estiver realmente offline.
+// (sem isso, o app mostrava temperatura/cotação antigas, guardadas de uma visita anterior)
+const SEMPRE_REDE = ['open-meteo.com', 'awesomeapi.com.br'];
+
 // Requisições: cache primeiro, rede como fallback
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+  if (SEMPRE_REDE.some(host => event.request.url.indexOf(host) !== -1)) {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match(event.request))
+    );
+    return;
+  }
   event.respondWith(
     caches.match(event.request)
       .then(cached => {

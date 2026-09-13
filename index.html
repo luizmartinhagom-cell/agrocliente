@@ -19,6 +19,7 @@
 <title>AgroClientes</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" onerror="window._noMap=true"></script>
+<script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js" crossorigin="" onerror="window._noZip=true"></script>
 <style>
 :root{
   --black:#000;--white:#fff;
@@ -425,7 +426,7 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   <div style="padding:0 16px 16px">
     <button class="btn btn-d btn-full btn-sm" onclick="if(confirm('Apagar todos os dados? Faça backup primeiro!'))limparDados()">Limpar todos os dados</button>
   </div>
-  <div style="text-align:center;padding:0 16px 24px;font-size:11px;color:var(--text3)">AgroClientes v3.7 · iOS & Android · Offline</div>
+  <div style="text-align:center;padding:0 16px 24px;font-size:11px;color:var(--text3)">AgroClientes v4.0 · iOS & Android · Offline</div>
 </div>
 <!-- DETALHE -->
 <div id="s-det" class="scr">
@@ -474,7 +475,7 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   <div class="f"><label>Telefone</label><input id="c-t" type="tel" placeholder="(65) 99999-9999" oninput="mT(this)" autocomplete="tel"></div>
 </div>
 <div class="fsec">🌾 Propriedade Principal</div>
-<div style="font-size:11px;color:var(--ink2);margin:-6px 0 10px">Cliente com mais de uma fazenda? Cadastre esta primeiro e adicione as outras depois, na tela do cliente.</div>
+<div style="font-size:11px;color:var(--ink2);margin:-6px 0 10px">Cliente com mais de uma fazenda? Cadastre esta como a principal e adicione as outras logo abaixo, antes de salvar.</div>
 <div class="f"><label>Localização da Fazenda</label><input id="c-loc" type="text" placeholder="Rod. MT-222, km 45"></div>
 <div class="f2">
   <div class="f"><label>Área Plantada (ha)</label><input id="c-area" type="number" placeholder="0" min="0" inputmode="decimal"></div>
@@ -489,6 +490,9 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   <button class="btn btn-g btn-sm" onclick="geoLoc()" style="font-size:12px;flex:1">📍 Localização atual</button>
   <button class="btn btn-g btn-sm" onclick="abrirMapaSelecao()" style="font-size:12px;flex:1">🗺️ Selecionar no mapa</button>
 </div>
+<div class="fsec">🏠 Outras propriedades / fazendas</div>
+<div style="font-size:11px;color:var(--ink2);margin:-6px 0 10px">O total de área é a soma da propriedade principal com todas as fazendas abaixo — cada uma conta só uma vez.</div>
+<div class="card" id="c-props-list" style="margin-bottom:14px"></div>
 <div class="fsec">⚙️ Visitas</div>
 <div class="f"><label>Frequência</label><select id="c-f"><option value="7">Semanal (7d)</option><option value="10">10 dias</option><option value="14">Quinzenal (14d)</option><option value="30" selected>Mensal (30d)</option><option value="45">45 dias</option><option value="60">Bimestral (60d)</option><option value="90">Trimestral (90d)</option></select></div>
 <div class="f"><label>Observações</label><div style="display:flex;gap:8px;align-items:flex-start"><textarea id="c-o" placeholder="Produtos, perfil, pendências…" style="flex:1"></textarea><button type="button" class="mic-btn" id="mic-c-o" onclick="voiceInput('c-o',this)" title="Ditar por voz">🎙️</button></div></div>
@@ -513,6 +517,7 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
 <div class="dtitle"><span id="dw-talhao-t">Novo Talhão</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-talhao')">✕</button></div>
 <div class="dbody">
 <div class="f"><label>Nome do talhão *</label><input id="t-nome" type="text" placeholder="Ex.: Talhão 1 - Soja"></div>
+<div class="f"><label>Propriedade</label><select id="t-prop"></select></div>
 <div class="f2">
   <div class="f"><label>Área (ha)</label><input id="t-area" type="number" placeholder="0" min="0" inputmode="decimal"></div>
   <div class="f"><label>Cultura</label><select id="t-cult"><option value="">Selecione</option><option>Soja</option><option>Milho</option><option>Algodão</option><option>Cana</option><option>Trigo</option><option>Arroz</option><option>Pecuária</option><option>Misto</option></select></div>
@@ -521,11 +526,29 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   <div class="f"><label>Latitude</label><input id="t-lat" type="number" step="any" placeholder="-12.5432" inputmode="decimal"></div>
   <div class="f"><label>Longitude</label><input id="t-lng" type="number" step="any" placeholder="-55.7201" inputmode="decimal"></div>
 </div>
-<button class="btn btn-g btn-sm" onclick="abrirMapaSelecao('t-lat','t-lng')" style="margin-bottom:14px;font-size:12px">🗺️ Selecionar no mapa</button>
+<button class="btn btn-g btn-sm" onclick="abrirMapaSelecao('t-lat','t-lng')" style="margin-bottom:10px;font-size:12px">🗺️ Selecionar ponto no mapa</button>
+<div id="t-poly-info" style="font-size:12px;color:var(--ink2);margin-bottom:8px"></div>
+<button class="btn btn-g btn-sm" onclick="abrirDesenhoTalhao()" style="margin-bottom:14px;font-size:12px">📐 Desenhar / importar contorno do talhão</button>
 <div class="f"><label>Observações do talhão</label><div style="display:flex;gap:8px;align-items:flex-start"><textarea id="t-o" placeholder="Solo, plantio, pragas, adubação…" style="flex:1"></textarea><button type="button" class="mic-btn" id="mic-t-o" onclick="voiceInput('t-o',this)" title="Ditar por voz">🎙️</button></div></div>
-<input type="hidden" id="t-id"><input type="hidden" id="t-cid">
+<input type="hidden" id="t-id"><input type="hidden" id="t-cid"><input type="hidden" id="t-poly">
 <button type="button" class="btn btn-g btn-full btn-sm" id="btn-del-talhao" style="display:none;color:var(--red);border:1.5px solid var(--red);margin-bottom:10px" onclick="delTalhaoFromForm()">🗑 Excluir talhão</button>
 <div class="brow"><button class="btn btn-p btn-full" onclick="saveTalhao()">💾 Salvar Talhão</button><button class="btn btn-g" onclick="closeDW('dw-talhao')">Cancelar</button></div>
+</div></div></div>
+
+<!-- DRAWER DESENHO/IMPORTAÇÃO DE CONTORNO DO TALHÃO -->
+<div class="ov" id="dw-talmap"><div class="drawer">
+<div class="dhandle"></div>
+<div class="dtitle"><span>Contorno do Talhão</span><button class="iBtn" style="background:var(--line);color:var(--ink2)" onclick="closeDW('dw-talmap')">✕</button></div>
+<div class="dbody">
+<div style="font-size:12px;color:var(--ink2);margin-bottom:10px">Toque no mapa para marcar os cantos do talhão, na ordem do contorno. Ou importe um arquivo <strong>.kml</strong>/<strong>.kmz</strong> (ex.: exportado do FieldsArea ou Google Earth) que já tenha o desenho pronto.</div>
+<div id="map-tal" style="height:300px;border-radius:12px;overflow:hidden;margin-bottom:10px;background:var(--gray-100)"></div>
+<div id="tal-area-info" style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px">Nenhum ponto marcado ainda.</div>
+<div style="display:flex;gap:8px;margin-bottom:10px">
+  <button class="btn btn-g btn-sm" onclick="undoPontoTalhao()" style="font-size:12px;flex:1">↩️ Desfazer ponto</button>
+  <button class="btn btn-g btn-sm" onclick="limparPontosTalhao()" style="font-size:12px;flex:1">🗑️ Limpar</button>
+</div>
+<label class="btn btn-g btn-full btn-sm" style="font-size:12px;margin-bottom:14px;display:block;text-align:center;cursor:pointer">📁 Importar arquivo KML/KMZ<input type="file" accept=".kml,.kmz" id="t-kml-file" onchange="importKmlKmz(event)" style="display:none"></label>
+<div class="brow"><button class="btn btn-p btn-full" onclick="finalizarContornoTalhao()">✅ Usar este contorno</button><button class="btn btn-g" onclick="closeDW('dw-talmap')">Cancelar</button></div>
 </div></div></div>
 
 <!-- DRAWER PROPRIEDADE (fazenda adicional do cliente) -->
@@ -544,7 +567,7 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;b
   <div class="f"><label>Longitude</label><input id="p2-lng" type="number" step="any" placeholder="-55.7201" inputmode="decimal"></div>
 </div>
 <button class="btn btn-g btn-sm" onclick="abrirMapaSelecao('p2-lat','p2-lng')" style="margin-bottom:14px;font-size:12px">🗺️ Selecionar no mapa</button>
-<input type="hidden" id="p2-id"><input type="hidden" id="p2-cid">
+<input type="hidden" id="p2-id"><input type="hidden" id="p2-cid"><input type="hidden" id="p2-mode" value="real">
 <button type="button" class="btn btn-g btn-full btn-sm" id="btn-del-prop" style="display:none;color:var(--red);border:1.5px solid var(--red);margin-bottom:10px" onclick="delPropFromForm()">🗑 Excluir propriedade</button>
 <div class="brow"><button class="btn btn-p btn-full" onclick="saveProp()">💾 Salvar Propriedade</button><button class="btn btn-g" onclick="closeDW('dw-prop')">Cancelar</button></div>
 </div></div></div>
@@ -767,6 +790,13 @@ var DNOMES=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
 function hoje(){return new Date().toISOString().slice(0,10);}
 function nid(a){return a.length?Math.max.apply(null,a.map(function(x){return x.id;}))+1:1;}
 function gC(id){return CL.find(function(c){return c.id==id;})||{};}
+// Área total do cliente = propriedade principal + cada propriedade adicional, uma única vez (sem duplicar)
+function clientAreaTotal(c){
+  if(!c)return 0;
+  var t=c.area||0;
+  (c.props2||[]).forEach(function(p){t+=p.area||0;});
+  return t;
+}
 function dD(d){if(!d)return 9999;return Math.floor((new Date()-new Date(d))/86400000);}
 function fD(s){if(!s)return'—';var p=s.split('-');return p[2]+'/'+p[1];}
 function fDFull(s){if(!s)return'—';var p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
@@ -797,6 +827,12 @@ function fillPropSelect(propSelId,clientSelId){
   if(!cid){sel.innerHTML='<option value="">—</option>';return;}
   var opts=propList(cid);
   sel.innerHTML=opts.map(function(o){return '<option value="'+o.replace(/"/g,'&quot;')+'">'+o+'</option>';}).join('');
+}
+function fillPropSelectDirect(propSelId,cid,selected){
+  var sel=document.getElementById(propSelId);
+  var opts=propList(cid);
+  if(!selected||opts.indexOf(selected)<0)selected=opts[0];
+  sel.innerHTML=opts.map(function(o){return '<option value="'+o.replace(/"/g,'&quot;')+'"'+(o===selected?' selected':'')+'>'+o+'</option>';}).join('');
 }
 function dist(lat1,lng1,lat2,lng2){
   var R=6371,dL=(lat2-lat1)*Math.PI/180,dN=(lng2-lng1)*Math.PI/180;
@@ -1053,6 +1089,9 @@ function openC(cid){
     document.getElementById('c-p').value='B';
     document.getElementById('c-f').value=30;
   }
+  _cDraftMode=!c;
+  _cDraftProps=[];
+  renderCProps(c?c.id:null);
   updateDistCad();
   openDW('dw-c');
 }
@@ -1125,6 +1164,10 @@ function confirmarMapaSelecao(){
   toast('📍 Localização definida');
 }
 // ── Talhões (fazenda por cliente) ────────────────────────────────────────
+function talPolyInfoText(t){
+  if(!t||!t.poly||t.poly.length<3)return'';
+  return '📐 Contorno definido — '+(t.area||polygonAreaHa(t.poly).toFixed(1))+' ha calculados no mapa';
+}
 function openTalhao(cid,id){
   document.getElementById('t-cid').value=cid;
   document.getElementById('t-id').value=id||'';
@@ -1137,8 +1180,13 @@ function openTalhao(cid,id){
     document.getElementById('t-lat').value=t.lat!=null?t.lat:'';
     document.getElementById('t-lng').value=t.lng!=null?t.lng:'';
     document.getElementById('t-o').value=t.obs||'';
+    document.getElementById('t-poly').value=t.poly?JSON.stringify(t.poly):'';
+    fillPropSelectDirect('t-prop',cid,t.prop);
+    document.getElementById('t-poly-info').textContent=talPolyInfoText(t);
   } else {
-    ['t-nome','t-area','t-cult','t-lat','t-lng','t-o'].forEach(function(fid){document.getElementById(fid).value='';});
+    ['t-nome','t-area','t-cult','t-lat','t-lng','t-o','t-poly'].forEach(function(fid){document.getElementById(fid).value='';});
+    fillPropSelectDirect('t-prop',cid,null);
+    document.getElementById('t-poly-info').textContent='';
   }
   document.getElementById('btn-del-talhao').style.display=id?'block':'none';
   openDW('dw-talhao');
@@ -1155,13 +1203,16 @@ function saveTalhao(){
   if(!nome){toast('⚠️ Dê um nome ao talhão');return;}
   var cid=parseInt(document.getElementById('t-cid').value);
   var id=document.getElementById('t-id').value;
+  var polyRaw=document.getElementById('t-poly').value;
   var obj={
     cid:cid,nome:nome,
+    prop:document.getElementById('t-prop').value,
     area:parseFloat(document.getElementById('t-area').value)||0,
     cult:document.getElementById('t-cult').value,
     lat:parseFloat(document.getElementById('t-lat').value),
     lng:parseFloat(document.getElementById('t-lng').value),
-    obs:document.getElementById('t-o').value.trim()
+    obs:document.getElementById('t-o').value.trim(),
+    poly:polyRaw?JSON.parse(polyRaw):null
   };
   if(isNaN(obj.lat))obj.lat=null;if(isNaN(obj.lng))obj.lng=null;
   if(id){var i=TL.findIndex(function(t){return t.id==id;});TL[i]=Object.assign({},TL[i],obj);toast('✅ Talhão atualizado');}
@@ -1176,15 +1227,184 @@ function delTalhao(id,cid){
 }
 function renderTalhoes(cid){
   var el=document.getElementById('det-talhoes');if(!el)return;
+  var mainName=propList(cid)[0];
   var ts=TL.filter(function(t){return t.cid==cid;});
-  el.innerHTML=(ts.length?ts.map(function(t){
-    return '<div class="li" onclick="openTalhao('+cid+','+t.id+')"><div class="av" style="background:var(--green)">🌱</div><div class="lm"><div class="ln">'+t.nome+'</div><div class="ls">'+(t.cult||'—')+(t.area?' · '+t.area+' ha':'')+(t.lat!=null?' · '+dist(t.lat,t.lng,CAARAPO.lat,CAARAPO.lng).toFixed(1)+' km sede':'')+'</div></div><span class="chev">›</span></div>';
-  }).join(''):'<div style="padding:16px"><p style="font-size:13px;color:var(--text3);margin:0">Nenhum talhão cadastrado ainda.</p></div>')
-  +'<div style="padding:10px 16px">'
-  +'<button class="btn btn-g btn-full btn-sm" onclick="openTalhao('+cid+')">＋ Adicionar Talhão</button></div>';
+  if(!ts.length){
+    el.innerHTML='<div style="padding:16px"><p style="font-size:13px;color:var(--text3);margin:0">Nenhum talhão cadastrado ainda.</p></div><div style="padding:10px 16px"><button class="btn btn-g btn-full btn-sm" onclick="openTalhao('+cid+')">＋ Adicionar Talhão</button></div>';
+    return;
+  }
+  var itemHtml=function(t){
+    return '<div class="li" onclick="openTalhao('+cid+','+t.id+')"><div class="av" style="background:var(--green)">🌱</div><div class="lm"><div class="ln">'+t.nome+'</div><div class="ls">'+(t.cult||'—')+(t.area?' · '+t.area+' ha':'')+(t.poly&&t.poly.length>=3?' · 📐':'')+(t.lat!=null?' · '+dist(t.lat,t.lng,CAARAPO.lat,CAARAPO.lng).toFixed(1)+' km sede':'')+'</div></div><span class="chev">›</span></div>';
+  };
+  var groups={};
+  ts.forEach(function(t){var k=t.prop||mainName;(groups[k]=groups[k]||[]).push(t);});
+  var order=propList(cid);
+  var html='';
+  order.forEach(function(propName){
+    if(!groups[propName])return;
+    html+='<div style="padding:10px 16px 4px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.4px">🏠 '+propName+'</div>';
+    html+=groups[propName].map(itemHtml).join('');
+    delete groups[propName];
+  });
+  Object.keys(groups).forEach(function(k){
+    html+='<div style="padding:10px 16px 4px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.4px">🏠 '+k+'</div>';
+    html+=groups[k].map(itemHtml).join('');
+  });
+  html+='<div style="padding:10px 16px"><button class="btn btn-g btn-full btn-sm" onclick="openTalhao('+cid+')">＋ Adicionar Talhão</button></div>';
+  el.innerHTML=html;
+}
+// ── Desenho/importação do contorno do talhão no mapa ─────────────────────
+var _talMapInst=null,_talPoints=[],_talMarkers=[],_talPolyLayer=null;
+function polygonAreaHa(coords){
+  if(!coords||coords.length<3)return 0;
+  var R=6378137,area=0;
+  for(var i=0;i<coords.length;i++){
+    var p1=coords[i],p2=coords[(i+1)%coords.length];
+    var lat1=p1[0]*Math.PI/180,lng1=p1[1]*Math.PI/180;
+    var lat2=p2[0]*Math.PI/180,lng2=p2[1]*Math.PI/180;
+    area+=(lng2-lng1)*(2+Math.sin(lat1)+Math.sin(lat2));
+  }
+  area=area*R*R/2;
+  return Math.abs(area)/10000;
+}
+function polygonCentroid(coords){
+  var lat=0,lng=0;
+  coords.forEach(function(p){lat+=p[0];lng+=p[1];});
+  return [lat/coords.length,lng/coords.length];
+}
+function abrirDesenhoTalhao(){
+  if(window._noMap){toast('❌ Mapa não disponível (sem internet no primeiro carregamento)');return;}
+  var raw=document.getElementById('t-poly').value;
+  _talPoints=raw?JSON.parse(raw):[];
+  openDW('dw-talmap');
+  setTimeout(function(){
+    if(!_talMapInst){
+      _talMapInst=L.map('map-tal',{zoomControl:true});
+      addBaseLayers(_talMapInst);
+      _talMapInst.on('click',function(e){
+        _talPoints.push([e.latlng.lat,e.latlng.lng]);
+        redrawTalPoly();
+      });
+    }
+    _talMapInst.invalidateSize();
+    var latI=parseFloat(document.getElementById('t-lat').value);
+    var lngI=parseFloat(document.getElementById('t-lng').value);
+    if(_talPoints.length){
+      var c=polygonCentroid(_talPoints);
+      _talMapInst.setView(c,15);
+    } else if(!isNaN(latI)&&!isNaN(lngI)){
+      _talMapInst.setView([latI,lngI],15);
+    } else {
+      _talMapInst.setView([CAARAPO.lat,CAARAPO.lng],7);
+    }
+    redrawTalPoly();
+  },150);
+}
+function redrawTalPoly(){
+  if(!_talMapInst)return;
+  _talMarkers.forEach(function(m){_talMapInst.removeLayer(m);});
+  _talMarkers=[];
+  if(_talPolyLayer){_talMapInst.removeLayer(_talPolyLayer);_talPolyLayer=null;}
+  _talPoints.forEach(function(p){
+    var mk=L.circleMarker(p,{radius:5,color:'#16a34a',fillColor:'#16a34a',fillOpacity:1}).addTo(_talMapInst);
+    _talMarkers.push(mk);
+  });
+  if(_talPoints.length>=2){
+    _talPolyLayer=L.polygon(_talPoints,{color:'#16a34a',weight:2,fillOpacity:.2}).addTo(_talMapInst);
+  }
+  var info=document.getElementById('tal-area-info');
+  if(_talPoints.length<3){
+    info.textContent=_talPoints.length===0?'Nenhum ponto marcado ainda.':(_talPoints.length+' ponto(s) — marque pelo menos 3 para fechar o contorno.');
+  } else {
+    info.textContent='📐 '+_talPoints.length+' pontos — área estimada: '+polygonAreaHa(_talPoints).toFixed(2)+' ha';
+  }
+}
+function undoPontoTalhao(){
+  _talPoints.pop();
+  redrawTalPoly();
+}
+function limparPontosTalhao(){
+  _talPoints=[];
+  redrawTalPoly();
+}
+function finalizarContornoTalhao(){
+  if(_talPoints.length<3){toast('⚠️ Marque pelo menos 3 pontos (ou importe um KML/KMZ)');return;}
+  var areaHa=polygonAreaHa(_talPoints);
+  var c=polygonCentroid(_talPoints);
+  document.getElementById('t-poly').value=JSON.stringify(_talPoints);
+  document.getElementById('t-area').value=areaHa.toFixed(2);
+  document.getElementById('t-lat').value=c[0].toFixed(6);
+  document.getElementById('t-lng').value=c[1].toFixed(6);
+  document.getElementById('t-poly-info').textContent='📐 Contorno definido — '+areaHa.toFixed(2)+' ha calculados no mapa';
+  closeDW('dw-talmap');
+  toast('✅ Contorno do talhão definido');
+}
+// KML: <coordinates>lng,lat,alt lng,lat,alt ...</coordinates> dentro do primeiro <Polygon>
+function parseKmlCoordinates(kmlText){
+  var xml=new DOMParser().parseFromString(kmlText,'text/xml');
+  if(xml.getElementsByTagName('parsererror').length)return null;
+  var poly=null;
+  var polys=xml.getElementsByTagName('Polygon');
+  if(polys.length){
+    var cn=polys[0].getElementsByTagName('coordinates');
+    if(cn.length)poly=cn[0];
+  }
+  if(!poly){
+    var all=xml.getElementsByTagName('coordinates');
+    if(all.length)poly=all[0];
+  }
+  if(!poly)return null;
+  var raw=(poly.textContent||'').trim();
+  if(!raw)return null;
+  var pts=raw.split(/\s+/).map(function(tuple){
+    var parts=tuple.split(',');
+    var lng=parseFloat(parts[0]),lat=parseFloat(parts[1]);
+    if(isNaN(lat)||isNaN(lng))return null;
+    return [lat,lng];
+  }).filter(function(p){return p;});
+  if(pts.length>=2){
+    var first=pts[0],last=pts[pts.length-1];
+    if(first[0]===last[0]&&first[1]===last[1])pts.pop();
+  }
+  return pts.length>=3?pts:null;
+}
+function importKmlKmz(event){
+  var file=event.target.files[0];
+  if(!file)return;
+  var nome=(file.name||'').toLowerCase();
+  if(nome.endsWith('.kmz')){
+    if(window._noZip||typeof JSZip==='undefined'){toast('❌ Não foi possível ler o KMZ (é preciso estar conectado à internet na primeira vez que o app abre, para carregar o leitor de arquivos)');event.target.value='';return;}
+    JSZip.loadAsync(file).then(function(zip){
+      var kmlEntry=null;
+      zip.forEach(function(path,entry){if(!kmlEntry&&path.toLowerCase().endsWith('.kml'))kmlEntry=entry;});
+      if(!kmlEntry){toast('❌ Nenhum arquivo .kml encontrado dentro do KMZ');return;}
+      return kmlEntry.async('text');
+    }).then(function(text){
+      if(!text)return;
+      aplicarPontosImportados(parseKmlCoordinates(text));
+    }).catch(function(){toast('❌ Não foi possível abrir este arquivo KMZ');});
+  } else {
+    var reader=new FileReader();
+    reader.onload=function(e){aplicarPontosImportados(parseKmlCoordinates(e.target.result));};
+    reader.onerror=function(){toast('❌ Não foi possível ler este arquivo');};
+    reader.readAsText(file);
+  }
+  event.target.value='';
+}
+function aplicarPontosImportados(pts){
+  if(!pts){toast('❌ Não encontrei um contorno (polígono) válido nesse arquivo');return;}
+  _talPoints=pts;
+  redrawTalPoly();
+  if(_talMapInst){
+    var c=polygonCentroid(_talPoints);
+    _talMapInst.setView(c,15);
+  }
+  toast('✅ Contorno importado — toque em "Usar este contorno" para confirmar');
 }
 // ── Propriedades adicionais do cliente (além da propriedade principal) ───
+var _cDraftProps=[],_cDraftMode=false;
 function openProp(cid,id){
+  document.getElementById('p2-mode').value='real';
   document.getElementById('p2-cid').value=cid;
   document.getElementById('p2-id').value=id||'';
   document.getElementById('dw-prop-t').textContent=id?'Editar Propriedade':'Nova Propriedade';
@@ -1203,21 +1423,46 @@ function openProp(cid,id){
   document.getElementById('btn-del-prop').style.display=id?'block':'none';
   openDW('dw-prop');
 }
+function openPropDraft(id){
+  document.getElementById('p2-mode').value='draft';
+  document.getElementById('p2-cid').value='';
+  document.getElementById('p2-id').value=id||'';
+  document.getElementById('dw-prop-t').textContent=id?'Editar Propriedade':'Nova Propriedade';
+  if(id){
+    var p=_cDraftProps.find(function(x){return x.id==id;})||{};
+    document.getElementById('p2-nome').value=p.nome||'';
+    document.getElementById('p2-loc').value=p.loc||'';
+    document.getElementById('p2-area').value=p.area||'';
+    document.getElementById('p2-cult').value=p.cult||'';
+    document.getElementById('p2-lat').value=p.lat!=null?p.lat:'';
+    document.getElementById('p2-lng').value=p.lng!=null?p.lng:'';
+  } else {
+    ['p2-nome','p2-loc','p2-area','p2-cult','p2-lat','p2-lng'].forEach(function(fid){document.getElementById(fid).value='';});
+  }
+  document.getElementById('btn-del-prop').style.display=id?'block':'none';
+  openDW('dw-prop');
+}
 function delPropFromForm(){
+  var mode=document.getElementById('p2-mode').value;
   var id=parseInt(document.getElementById('p2-id').value);
-  var cid=parseInt(document.getElementById('p2-cid').value);
   if(!id)return;
+  if(mode==='draft'){
+    if(!confirm('Excluir esta propriedade?'))return;
+    _cDraftProps=_cDraftProps.filter(function(p){return p.id!==id;});
+    renderCProps(null);
+    closeDW('dw-prop');
+    toast('🗑 Propriedade removida');
+    return;
+  }
+  var cid=parseInt(document.getElementById('p2-cid').value);
   delProp(id,cid);
   closeDW('dw-prop');
 }
 function saveProp(){
   var nome=document.getElementById('p2-nome').value.trim();
   if(!nome){toast('⚠️ Dê um nome à propriedade');return;}
-  var cid=parseInt(document.getElementById('p2-cid').value);
   var id=document.getElementById('p2-id').value;
-  var c=CL.find(function(x){return x.id===cid;});
-  if(!c)return;
-  if(!c.props2)c.props2=[];
+  var mode=document.getElementById('p2-mode').value;
   var obj={
     nome:nome,
     loc:document.getElementById('p2-loc').value.trim(),
@@ -1227,17 +1472,29 @@ function saveProp(){
     lng:parseFloat(document.getElementById('p2-lng').value)
   };
   if(isNaN(obj.lat))obj.lat=null;if(isNaN(obj.lng))obj.lng=null;
+  if(mode==='draft'){
+    if(id){var di=_cDraftProps.findIndex(function(p){return p.id==id;});_cDraftProps[di]=Object.assign({},_cDraftProps[di],obj);toast('✅ Propriedade atualizada');}
+    else{obj.id=nid(_cDraftProps);_cDraftProps.push(obj);toast('✅ Propriedade adicionada');}
+    closeDW('dw-prop');
+    renderCProps(null);
+    return;
+  }
+  var cid=parseInt(document.getElementById('p2-cid').value);
+  var c=CL.find(function(x){return x.id===cid;});
+  if(!c)return;
+  if(!c.props2)c.props2=[];
   if(id){var i=c.props2.findIndex(function(p){return p.id==id;});c.props2[i]=Object.assign({},c.props2[i],obj);toast('✅ Propriedade atualizada');}
   else{obj.id=nid(c.props2);c.props2.push(obj);toast('✅ Propriedade cadastrada');}
   save();closeDW('dw-prop');
   renderProps(cid);
+  renderCProps(cid);
 }
 function delProp(id,cid){
   if(!confirm('Excluir esta propriedade?'))return;
   var c=CL.find(function(x){return x.id===cid;});
   if(!c)return;
   c.props2=(c.props2||[]).filter(function(p){return p.id!==id;});
-  save();renderProps(cid);toast('🗑 Propriedade excluída');
+  save();renderProps(cid);renderCProps(cid);toast('🗑 Propriedade excluída');
 }
 function renderProps(cid){
   var el=document.getElementById('det-props');if(!el)return;
@@ -1248,6 +1505,15 @@ function renderProps(cid){
   }).join(''):'<div style="padding:16px"><p style="font-size:13px;color:var(--text3);margin:0">Cliente tem apenas a propriedade principal do cadastro. Adicione mais fazendas aqui se ele tiver.</p></div>')
   +'<div style="padding:10px 16px">'
   +'<button class="btn btn-g btn-full btn-sm" onclick="openProp('+cid+')">＋ Adicionar Propriedade</button></div>';
+}
+function renderCProps(cid){
+  var el=document.getElementById('c-props-list');if(!el)return;
+  var ps=cid?(gC(cid).props2||[]):_cDraftProps;
+  el.innerHTML=(ps.length?ps.map(function(p){
+    return '<div class="li" onclick="'+(cid?('openProp('+cid+','+p.id+')'):('openPropDraft('+p.id+')'))+'"><div class="av" style="background:var(--green)">🏠</div><div class="lm"><div class="ln">'+p.nome+'</div><div class="ls">'+(p.loc||p.cult||'—')+(p.area?' · '+p.area+' ha':'')+'</div></div><span class="chev">›</span></div>';
+  }).join(''):'<div style="padding:14px 16px"><p style="font-size:12px;color:var(--text3);margin:0">Nenhuma fazenda adicional ainda.</p></div>')
+  +'<div style="padding:10px 16px">'
+  +'<button class="btn btn-g btn-full btn-sm" onclick="'+(cid?('openProp('+cid+')'):('openPropDraft()'))+'" style="font-size:12px">＋ Adicionar outra fazenda</button></div>';
 }
 // ── Previsão do tempo (Open-Meteo, sem chave de API) ─────────────────────
 function wCodeInfo(code){
@@ -1313,7 +1579,8 @@ function saveC(){
     obs:document.getElementById('c-o').value.trim()
   };
   if(id){var i=CL.findIndex(function(c){return c.id==id;});CL[i]=Object.assign({},CL[i],obj);toast('✅ Cliente atualizado');}
-  else{obj.id=nid(CL);obj.uv=null;CL.push(obj);toast('✅ Cliente cadastrado');}
+  else{obj.id=nid(CL);obj.uv=null;obj.props2=_cDraftProps;CL.push(obj);toast('✅ Cliente cadastrado');}
+  _cDraftProps=[];_cDraftMode=false;
   save();closeDW('dw-c');
   if(curScr==='clientes')renderC();
   renderHome();updateBadge();
@@ -1431,7 +1698,7 @@ function renderHome(){
   var pA_=CL.filter(function(c){return c.pri==='A';});var pB_=CL.filter(function(c){return c.pri==='B';});var pC_=CL.filter(function(c){return c.pri==='C';});
   var okA_=pA_.filter(function(c){return stC(c)==='ok';}).length;var okB_=pB_.filter(function(c){return stC(c)==='ok';}).length;var okC_=pC_.filter(function(c){return stC(c)==='ok';}).length;
   document.getElementById('perf-strip').innerHTML='<div class="perf-ring"><svg viewBox="0 0 52 52"><circle class="pr-bg" cx="26" cy="26" r="'+r_+'"/><circle class="pr-fill" cx="26" cy="26" r="'+r_+'" stroke="'+cor_+'" stroke-dasharray="'+circ_+'" stroke-dashoffset="'+(circ_-dash_)+'"/></svg><div class="pr-label">'+pct+'%</div></div><div class="perf-info"><div class="perf-title">Visitas de '+MESES_[mes]+' — '+vMesReal+' de '+vMesPlan+'</div><div class="perf-bars"><div class="pbar"><div class="pbar-lbl">A</div><div class="pbar-track"><div class="pbar-fill" style="width:'+(pA_.length?okA_/pA_.length*100:0)+'%;background:var(--black)"></div></div><div class="pbar-val">'+okA_+'/'+pA_.length+'</div></div><div class="pbar"><div class="pbar-lbl">B</div><div class="pbar-track"><div class="pbar-fill" style="width:'+(pB_.length?okB_/pB_.length*100:0)+'%;background:var(--gray-500)"></div></div><div class="pbar-val">'+okB_+'/'+pB_.length+'</div></div><div class="pbar"><div class="pbar-lbl">C</div><div class="pbar-track"><div class="pbar-fill" style="width:'+(pC_.length?okC_/pC_.length*100:0)+'%;background:var(--gray-300)"></div></div><div class="pbar-val">'+okC_+'/'+pC_.length+'</div></div></div></div>';
-  var areaTotal=CL.reduce(function(s,c){return s+(c.area||0);},0);
+  var areaTotal=CL.reduce(function(s,c){return s+clientAreaTotal(c);},0);
   document.getElementById('qs-row').innerHTML='<div class="qs"><div class="qs-val">'+vMesReal+'</div><div class="qs-lbl">Visitas</div></div><div class="qs"><div class="qs-val">'+kmMes+'</div><div class="qs-lbl">Km</div></div><div class="qs"><div class="qs-val">'+areaTotal.toLocaleString('pt-BR')+'</div><div class="qs-lbl">Hectares</div></div><div class="qs"><div class="qs-val">'+CL.length+'</div><div class="qs-lbl">Clientes</div></div>';
   var atencao=CL.filter(function(c){return stC(c)==='late'||stC(c)==='warn';}).sort(function(a,b){return dD(a.uv)-dD(b.uv);}).slice(0,6);
   document.getElementById('dash-atencao').innerHTML=atencao.length?atencao.map(function(c){var st2=stC(c);var dias_=dD(c.uv);var tag_=st2==='late'?(dias_-c.freq)+'d atraso':'Atenção';var tc=st2==='late'?'red':'amber';return '<div class="action-row" onclick="goDet('+c.id+')"><div class="ar-icon '+tc+'">'+c.pri+'</div><div class="ar-body"><div class="ar-name">'+c.nome+'</div><div class="ar-sub">'+(c.prop||c.cidade)+' · última: '+(fDFull(c.uv)||'nunca')+'</div></div><div class="ar-right"><span class="ar-tag '+tc+'">'+tag_+'</span></div></div>';}).join(''):'<div class="action-row"><div class="ar-body"><div class="ar-name" style="color:var(--green)">Todos em dia ✓</div><div class="ar-sub">Nenhum cliente com visita atrasada</div></div></div>';
@@ -1469,7 +1736,7 @@ function renderDet(id){
     '<span class="badge gd">Prior. '+c.pri+'</span>'+
     '<span class="badge">Freq: '+c.freq+'d</span>'+
     '<span class="badge" style="color:'+sc[st]+'">'+sl[st]+'</span>'+
-    (c.area?'<span class="badge">'+c.area+' ha</span>':'')+
+    (clientAreaTotal(c)?'<span class="badge">'+clientAreaTotal(c).toLocaleString('pt-BR')+' ha total</span>':'')+
     (c.cult?'<span class="badge">'+c.cult+'</span>':'')+
     '</div></div>';
   var infoHtml='<div class="info-row">';
@@ -1699,7 +1966,7 @@ function renderMais(){
 
 // ── EXPORT ────────────────────────────────────────────────────────────────
 function expC(){
-  MX.dl([{n:'Clientes',d:CL.map(function(c){return{ID:c.id,Nome:c.nome,Propriedade:c.prop||'',Cidade:c.cidade,Loc_Fazenda:c.loc||'',Area_ha:c.area||0,Cultura:c.cult||'',Contato:c.contato||'',Telefone:c.tel||'',Prioridade:c.pri,Freq_Dias:c.freq,Ultima_Visita:c.uv||'',Status:stC(c),Latitude:c.lat||'',Longitude:c.lng||'',Obs:c.obs||''};})}],'Clientes_AgroClientes.xlsx');
+  MX.dl([{n:'Clientes',d:CL.map(function(c){return{ID:c.id,Nome:c.nome,Propriedade:c.prop||'',Cidade:c.cidade,Loc_Fazenda:c.loc||'',Area_ha:c.area||0,Area_Total_ha:clientAreaTotal(c),Cultura:c.cult||'',Contato:c.contato||'',Telefone:c.tel||'',Prioridade:c.pri,Freq_Dias:c.freq,Ultima_Visita:c.uv||'',Status:stC(c),Latitude:c.lat||'',Longitude:c.lng||'',Obs:c.obs||''};})}],'Clientes_AgroClientes.xlsx');
   toast('📊 Exportado');
 }
 function expH(){
@@ -1707,7 +1974,7 @@ function expH(){
   toast('📋 Exportado');
 }
 function exportarTudo(){
-  var cd=CL.map(function(c){return{ID:c.id,Nome:c.nome,Propriedade:c.prop||'',Cidade:c.cidade,Loc_Fazenda:c.loc||'',Area_ha:c.area||0,Cultura:c.cult||'',Contato:c.contato||'',Telefone:c.tel||'',Prioridade:c.pri,Freq_Dias:c.freq,Ultima_Visita:c.uv||'',Status:stC(c),Latitude:c.lat||'',Longitude:c.lng||'',Obs:c.obs||''};});
+  var cd=CL.map(function(c){return{ID:c.id,Nome:c.nome,Propriedade:c.prop||'',Cidade:c.cidade,Loc_Fazenda:c.loc||'',Area_ha:c.area||0,Area_Total_ha:clientAreaTotal(c),Cultura:c.cult||'',Contato:c.contato||'',Telefone:c.tel||'',Prioridade:c.pri,Freq_Dias:c.freq,Ultima_Visita:c.uv||'',Status:stC(c),Latitude:c.lat||'',Longitude:c.lng||'',Obs:c.obs||''};});
   var vd=VS.map(function(v){var c=gC(v.cid);return{ID:v.id,id_cliente:v.cid,Data:v.dt,Hora:v.hr,Cliente:c.nome||'',Propriedade:v.prop||'',Cidade:c.cidade||'',Prioridade:c.pri||'',Objetivo:v.obj||'',Km_est:v.km||0,Duracao_h:v.dur||0,Status:v.st};});
   var hd=HS.map(function(h){var c=gC(h.cid);return{ID:h.id,id_cliente:h.cid,Data:h.dt,Cliente:c.nome||'',Propriedade:h.prop||'',Cidade:c.cidade||'',Prioridade:c.pri||'',Status:h.st,Km_rodados:h.km||0,Duracao_h:h.dur||0,Obs:h.obs||''};});
   MX.dl([{n:'Clientes',d:cd},{n:'Agenda',d:vd},{n:'Historico',d:hd}],'AgroClientes_Completo.xlsx');
